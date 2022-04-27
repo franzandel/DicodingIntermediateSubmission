@@ -12,9 +12,13 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityLoginBinding
 
 import com.franzandel.dicodingintermediatesubmission.R
+import com.franzandel.dicodingintermediatesubmission.utils.hideKeyboard
 
 class LoginActivity : AppCompatActivity() {
 
@@ -31,6 +35,31 @@ class LoginActivity : AppCompatActivity() {
         val password = binding.etPassword
         val login = binding.btnLogin
         val loading = binding.pbLoading
+
+//        binding.test?.doAfterTextChanged {
+//            if (it?.length ?: 0 > 5) {
+//                Toast.makeText(this, "Mantab", Toast.LENGTH_SHORT).show()
+//            } else {
+//                Toast.makeText(this, "Not Mantab", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+
+        binding.etUsername.setOnFocusChangeListener { view, b ->
+            if (!b) {
+                Toast.makeText(this, "Show error message", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.etUsername.setOnEditorActionListener { _, actionId, _ ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_DONE -> {
+                    hideKeyboard()
+                    Toast.makeText(this, "Show error message", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> false
+            }
+        }
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())[LoginViewModel::class.java]
 
