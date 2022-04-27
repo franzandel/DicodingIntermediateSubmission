@@ -1,9 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.ui.login
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.annotation.StringRes
@@ -37,29 +35,22 @@ class LoginActivity : AppCompatActivity() {
             loginViewModel.usernameValidation.observe(this@LoginActivity) {
                 if (it != LoginViewModel.FORM_VALID) {
                     etUsername.error = getString(it)
-                } else {
-                    if (loginViewModel.passwordValidation.value == LoginViewModel.FORM_VALID) {
-                        pbLoading.visibility = View.VISIBLE
-                        loginViewModel.login(etUsername.text.toString(), etPassword.text.toString())
-                    }
                 }
             }
 
             loginViewModel.passwordValidation.observe(this@LoginActivity) {
                 if (it != LoginViewModel.FORM_VALID) {
                     etPassword.error = getString(it)
-                } else {
-                    if (loginViewModel.usernameValidation.value == LoginViewModel.FORM_VALID) {
-                        pbLoading.visibility = View.VISIBLE
-                        loginViewModel.login(etUsername.text.toString(), etPassword.text.toString())
-                    }
                 }
+            }
+
+            loginViewModel.loadingVisibility.observe(this@LoginActivity) {
+                pbLoading.visibility = it
             }
 
             loginViewModel.loginResult.observe(this@LoginActivity, Observer {
                 val loginResult = it ?: return@Observer
 
-                pbLoading.visibility = View.GONE
                 if (loginResult.error != null) {
                     showLoginFailed(loginResult.error)
                 }
@@ -108,8 +99,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             btnNext.setOnClickListener {
-                loginViewModel.validateUsername(etUsername.text.toString())
-                loginViewModel.validatePassword(etPassword.text.toString())
+                loginViewModel.login(etUsername.text.toString(), etPassword.text.toString())
             }
         }
     }
