@@ -9,7 +9,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.franzandel.dicodingintermediatesubmission.R
@@ -21,7 +20,8 @@ import com.franzandel.dicodingintermediatesubmission.R
 
 class CustomEditText : AppCompatEditText, OnTouchListener, TextWatcher {
 
-    private lateinit var clearButtonImage: Drawable
+    private val clearButtonImage =
+        ContextCompat.getDrawable(context, R.drawable.ic_baseline_close_24) as Drawable
 
     constructor(context: Context) : super(context) {
         init()
@@ -41,16 +41,12 @@ class CustomEditText : AppCompatEditText, OnTouchListener, TextWatcher {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = "Masukkan nama Anda"
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 
     private fun init() {
-        clearButtonImage =
-            ContextCompat.getDrawable(context, R.drawable.ic_baseline_close_24) as Drawable
         setOnTouchListener(this)
         addTextChangedListener(this)
-        isSingleLine = true
     }
 
     private fun showClearButton() {
@@ -92,44 +88,36 @@ class CustomEditText : AppCompatEditText, OnTouchListener, TextWatcher {
                     event.x > clearButtonStart -> isClearButtonClicked = true
                 }
             }
-            if (isClearButtonClicked) {
-                when (event.action) {
+            if (isClearButtonClicked && error == null) {
+                return when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
-                        clearButtonImage = ContextCompat.getDrawable(
-                            context,
-                            R.drawable.ic_baseline_close_24
-                        ) as Drawable
                         showClearButton()
-                        return true
+                        true
                     }
                     MotionEvent.ACTION_UP -> {
-                        clearButtonImage = ContextCompat.getDrawable(
-                            context,
-                            R.drawable.ic_baseline_close_24
-                        ) as Drawable
                         when {
                             text != null -> text?.clear()
                         }
                         hideClearButton()
-                        return true
+                        true
                     }
-                    else -> return false
+                    else -> false
                 }
             } else return false
         }
         return false
     }
 
-    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-        // Do nothing.
-    }
+    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) = Unit
 
     override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        if (s.toString().isNotEmpty()) showClearButton() else hideClearButton()
+        if (s.toString().isNotEmpty()) {
+            error = null
+            hideClearButton()
+            showClearButton()
+        } else hideClearButton()
     }
 
-    override fun afterTextChanged(s: Editable) {
-        // Do nothing.
-    }
+    override fun afterTextChanged(s: Editable) = Unit
 }
 

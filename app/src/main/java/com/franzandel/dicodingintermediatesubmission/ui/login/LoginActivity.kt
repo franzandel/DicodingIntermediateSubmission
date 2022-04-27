@@ -1,23 +1,16 @@
 package com.franzandel.dicodingintermediatesubmission.ui.login
 
 import android.app.Activity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
-import com.franzandel.dicodingintermediatesubmission.databinding.ActivityLoginBinding
-
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.franzandel.dicodingintermediatesubmission.R
+import com.franzandel.dicodingintermediatesubmission.databinding.ActivityLoginBinding
 import com.franzandel.dicodingintermediatesubmission.utils.hideKeyboard
 
 class LoginActivity : AppCompatActivity() {
@@ -31,97 +24,90 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val username = binding.etUsername
-        val password = binding.etPassword
-        val login = binding.btnLogin
-        val loading = binding.pbLoading
+        loginViewModel =
+            ViewModelProvider(this, LoginViewModelFactory())[LoginViewModel::class.java]
+        initObserver()
+        initListener()
+    }
 
-//        binding.test?.doAfterTextChanged {
-//            if (it?.length ?: 0 > 5) {
-//                Toast.makeText(this, "Mantab", Toast.LENGTH_SHORT).show()
-//            } else {
-//                Toast.makeText(this, "Not Mantab", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-
-        binding.etUsername.setOnFocusChangeListener { view, b ->
-            if (!b) {
-                Toast.makeText(this, "Show error message", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        binding.etUsername.setOnEditorActionListener { _, actionId, _ ->
-            when (actionId) {
-                EditorInfo.IME_ACTION_DONE -> {
-                    hideKeyboard()
-                    Toast.makeText(this, "Show error message", Toast.LENGTH_SHORT).show()
-                    true
+    private fun initObserver() {
+        binding.apply {
+            loginViewModel.usernameValidation.observe(this@LoginActivity) {
+                if (it != LoginViewModel.FORM_VALID) {
+                    etUsername.error = getString(it)
+                } else {
+                    if (loginViewModel.passwordValidation.value == LoginViewModel.FORM_VALID) {
+                        pbLoading.visibility = View.VISIBLE
+                        loginViewModel.login(etUsername.text.toString(), etPassword.text.toString())
+                    }
                 }
-                else -> false
             }
+
+            loginViewModel.passwordValidation.observe(this@LoginActivity) {
+                if (it != LoginViewModel.FORM_VALID) {
+                    etPassword.error = getString(it)
+                } else {
+                    if (loginViewModel.usernameValidation.value == LoginViewModel.FORM_VALID) {
+                        pbLoading.visibility = View.VISIBLE
+                        loginViewModel.login(etUsername.text.toString(), etPassword.text.toString())
+                    }
+                }
+            }
+
+            loginViewModel.loginResult.observe(this@LoginActivity, Observer {
+                val loginResult = it ?: return@Observer
+
+                pbLoading.visibility = View.GONE
+                if (loginResult.error != null) {
+                    showLoginFailed(loginResult.error)
+                }
+                if (loginResult.success != null) {
+                    updateUiWithUser(loginResult.success)
+                }
+                setResult(Activity.RESULT_OK)
+            })
         }
+    }
 
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())[LoginViewModel::class.java]
-
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
-            val loginState = it ?: return@Observer
-
-            // disable login button unless both username / password is valid
-            login.isEnabled = loginState.isDataValid
-
-            if (loginState.usernameError != null) {
-                username.error = getString(loginState.usernameError)
-            }
-            if (loginState.passwordError != null) {
-                password.error = getString(loginState.passwordError)
-            }
-        })
-
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
-            val loginResult = it ?: return@Observer
-
-            loading.visibility = View.GONE
-            if (loginResult.error != null) {
-                showLoginFailed(loginResult.error)
-            }
-            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
-            }
-            setResult(Activity.RESULT_OK)
-
-            //Complete and destroy login activity once successful
-            finish()
-        })
-
-        username.afterTextChanged {
-            loginViewModel.loginDataChanged(
-                username.text.toString(),
-                password.text.toString()
-            )
-        }
-
-        password.apply {
-            afterTextChanged {
-                loginViewModel.loginDataChanged(
-                    username.text.toString(),
-                    password.text.toString()
-                )
+    private fun initListener() {
+        binding.apply {
+            etUsername.setOnFocusChangeListener { _, isFocus ->
+                if (!isFocus) {
+                    loginViewModel.validateUsername(etUsername.text.toString())
+                }
             }
 
-            setOnEditorActionListener { _, actionId, _ ->
+            etUsername.setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
-                    EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(
-                            username.text.toString(),
-                            password.text.toString()
-                        )
+                    EditorInfo.IME_ACTION_NEXT -> {
+                        hideKeyboard()
+                        loginViewModel.validateUsername(etUsername.text.toString())
+                        true
+                    }
+                    else -> false
                 }
-                false
             }
 
-            login.setOnClickListener {
-                loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+            etPassword.setOnFocusChangeListener { _, isFocus ->
+                if (!isFocus) {
+                    loginViewModel.validatePassword(etPassword.text.toString())
+                }
+            }
+
+            etPassword.setOnEditorActionListener { _, actionId, _ ->
+                when (actionId) {
+                    EditorInfo.IME_ACTION_DONE -> {
+                        hideKeyboard()
+                        loginViewModel.validatePassword(etPassword.text.toString())
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+            btnLogin.setOnClickListener {
+                loginViewModel.validateUsername(etUsername.text.toString())
+                loginViewModel.validatePassword(etPassword.text.toString())
             }
         }
     }
@@ -140,19 +126,4 @@ class LoginActivity : AppCompatActivity() {
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
-}
-
-/**
- * Extension function to simplify setting an afterTextChanged action to EditText components.
- */
-fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(editable: Editable?) {
-            afterTextChanged.invoke(editable.toString())
-        }
-
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-    })
 }
