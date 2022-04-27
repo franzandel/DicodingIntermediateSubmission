@@ -17,31 +17,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <com.franzandel.dicodingintermediatesubmission.ui.customview.CustomEditText
             android:id="@+id/et_username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="96dp"
             android:hint="@string/prompt_email"
+            android:singleLine="true"
             android:inputType="textEmailAddress"
-            android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <com.franzandel.dicodingintermediatesubmission.ui.customview.CustomEditText
             android:id="@+id/et_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="@string/prompt_password"
-            android:imeActionLabel="@string/action_sign_in_short"
-            android:imeOptions="actionDone"
+            android:singleLine="true"
             android:inputType="textPassword"
-            android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_username" />
+            app:layout_constraintTop_toBottomOf="@+id/et_username"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login"
