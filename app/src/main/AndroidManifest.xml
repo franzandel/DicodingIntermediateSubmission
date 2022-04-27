@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DicodingIntermediateSubmission">
         <activity
+            android:name=".ui.name.NameActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_login">

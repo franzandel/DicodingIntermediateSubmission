@@ -1,6 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -11,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityLoginBinding
+import com.franzandel.dicodingintermediatesubmission.ui.name.NameActivity
 import com.franzandel.dicodingintermediatesubmission.utils.hideKeyboard
 
 class LoginActivity : AppCompatActivity() {
@@ -63,8 +65,8 @@ class LoginActivity : AppCompatActivity() {
                 }
                 if (loginResult.success != null) {
                     updateUiWithUser(loginResult.success)
+                    startActivity(Intent(this@LoginActivity, NameActivity::class.java))
                 }
-                setResult(Activity.RESULT_OK)
             })
         }
     }
@@ -105,7 +107,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-            btnLogin.setOnClickListener {
+            btnNext.setOnClickListener {
                 loginViewModel.validateUsername(etUsername.text.toString())
                 loginViewModel.validatePassword(etPassword.text.toString())
             }
