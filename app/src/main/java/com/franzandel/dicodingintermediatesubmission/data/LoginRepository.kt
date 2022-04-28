@@ -36,12 +36,6 @@ class LoginRepository(val dataSource: LoginDataSource) {
             is Result.Error -> Result.Error(result.exception, LoginResponseMapper.transform(result.errorData))
             is Result.Exception -> Result.Exception(result.throwable)
         }
-
-//        if (result is Result.Success) {
-//            setLoggedInUser(result.data)
-//        }
-//
-//        return result
     }
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {

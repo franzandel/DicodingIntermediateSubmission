@@ -14,7 +14,10 @@
     <string name="invalid_password">Password must be more than 5 characters</string>
     <string name="empty_confirmation_password">Confirmation Password should not be empty</string>
     <string name="invalid_confirmation_password">Confirmation Password must match with password</string>
+    <string name="action_register">Register</string>
     <string name="empty_name">Name should not be empty</string>
     <string name="login_failed">Username or password not match</string>
-    <string name="login_system_error">Unexpected system error, please try again</string>
+    <string name="register_failed">Register failed, please try again</string>
+    <string name="register_already_exist">Username already exist</string>
+    <string name="system_error">Unexpected system error, please try again</string>
 </resources>

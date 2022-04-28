@@ -1,18 +1,28 @@
-package com.franzandel.dicodingintermediatesubmission.ui.register
+package com.franzandel.dicodingintermediatesubmission.ui.register.presentation
 
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.franzandel.dicodingintermediatesubmission.R
+import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
+import com.franzandel.dicodingintermediatesubmission.data.Result
+import com.franzandel.dicodingintermediatesubmission.ui.login.LoggedInUserView
 import com.franzandel.dicodingintermediatesubmission.ui.login.LoginViewModel
+import com.franzandel.dicodingintermediatesubmission.ui.register.data.model.RegisterRequest
+import com.franzandel.dicodingintermediatesubmission.ui.register.domain.usecase.RegisterUseCase
+import kotlinx.coroutines.launch
 
 /**
  * Created by Franz Andel
  * on 27 April 2022.
  */
 
-class RegisterViewModel : ViewModel() {
+class RegisterViewModel(
+    private val useCase: RegisterUseCase,
+    private val coroutineThread: CoroutineThread
+) : ViewModel() {
 
     private val _nameValidation = MutableLiveData<Int>()
     val nameValidation: LiveData<Int> = _nameValidation
@@ -26,18 +36,43 @@ class RegisterViewModel : ViewModel() {
     private val _passwordConfirmationValidation = MutableLiveData<Int>()
     val passwordConfirmationValidation: LiveData<Int> = _passwordConfirmationValidation
 
-    private val _nextResult = MutableLiveData<Boolean>()
-    val nextResult: LiveData<Boolean> = _nextResult
+    private val _registerResult = MutableLiveData<RegisterResult>()
+    val registerResult: LiveData<RegisterResult> = _registerResult
 
-    fun next(name: String, username: String, password: String, confirmationPassword: String) {
+    fun register(name: String, username: String, password: String, confirmationPassword: String) {
         if (validateName(name) &&
             validateUsername(username) &&
             validatePassword(password) &&
             validateConfirmationPassword(password, confirmationPassword)
         ) {
-            _nextResult.value = true
-        } else {
-            _nextResult.value = false
+            viewModelScope.launch(coroutineThread.main) {
+                val registerRequest = RegisterRequest(
+                    name = name,
+                    email = username,
+                    password = password
+                )
+                when (val result = useCase.execute(registerRequest)) {
+                    is Result.Success -> {
+                        _registerResult.value =
+                            RegisterResult(success = RegisterInUserView(displayName = name))
+                    }
+                    is Result.Error -> {
+                        if (result.errorData.message.equals(
+                                EMAIL_ALREADY_TAKEN,
+                                ignoreCase = true
+                            )
+                        ) {
+                            _registerResult.value =
+                                RegisterResult(error = R.string.register_already_exist)
+                        } else {
+                            _registerResult.value = RegisterResult(error = R.string.register_failed)
+                        }
+                    }
+                    is Result.Exception -> {
+                        _registerResult.value = RegisterResult(error = R.string.system_error)
+                    }
+                }
+            }
         }
     }
 
@@ -105,5 +140,6 @@ class RegisterViewModel : ViewModel() {
 
     companion object {
         const val FORM_VALID = 0
+        const val EMAIL_ALREADY_TAKEN = "Email is already taken"
     }
 }
