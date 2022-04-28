@@ -1,5 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
@@ -9,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityLoginBinding
+import com.franzandel.dicodingintermediatesubmission.ui.register.RegisterActivity
 import com.franzandel.dicodingintermediatesubmission.utils.hideKeyboard
 
 class LoginActivity : AppCompatActivity() {
@@ -99,6 +101,10 @@ class LoginActivity : AppCompatActivity() {
 
             btnNext.setOnClickListener {
                 loginViewModel.login(etUsername.text.toString(), etPassword.text.toString())
+            }
+
+            tvNoAccountYet.setOnClickListener {
+                startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
             }
         }
     }
