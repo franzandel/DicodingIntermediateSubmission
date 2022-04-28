@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityLoginBinding
-import com.franzandel.dicodingintermediatesubmission.ui.register.RegisterActivity
+import com.franzandel.dicodingintermediatesubmission.ui.register.presentation.RegisterActivity
 import com.franzandel.dicodingintermediatesubmission.utils.hideKeyboard
 
 class LoginActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.franzandel.dicodingintermediatesubmission.ui.register
+package com.franzandel.dicodingintermediatesubmission.ui.register.presentation
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
@@ -13,7 +13,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
 
     private val viewModel by lazy {
-        ViewModelProvider(this)[RegisterViewModel::class.java]
+        ViewModelProvider(this, RegisterViewModelFactory())[RegisterViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,9 +49,11 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.nextResult.observe(this) {
-            if (it) {
+        viewModel.registerResult.observe(this) {
+            if (it.error == null) {
                 Toast.makeText(this, "Go to Home", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, getString(it.error), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -132,8 +134,8 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
 
-            btnNext.setOnClickListener {
-                viewModel.next(
+            btnRegister.setOnClickListener {
+                viewModel.register(
                     binding.etName.text.toString(),
                     binding.etUsername.text.toString(),
                     binding.etPassword.text.toString(),

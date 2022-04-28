@@ -49,7 +49,7 @@ class LoginViewModel(
                         _loginResult.value = LoginResult(error = R.string.login_failed)
                     }
                     is Result.Exception -> {
-                        _loginResult.value = LoginResult(error = R.string.login_system_error)
+                        _loginResult.value = LoginResult(error = R.string.system_error)
                     }
                 }
             }
