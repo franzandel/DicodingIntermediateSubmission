@@ -1,6 +1,9 @@
 package com.franzandel.dicodingintermediatesubmission.data
 
+import com.franzandel.dicodingintermediatesubmission.data.mapper.LoginResponseMapper
 import com.franzandel.dicodingintermediatesubmission.data.model.LoggedInUser
+import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
+import com.franzandel.dicodingintermediatesubmission.domain.model.Login
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -27,15 +30,18 @@ class LoginRepository(val dataSource: LoginDataSource) {
         dataSource.logout()
     }
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
-        // handle login
-        val result = dataSource.login(username, password)
-
-        if (result is Result.Success) {
-            setLoggedInUser(result.data)
+    suspend fun login(loginRequest: LoginRequest): Result<Login> {
+        return when (val result = dataSource.login(loginRequest)) {
+            is Result.Success -> Result.Success(LoginResponseMapper.transform(result.data))
+            is Result.Error -> Result.Error(result.exception, LoginResponseMapper.transform(result.errorData))
+            is Result.Exception -> Result.Exception(result.throwable)
         }
 
-        return result
+//        if (result is Result.Success) {
+//            setLoggedInUser(result.data)
+//        }
+//
+//        return result
     }
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {
