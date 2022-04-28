@@ -10,6 +10,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="empty_username">Username should not be empty</string>
     <string name="invalid_password">Password must be more than 5 characters</string>
-    <string name="empty_name">Nname should not be empty</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="empty_name">Name should not be empty</string>
+    <string name="login_failed">Username or password not match</string>
+    <string name="login_system_error">Unexpected system error, please try again</string>
 </resources>

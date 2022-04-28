@@ -1,6 +1,5 @@
 package com.franzandel.dicodingintermediatesubmission.ui.login
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
@@ -10,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityLoginBinding
-import com.franzandel.dicodingintermediatesubmission.ui.name.NameActivity
 import com.franzandel.dicodingintermediatesubmission.utils.hideKeyboard
 
 class LoginActivity : AppCompatActivity() {
@@ -56,7 +54,8 @@ class LoginActivity : AppCompatActivity() {
                 }
                 if (loginResult.success != null) {
                     updateUiWithUser(loginResult.success)
-                    startActivity(Intent(this@LoginActivity, NameActivity::class.java))
+                    // Redirect to Home
+//                    startActivity(Intent(this@LoginActivity, NameActivity::class.java))
                 }
             })
         }
