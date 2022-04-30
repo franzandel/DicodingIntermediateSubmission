@@ -69,4 +69,6 @@ dependencies {
 
     implementation "androidx.datastore:datastore:1.0.0"
     implementation "com.google.protobuf:protobuf-javalite:3.19.2" // for DataStore Generator
+
+    implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
 }
