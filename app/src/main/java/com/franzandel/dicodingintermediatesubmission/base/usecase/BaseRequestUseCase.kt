@@ -1,4 +1,4 @@
-package com.franzandel.dicodingintermediatesubmission.base
+package com.franzandel.dicodingintermediatesubmission.base.usecase
 
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import kotlinx.coroutines.withContext

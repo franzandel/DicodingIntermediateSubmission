@@ -1,6 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.ui.register.domain.usecase
 
-import com.franzandel.dicodingintermediatesubmission.base.BaseRequestUseCase
+import com.franzandel.dicodingintermediatesubmission.base.usecase.BaseRequestUseCase
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.data.Result
 import com.franzandel.dicodingintermediatesubmission.ui.register.data.model.RegisterRequest
