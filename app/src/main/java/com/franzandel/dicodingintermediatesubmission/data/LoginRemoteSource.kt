@@ -14,7 +14,7 @@ import kotlin.coroutines.resume
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
  */
-class LoginDataSource(private val service: LoginService) {
+class LoginRemoteSource(private val service: LoginService) {
 
     suspend fun login(loginRequest: LoginRequest): Result<LoginResponse> {
         return suspendCancellableCoroutine { continuation ->

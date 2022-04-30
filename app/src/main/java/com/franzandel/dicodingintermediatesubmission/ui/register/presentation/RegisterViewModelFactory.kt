@@ -3,15 +3,10 @@ package com.franzandel.dicodingintermediatesubmission.ui.register.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThreadImpl
-import com.franzandel.dicodingintermediatesubmission.data.LoginDataSource
-import com.franzandel.dicodingintermediatesubmission.data.LoginRepository
 import com.franzandel.dicodingintermediatesubmission.data.RetrofitObject
-import com.franzandel.dicodingintermediatesubmission.domain.LoginUseCase
-import com.franzandel.dicodingintermediatesubmission.ui.login.LoginViewModel
 import com.franzandel.dicodingintermediatesubmission.ui.register.data.remote.RegisterRemoteSourceImpl
 import com.franzandel.dicodingintermediatesubmission.ui.register.data.repository.RegisterRepositoryImpl
 import com.franzandel.dicodingintermediatesubmission.ui.register.data.service.RegisterService
-import com.franzandel.dicodingintermediatesubmission.ui.register.domain.model.Register
 import com.franzandel.dicodingintermediatesubmission.ui.register.domain.usecase.RegisterUseCase
 
 /**

@@ -10,11 +10,14 @@ import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.data.Result
 import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
-import com.franzandel.dicodingintermediatesubmission.domain.LoginUseCase
+import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetTokenUseCase
+import com.franzandel.dicodingintermediatesubmission.domain.usecase.LoginUseCase
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val useCase: LoginUseCase,
+    private val loginUseCase: LoginUseCase,
+    private val getTokenUseCase: GetTokenUseCase,
     private val coroutineThread: CoroutineThread
 ) : ViewModel() {
 
@@ -30,6 +33,9 @@ class LoginViewModel(
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
+    private var _token = MutableLiveData<String>()
+    val token: LiveData<String> = _token
+
     fun login(username: String, password: String) {
         _loadingVisibility.value = View.VISIBLE
         validateUsername(username)
@@ -40,7 +46,7 @@ class LoginViewModel(
                 password = password
             )
             viewModelScope.launch(coroutineThread.main) {
-                when (val result = useCase.execute(loginRequest)) {
+                when (val result = loginUseCase.execute(loginRequest)) {
                     is Result.Success -> {
                         _loginResult.value =
                             LoginResult(success = LoggedInUserView(displayName = result.data.loginResult?.name.orEmpty()))
@@ -85,6 +91,20 @@ class LoginViewModel(
 
     private fun isPasswordValid(password: String): Boolean {
         return password.length > 5
+    }
+
+    fun getToken() {
+        viewModelScope.launch(coroutineThread.main) {
+            when (val result = getTokenUseCase.execute()) {
+                is Result.Success -> {
+                    result.data.collect {
+                        _token.value = it
+                    }
+                }
+                is Result.Error -> TODO()
+                is Result.Exception -> TODO()
+            }
+        }
     }
 
     companion object {
