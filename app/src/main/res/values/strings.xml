@@ -20,4 +20,6 @@
     <string name="register_failed">Register failed, please try again</string>
     <string name="register_already_exist">Username already exist</string>
     <string name="system_error">Unexpected system error, please try again</string>
+
+    <string name="content_add_story">Add story</string>
 </resources>
