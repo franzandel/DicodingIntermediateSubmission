@@ -57,7 +57,7 @@ class RegisterViewModel(
                             RegisterResult(success = RegisterInUserView(displayName = name))
                     }
                     is Result.Error -> {
-                        if (result.errorData.message.equals(
+                        if (result.errorData?.message.equals(
                                 EMAIL_ALREADY_TAKEN,
                                 ignoreCase = true
                             )

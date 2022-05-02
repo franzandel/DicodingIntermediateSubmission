@@ -7,7 +7,7 @@ import com.franzandel.dicodingintermediatesubmission.data.Result
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Created by Franz Andel <franz.andel@ovo.id>
+ * Created by Franz Andel
  * on 30 April 2022.
  */
 

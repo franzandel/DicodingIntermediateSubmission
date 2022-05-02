@@ -2,6 +2,7 @@ package com.franzandel.dicodingintermediatesubmission.data
 
 import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
 import com.franzandel.dicodingintermediatesubmission.data.model.LoginResponse
+import com.franzandel.dicodingintermediatesubmission.data.service.LoginService
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.suspendCancellableCoroutine

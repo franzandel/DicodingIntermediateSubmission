@@ -1,4 +1,4 @@
-package com.franzandel.dicodingintermediatesubmission.ui.login
+package com.franzandel.dicodingintermediatesubmission.ui.home
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
@@ -10,18 +10,25 @@ import com.franzandel.dicodingintermediatesubmission.data.service.LoginService
 import com.franzandel.dicodingintermediatesubmission.data.RetrofitObject
 import com.franzandel.dicodingintermediatesubmission.data.local.LoginLocalSourceImpl
 import com.franzandel.dicodingintermediatesubmission.data.local.serializer.settingsDataStore
+import com.franzandel.dicodingintermediatesubmission.data.remote.HomeRemoteSourceImpl
+import com.franzandel.dicodingintermediatesubmission.data.repository.HomeRepositoryImpl
+import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
+import com.franzandel.dicodingintermediatesubmission.domain.repository.HomeRepository
+import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetStoriesUseCase
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.LoginUseCase
+import com.franzandel.dicodingintermediatesubmission.ui.login.LoginViewModel
 
-/**
- * ViewModel provider factory to instantiate LoginViewModel.
- * Required given LoginViewModel has a non-empty constructor
- */
-class LoginViewModelFactory(private val applicationContext: Context) : ViewModelProvider.Factory {
+class HomeViewModelFactory(private val applicationContext: Context) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
             val coroutineThread = CoroutineThreadImpl()
+            val homeRepository = HomeRepositoryImpl(
+                remoteSource = HomeRemoteSourceImpl(
+                    RetrofitObject.retrofit.create(HomeService::class.java)
+                )
+            )
             val loginRepository = LoginRepository(
                 remoteSource = LoginRemoteSource(
                     RetrofitObject.retrofit.create(LoginService::class.java)
@@ -30,9 +37,10 @@ class LoginViewModelFactory(private val applicationContext: Context) : ViewModel
                     applicationContext.settingsDataStore
                 )
             )
-            return LoginViewModel(
-                loginUseCase = LoginUseCase(
-                    repository = loginRepository,
+            return HomeViewModel(
+                getStoriesUseCase = GetStoriesUseCase(
+                    homeRepository = homeRepository,
+                    loginRepository = loginRepository,
                     coroutineThread = coroutineThread
                 ),
                 coroutineThread = coroutineThread

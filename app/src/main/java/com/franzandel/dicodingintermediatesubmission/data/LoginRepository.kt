@@ -44,7 +44,9 @@ class LoginRepository(
             }
             is Result.Error -> Result.Error(
                 result.exception,
-                LoginResponseMapper.transform(result.errorData)
+                result.errorData?.let {
+                    LoginResponseMapper.transform(it)
+                }
             )
             is Result.Exception -> Result.Exception(result.throwable)
         }

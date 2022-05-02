@@ -16,7 +16,9 @@ class RegisterRepositoryImpl(
             is Result.Success -> Result.Success(RegisterResponseMapper.transform(result.data))
             is Result.Error -> Result.Error(
                 result.exception,
-                RegisterResponseMapper.transform(result.errorData)
+                result.errorData?.let {
+                    RegisterResponseMapper.transform(it)
+                }
             )
             is Result.Exception -> Result.Exception(result.throwable)
         }
