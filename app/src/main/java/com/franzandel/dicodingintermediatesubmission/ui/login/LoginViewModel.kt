@@ -17,7 +17,6 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val loginUseCase: LoginUseCase,
-    private val getTokenUseCase: GetTokenUseCase,
     private val coroutineThread: CoroutineThread
 ) : ViewModel() {
 
@@ -32,9 +31,6 @@ class LoginViewModel(
 
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
-
-    private var _token = MutableLiveData<String>()
-    val token: LiveData<String> = _token
 
     fun login(username: String, password: String) {
         _loadingVisibility.value = View.VISIBLE
@@ -91,20 +87,6 @@ class LoginViewModel(
 
     private fun isPasswordValid(password: String): Boolean {
         return password.length > 5
-    }
-
-    fun getToken() {
-        viewModelScope.launch(coroutineThread.main) {
-            when (val result = getTokenUseCase.execute()) {
-                is Result.Success -> {
-                    result.data.collect {
-                        _token.value = it
-                    }
-                }
-                is Result.Error -> TODO()
-                is Result.Exception -> TODO()
-            }
-        }
     }
 
     companion object {
