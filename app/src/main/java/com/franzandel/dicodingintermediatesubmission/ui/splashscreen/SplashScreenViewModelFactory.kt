@@ -1,4 +1,4 @@
-package com.franzandel.dicodingintermediatesubmission.ui.login
+package com.franzandel.dicodingintermediatesubmission.ui.splashscreen
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
@@ -12,16 +12,13 @@ import com.franzandel.dicodingintermediatesubmission.data.local.LoginLocalSource
 import com.franzandel.dicodingintermediatesubmission.data.local.serializer.settingsDataStore
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetTokenUseCase
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.LoginUseCase
+import com.franzandel.dicodingintermediatesubmission.ui.login.LoginViewModel
 
-/**
- * ViewModel provider factory to instantiate LoginViewModel.
- * Required given LoginViewModel has a non-empty constructor
- */
-class LoginViewModelFactory(private val applicationContext: Context) : ViewModelProvider.Factory {
+class SplashScreenViewModelFactory(private val applicationContext: Context) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(SplashScreenViewModel::class.java)) {
             val coroutineThread = CoroutineThreadImpl()
             val loginRepository = LoginRepository(
                 remoteSource = LoginRemoteSource(
@@ -31,8 +28,8 @@ class LoginViewModelFactory(private val applicationContext: Context) : ViewModel
                     applicationContext.settingsDataStore
                 )
             )
-            return LoginViewModel(
-                loginUseCase = LoginUseCase(
+            return SplashScreenViewModel(
+                getTokenUseCase = GetTokenUseCase(
                     repository = loginRepository,
                     coroutineThread = coroutineThread
                 ),

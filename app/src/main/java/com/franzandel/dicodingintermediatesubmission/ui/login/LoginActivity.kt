@@ -28,7 +28,6 @@ class LoginActivity : AppCompatActivity() {
             ViewModelProvider(this, LoginViewModelFactory(applicationContext))[LoginViewModel::class.java]
         initObserver()
         initListener()
-        loginViewModel.getToken()
     }
 
     private fun initObserver() {
@@ -61,10 +60,6 @@ class LoginActivity : AppCompatActivity() {
 //                    startActivity(Intent(this@LoginActivity, NameActivity::class.java))
                 }
             })
-
-            loginViewModel.token.observe(this@LoginActivity) {
-                Toast.makeText(this@LoginActivity, "From token $it", Toast.LENGTH_SHORT).show()
-            }
         }
     }
 
