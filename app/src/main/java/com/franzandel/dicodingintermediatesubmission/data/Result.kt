@@ -9,7 +9,7 @@ import retrofit2.HttpException
 sealed class Result<out T : Any> {
 
     data class Success<out T : Any>(val data: T) : Result<T>()
-    data class Error<out T : Any>(val exception: HttpException, val errorData: T) : Result<T>()
+    data class Error<out T : Any>(val exception: HttpException, val errorData: T? = null) : Result<T>()
     data class Exception(val throwable: Throwable) : Result<Nothing>()
 
     override fun toString(): String {

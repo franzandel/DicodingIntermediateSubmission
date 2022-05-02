@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityLoginBinding
+import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
 import com.franzandel.dicodingintermediatesubmission.ui.register.presentation.RegisterActivity
 import com.franzandel.dicodingintermediatesubmission.utils.hideKeyboard
 
@@ -56,8 +57,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 if (loginResult.success != null) {
                     updateUiWithUser(loginResult.success)
-                    // Redirect to Home
-//                    startActivity(Intent(this@LoginActivity, NameActivity::class.java))
+                    startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                 }
             })
         }

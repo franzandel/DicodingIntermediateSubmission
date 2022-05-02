@@ -11,6 +11,7 @@ import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
 import com.franzandel.dicodingintermediatesubmission.R
+import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
 import com.franzandel.dicodingintermediatesubmission.ui.login.LoginActivity
 import com.franzandel.dicodingintermediatesubmission.ui.register.presentation.RegisterActivity
 
@@ -56,7 +57,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 val clazz = if (isTokenEmpty) {
                     LoginActivity::class.java
                 } else {
-                    RegisterActivity::class.java
+                    HomeActivity::class.java
                 }
 
                 startActivity(Intent(this, clazz))
