@@ -29,7 +29,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun initRV() {
-        binding.rvHome.adapter = this@HomeActivity.adapter
+        binding.rvHome.adapter = this@HomeActivity.adapter.withLoadStateFooter(
+            footer = HomeLoadStateFooterAdapter {
+                adapter.retry()
+            }
+        )
     }
 
     private fun initObservers() {
