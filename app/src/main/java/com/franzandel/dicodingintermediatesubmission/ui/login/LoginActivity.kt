@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-            loginViewModel.loadingVisibility.observe(this@LoginActivity) {
+            loginViewModel.loading.observe(this@LoginActivity) {
                 if (it) {
                     loadingDialog.show(supportFragmentManager)
                 } else {
@@ -67,6 +67,7 @@ class LoginActivity : AppCompatActivity() {
                 if (loginResult.success != null) {
                     updateUiWithUser(loginResult.success)
                     startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                    finishAffinity()
                 }
             })
         }

@@ -39,6 +39,9 @@ class RegisterViewModel(
     private val _registerResult = MutableLiveData<RegisterResult>()
     val registerResult: LiveData<RegisterResult> = _registerResult
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
+
     fun register(name: String, username: String, password: String, confirmationPassword: String) {
         if (validateName(name) &&
             validateUsername(username) &&
@@ -46,6 +49,7 @@ class RegisterViewModel(
             validateConfirmationPassword(password, confirmationPassword)
         ) {
             viewModelScope.launch(coroutineThread.main) {
+                _loading.value = true
                 val registerRequest = RegisterRequest(
                     name = name,
                     email = username,
@@ -53,10 +57,12 @@ class RegisterViewModel(
                 )
                 when (val result = useCase.execute(registerRequest)) {
                     is Result.Success -> {
+                        _loading.value = false
                         _registerResult.value =
                             RegisterResult(success = RegisterInUserView(displayName = name))
                     }
                     is Result.Error -> {
+                        _loading.value = false
                         if (result.errorData?.message.equals(
                                 EMAIL_ALREADY_TAKEN,
                                 ignoreCase = true
@@ -69,6 +75,7 @@ class RegisterViewModel(
                         }
                     }
                     is Result.Exception -> {
+                        _loading.value = false
                         _registerResult.value = RegisterResult(error = R.string.system_error)
                     }
                 }
