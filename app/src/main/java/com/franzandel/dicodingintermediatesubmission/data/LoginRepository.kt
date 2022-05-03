@@ -42,12 +42,7 @@ class LoginRepository(
                 localSource.saveToken(login.loginResult?.token.orEmpty())
                 Result.Success(login)
             }
-            is Result.Error -> Result.Error(
-                result.exception,
-                result.errorData?.let {
-                    LoginResponseMapper.transform(it)
-                }
-            )
+            is Result.Error -> Result.Error(result.exception)
             is Result.Exception -> Result.Exception(result.throwable)
         }
     }

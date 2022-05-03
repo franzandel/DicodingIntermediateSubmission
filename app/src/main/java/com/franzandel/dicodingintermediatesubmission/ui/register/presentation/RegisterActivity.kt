@@ -1,19 +1,26 @@
 package com.franzandel.dicodingintermediatesubmission.ui.register.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityRegisterBinding
+import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
+import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
 import com.franzandel.dicodingintermediatesubmission.utils.hideKeyboard
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
 
-    private val viewModel by lazy {
-        ViewModelProvider(this, RegisterViewModelFactory())[RegisterViewModel::class.java]
+    private val viewModel: RegisterViewModel by viewModels {
+        RegisterViewModelFactory(applicationContext)
+    }
+
+    private val loadingDialog by lazy {
+        LoadingDialog.newInstance()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,9 +56,18 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.loading.observe(this) {
+            if (it) {
+                loadingDialog.show(supportFragmentManager)
+            } else {
+                loadingDialog.hide()
+            }
+        }
+
         viewModel.registerResult.observe(this) {
             if (it.error == null) {
-                Toast.makeText(this, "Go to Home", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, HomeActivity::class.java))
+                finishAffinity()
             } else {
                 Toast.makeText(this, getString(it.error), Toast.LENGTH_SHORT).show()
             }

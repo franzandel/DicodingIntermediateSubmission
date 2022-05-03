@@ -1,8 +1,10 @@
 package com.franzandel.dicodingintermediatesubmission.ui.register.domain.usecase
 
-import com.franzandel.dicodingintermediatesubmission.base.usecase.BaseRequestUseCase
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
+import com.franzandel.dicodingintermediatesubmission.base.usecase.BaseRequestUseCase
+import com.franzandel.dicodingintermediatesubmission.data.LoginRepository
 import com.franzandel.dicodingintermediatesubmission.data.Result
+import com.franzandel.dicodingintermediatesubmission.data.mapper.RegisterLoginMapper
 import com.franzandel.dicodingintermediatesubmission.ui.register.data.model.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.ui.register.domain.model.Register
 import com.franzandel.dicodingintermediatesubmission.ui.register.domain.repository.RegisterRepository
@@ -13,11 +15,24 @@ import com.franzandel.dicodingintermediatesubmission.ui.register.domain.reposito
  */
 
 class RegisterUseCase(
-    private val repository: RegisterRepository,
+    private val registerRepository: RegisterRepository,
+    private val loginRepository: LoginRepository,
     coroutineThread: CoroutineThread
 ) : BaseRequestUseCase<Result<Register>, RegisterRequest>(coroutineThread) {
 
     override suspend fun getOperation(bodyRequest: RegisterRequest): Result<Register> {
-        return repository.register(bodyRequest)
+        return when (val registerResult = registerRepository.register(bodyRequest)) {
+            is Result.Success -> {
+                when (val loginResult =
+                    loginRepository.login(RegisterLoginMapper.transform(bodyRequest))) {
+                    is Result.Success -> {
+                        Result.Success(RegisterLoginMapper.transform(loginResult.data))
+                    }
+                    is Result.Error -> Result.Error(loginResult.exception)
+                    is Result.Exception -> Result.Exception(loginResult.throwable)
+                }
+            }
+            else -> registerResult
+        }
     }
 }

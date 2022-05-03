@@ -1,7 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.ui.login
 
 import android.util.Patterns
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,9 +9,7 @@ import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.data.Result
 import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
-import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetTokenUseCase
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.LoginUseCase
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
@@ -26,34 +23,34 @@ class LoginViewModel(
     private val _passwordValidation = MutableLiveData<Int>()
     val passwordValidation: LiveData<Int> = _passwordValidation
 
-    private val _loadingVisibility = MutableLiveData<Boolean>()
-    val loadingVisibility: LiveData<Boolean> = _loadingVisibility
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
 
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
     fun login(username: String, password: String) {
-        _loadingVisibility.value = true
         validateUsername(username)
         validatePassword(password)
         if (usernameValidation.value == FORM_VALID && passwordValidation.value == FORM_VALID) {
-            val loginRequest = LoginRequest(
-                email = username,
-                password = password
-            )
             viewModelScope.launch(coroutineThread.main) {
+                _loading.value = true
+                val loginRequest = LoginRequest(
+                    email = username,
+                    password = password
+                )
                 when (val result = loginUseCase.execute(loginRequest)) {
                     is Result.Success -> {
-                        _loadingVisibility.value = false
+                        _loading.value = false
                         _loginResult.value =
                             LoginResult(success = LoggedInUserView(displayName = result.data.loginResult?.name.orEmpty()))
                     }
                     is Result.Error -> {
-                        _loadingVisibility.value = false
+                        _loading.value = false
                         _loginResult.value = LoginResult(error = R.string.login_failed)
                     }
                     is Result.Exception -> {
-                        _loadingVisibility.value = false
+                        _loading.value = false
                         _loginResult.value = LoginResult(error = R.string.system_error)
                     }
                 }
