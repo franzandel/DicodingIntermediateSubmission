@@ -1,17 +1,12 @@
 package com.franzandel.dicodingintermediatesubmission.ui.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DividerItemDecoration
-import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityHomeBinding
-import com.franzandel.dicodingintermediatesubmission.databinding.ActivityLoginBinding
-import com.franzandel.dicodingintermediatesubmission.ui.splashscreen.SplashScreenViewModelFactory
 import kotlinx.coroutines.launch
 
 class HomeActivity : AppCompatActivity() {
@@ -29,6 +24,7 @@ class HomeActivity : AppCompatActivity() {
 
         initRV()
         initObservers()
+        initListeners()
         viewModel.getStories()
     }
 
@@ -46,6 +42,13 @@ class HomeActivity : AppCompatActivity() {
             if (it.error != null) {
                 // Show error page
             }
+            binding.srlHome.isRefreshing = false
+        }
+    }
+
+    private fun initListeners() {
+        binding.srlHome.setOnRefreshListener {
+            viewModel.getStories()
         }
     }
 }
