@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityLoginBinding
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
+import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
 import com.franzandel.dicodingintermediatesubmission.ui.register.presentation.RegisterActivity
 import com.franzandel.dicodingintermediatesubmission.utils.hideKeyboard
 
@@ -18,6 +19,10 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
+
+    private val loadingDialog by lazy {
+        LoadingDialog.newInstance()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +51,11 @@ class LoginActivity : AppCompatActivity() {
             }
 
             loginViewModel.loadingVisibility.observe(this@LoginActivity) {
-                pbLoading.visibility = it
+                if (it) {
+                    loadingDialog.show(supportFragmentManager)
+                } else {
+                    loadingDialog.hide()
+                }
             }
 
             loginViewModel.loginResult.observe(this@LoginActivity, Observer {
@@ -99,7 +108,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-            btnNext.setOnClickListener {
+            btnLogin.setOnClickListener {
                 loginViewModel.login(etUsername.text.toString(), etPassword.text.toString())
             }
 
