@@ -1,12 +1,16 @@
 package com.franzandel.dicodingintermediatesubmission.ui.home
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityHomeBinding
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HomeActivity : AppCompatActivity() {
@@ -25,6 +29,7 @@ class HomeActivity : AppCompatActivity() {
         initRV()
         initObservers()
         initListeners()
+        initPaging3AdapterListener()
         viewModel.getStories()
     }
 
@@ -53,6 +58,35 @@ class HomeActivity : AppCompatActivity() {
     private fun initListeners() {
         binding.srlHome.setOnRefreshListener {
             viewModel.getStories()
+        }
+
+        binding.btnRetry.setOnClickListener {
+            adapter.retry()
+        }
+    }
+
+    private fun initPaging3AdapterListener() {
+        lifecycleScope.launch {
+            adapter.loadStateFlow.collect { loadState ->
+                val isListEmpty = loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
+                binding.rvHome.isVisible = !isListEmpty
+                binding.pbHome.isVisible = loadState.source.refresh is LoadState.Loading
+                binding.tvFailedMessage.isVisible = loadState.source.refresh is LoadState.Error
+                binding.btnRetry.isVisible = loadState.source.refresh is LoadState.Error
+
+                // Toast on any error, regardless of whether it came from RemoteMediator or PagingSource
+                val errorState = loadState.source.append as? LoadState.Error
+                    ?: loadState.source.prepend as? LoadState.Error
+                    ?: loadState.append as? LoadState.Error
+                    ?: loadState.prepend as? LoadState.Error
+                errorState?.let {
+                    Toast.makeText(
+                        this@HomeActivity,
+                        "\uD83D\uDE28 Wooops ${it.error}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
         }
     }
 }
