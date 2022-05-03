@@ -26,14 +26,14 @@ class LoginViewModel(
     private val _passwordValidation = MutableLiveData<Int>()
     val passwordValidation: LiveData<Int> = _passwordValidation
 
-    private val _loadingVisibility = MutableLiveData<Int>()
-    val loadingVisibility: LiveData<Int> = _loadingVisibility
+    private val _loadingVisibility = MutableLiveData<Boolean>()
+    val loadingVisibility: LiveData<Boolean> = _loadingVisibility
 
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
     fun login(username: String, password: String) {
-        _loadingVisibility.value = View.VISIBLE
+        _loadingVisibility.value = true
         validateUsername(username)
         validatePassword(password)
         if (usernameValidation.value == FORM_VALID && passwordValidation.value == FORM_VALID) {
@@ -44,19 +44,21 @@ class LoginViewModel(
             viewModelScope.launch(coroutineThread.main) {
                 when (val result = loginUseCase.execute(loginRequest)) {
                     is Result.Success -> {
+                        _loadingVisibility.value = false
                         _loginResult.value =
                             LoginResult(success = LoggedInUserView(displayName = result.data.loginResult?.name.orEmpty()))
                     }
                     is Result.Error -> {
+                        _loadingVisibility.value = false
                         _loginResult.value = LoginResult(error = R.string.login_failed)
                     }
                     is Result.Exception -> {
+                        _loadingVisibility.value = false
                         _loginResult.value = LoginResult(error = R.string.system_error)
                     }
                 }
             }
         }
-        _loadingVisibility.value = View.GONE
     }
 
     fun validateUsername(username: String) {
