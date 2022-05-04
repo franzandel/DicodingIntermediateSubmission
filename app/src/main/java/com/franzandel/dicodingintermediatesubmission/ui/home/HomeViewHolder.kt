@@ -16,18 +16,7 @@ class HomeViewHolder(private val itemHomeBinding: ItemHomeBinding) :
 
     fun bind(story: Story) {
         with(itemHomeBinding) {
-            Glide.with(itemView.context)
-                .load(story.photoUrl)
-                .placeholder(R.drawable.ic_baseline_broken_image_24)
-                .into(ivStory)
-
-            tvName.text = story.name
-            tvDescription.text = story.description
-            tvTime.text = story.createdAt
-
-            root.setOnClickListener {
-
-            }
+            this.story = story
         }
     }
 }

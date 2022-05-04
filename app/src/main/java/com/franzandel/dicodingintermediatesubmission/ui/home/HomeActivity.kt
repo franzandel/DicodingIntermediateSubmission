@@ -1,5 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -17,7 +18,7 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
 
-    private val adapter by lazy { HomeAdapter() }
+    private val adapter by lazy { HomeAdapter(viewModel) }
     private val viewModel: HomeViewModel by viewModels { HomeViewModelFactory(applicationContext) }
     private val coroutineThread: CoroutineThread = CoroutineThreadImpl()
 
@@ -52,6 +53,10 @@ class HomeActivity : AppCompatActivity() {
                 // Show error page
             }
             binding.srlHome.isRefreshing = false
+        }
+
+        viewModel.navigateTo.observe(this) {
+            startActivity(Intent(this, it.destination).putExtras(it.bundle))
         }
     }
 

@@ -11,11 +11,16 @@ import com.franzandel.dicodingintermediatesubmission.domain.model.Story
  * on 02 May 2022.
  */
 
-class HomeAdapter : PagingDataAdapter<Story, HomeViewHolder>(HomeDiffCallback()) {
+class HomeAdapter(private val viewModel: HomeViewModel) :
+    PagingDataAdapter<Story, HomeViewHolder>(HomeDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val itemHomeBinding =
-            ItemHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemHomeBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            ).apply {
+                vm = viewModel
+            }
 
         return HomeViewHolder(itemHomeBinding)
     }
