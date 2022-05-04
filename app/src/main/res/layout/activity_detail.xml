@@ -6,26 +6,19 @@
     <data>
 
         <variable
-            name="story"
-            type="com.franzandel.dicodingintermediatesubmission.domain.model.Story" />
-
-        <variable
-            name="vm"
-            type="com.franzandel.dicodingintermediatesubmission.ui.home.HomeViewModel" />
+            name="storyDetail"
+            type="com.franzandel.dicodingintermediatesubmission.ui.detail.StoryDetail" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_16"
-        android:elevation="@dimen/space_16"
-        android:onClick="@{() -> vm.onClick(story)}"
-        app:cardCornerRadius="@dimen/space_16">
+        android:layout_height="match_parent"
+        tools:context=".ui.detail.DetailActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/light_grey">
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/space_8">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_name"
@@ -33,22 +26,34 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_8"
                 android:layout_marginTop="@dimen/space_8"
-                android:text="@{story.name}"
-                android:textSize="@dimen/text_size_16"
+                android:text="@{storyDetail.name}"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Budi" />
+                tools:text="Name" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_8"
+                android:textSize="@dimen/text_size_12"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                tools:text="Location"
+                tools:visibility="visible" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_story"
+                android:id="@+id/iv_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8"
+                app:glideUrl="@{storyDetail.photoUrl}"
                 android:scaleType="center"
-                app:glideUrl="@{story.photoUrl}"
-                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_location"
                 tools:src="@drawable/ic_launcher_background" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -57,27 +62,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_8"
                 android:layout_marginTop="@dimen/space_8"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="@{story.description}"
+                android:text="@{storyDetail.description}"
+                android:textSize="@dimen/text_size_14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_story"
-                tools:text="Put your description here" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_detail"
+                tools:text="Name and description here" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_time"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_8"
-                android:layout_marginVertical="@dimen/space_8"
-                android:gravity="end"
-                android:text="@{story.createdAt}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_8"
+                android:text="@{storyDetail.createdAt}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_description"
-                tools:text="1m ago" />
+                tools:text="5m ago" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </ScrollView>
 </layout>

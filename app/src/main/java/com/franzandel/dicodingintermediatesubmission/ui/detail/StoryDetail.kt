@@ -1,11 +1,15 @@
-package com.franzandel.dicodingintermediatesubmission.domain.model
+package com.franzandel.dicodingintermediatesubmission.ui.detail
+
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
 /**
  * Created by Franz Andel
- * on 02 May 2022.
+ * on 04 May 2022.
  */
 
-data class Story(
+@Parcelize
+data class StoryDetail(
     val createdAt: String,
     val description: String,
     val id: String,
@@ -13,4 +17,4 @@ data class Story(
     val lon: Double?,
     val name: String,
     val photoUrl: String
-)
+): Parcelable

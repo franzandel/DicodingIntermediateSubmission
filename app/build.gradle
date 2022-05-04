@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
     id "com.google.protobuf" version "0.8.12"
 }
 
@@ -47,6 +49,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
+        dataBinding true
         viewBinding true
     }
 }
