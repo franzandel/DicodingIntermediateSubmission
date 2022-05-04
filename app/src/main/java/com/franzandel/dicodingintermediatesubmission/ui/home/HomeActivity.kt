@@ -18,7 +18,7 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
 
-    private val adapter by lazy { HomeAdapter(viewModel) }
+    private val adapter by lazy { HomeAdapter(viewModel, this) }
     private val viewModel: HomeViewModel by viewModels { HomeViewModelFactory(applicationContext) }
     private val coroutineThread: CoroutineThread = CoroutineThreadImpl()
 
