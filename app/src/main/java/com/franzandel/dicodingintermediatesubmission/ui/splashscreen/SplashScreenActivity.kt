@@ -6,28 +6,26 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.ViewModelProvider
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
 import com.franzandel.dicodingintermediatesubmission.ui.login.LoginActivity
-import com.franzandel.dicodingintermediatesubmission.ui.register.presentation.RegisterActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
 
-    private val viewModel by lazy {
-        ViewModelProvider(
-            this,
-            SplashScreenViewModelFactory(applicationContext)
-        )[SplashScreenViewModel::class.java]
+    private val viewModel: SplashScreenViewModel by viewModels {
+        SplashScreenViewModelFactory(applicationContext)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         var splashScreen: SplashScreen? = null
         if (isBelowAndroid12()) {
+            setStatusAndNavigationBarOverlap()
             setTheme(R.style.Theme_App_StartingBelowAPI12)
         } else {
             splashScreen = installSplashScreen()
@@ -41,6 +39,13 @@ class SplashScreenActivity : AppCompatActivity() {
         }
         initObservers()
         viewModel.getToken()
+    }
+
+    private fun setStatusAndNavigationBarOverlap() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+        )
     }
 
     private fun initObservers() {
