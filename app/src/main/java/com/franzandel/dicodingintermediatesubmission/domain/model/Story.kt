@@ -9,8 +9,8 @@ data class Story(
     val createdAt: String,
     val description: String,
     val id: String,
-    val lat: Double?,
-    val lon: Double?,
+    val latitude: Double?,
+    val longitude: Double?,
     val name: String,
     val photoUrl: String
 )

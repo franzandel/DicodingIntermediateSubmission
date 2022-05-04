@@ -2,6 +2,7 @@ package com.franzandel.dicodingintermediatesubmission.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.paging.PagingDataAdapter
 import com.franzandel.dicodingintermediatesubmission.databinding.ItemHomeBinding
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
@@ -11,8 +12,10 @@ import com.franzandel.dicodingintermediatesubmission.domain.model.Story
  * on 02 May 2022.
  */
 
-class HomeAdapter(private val viewModel: HomeViewModel) :
-    PagingDataAdapter<Story, HomeViewHolder>(HomeDiffCallback()) {
+class HomeAdapter(
+    private val viewModel: HomeViewModel,
+    private val lifecycleOwner: LifecycleOwner
+) : PagingDataAdapter<Story, HomeViewHolder>(HomeDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val itemHomeBinding =
@@ -20,6 +23,7 @@ class HomeAdapter(private val viewModel: HomeViewModel) :
                 LayoutInflater.from(parent.context), parent, false
             ).apply {
                 vm = viewModel
+                lifecycleOwner = this@HomeAdapter.lifecycleOwner
             }
 
         return HomeViewHolder(itemHomeBinding)

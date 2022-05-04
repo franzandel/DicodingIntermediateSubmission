@@ -16,8 +16,8 @@ object HomeDetailMapper {
                 createdAt = createdAt,
                 description = description,
                 id = id,
-                lat = lat,
-                lon = lon,
+                latitude = latitude,
+                longitude = longitude,
                 name = name,
                 photoUrl = photoUrl
             )

@@ -15,8 +15,8 @@ object HomeResponseMapper {
                 createdAt = createdAt,
                 description = description,
                 id = id,
-                lat = lat,
-                lon = lon,
+                latitude = lat,
+                longitude = lon,
                 name = name,
                 photoUrl = photoUrl
             )

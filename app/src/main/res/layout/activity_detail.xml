@@ -5,9 +5,15 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="storyDetail"
             type="com.franzandel.dicodingintermediatesubmission.ui.detail.StoryDetail" />
+
+        <variable
+            name="vm"
+            type="com.franzandel.dicodingintermediatesubmission.ui.detail.DetailViewModel" />
     </data>
 
     <ScrollView
@@ -38,8 +44,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_8"
+                android:text="@{vm.location}"
                 android:textSize="@dimen/text_size_12"
-                android:visibility="gone"
+                android:visibility="@{vm.isLocationAvailable ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_name"
@@ -51,8 +58,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8"
-                app:glideUrl="@{storyDetail.photoUrl}"
                 android:scaleType="center"
+                app:glideUrl="@{storyDetail.photoUrl}"
                 app:layout_constraintTop_toBottomOf="@+id/tv_location"
                 tools:src="@drawable/ic_launcher_background" />
 
