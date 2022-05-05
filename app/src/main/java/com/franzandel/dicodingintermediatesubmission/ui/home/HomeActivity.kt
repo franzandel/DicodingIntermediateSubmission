@@ -50,7 +50,7 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
             if (it.error != null) {
-                // Show error page
+                Toast.makeText(applicationContext, it.error, Toast.LENGTH_SHORT).show()
             }
             binding.srlHome.isRefreshing = false
         }
@@ -74,7 +74,7 @@ class HomeActivity : AppCompatActivity() {
         lifecycleScope.launch {
             adapter.loadStateFlow.collect { loadState ->
                 val isListEmpty = loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
-                binding.rvHome.isVisible = !isListEmpty
+                binding.rvHome.isVisible = !isListEmpty && loadState.source.refresh !is LoadState.Error
                 binding.pbHome.isVisible = loadState.source.refresh is LoadState.Loading
                 binding.tvFailedMessage.isVisible = loadState.source.refresh is LoadState.Error
                 binding.btnRetry.isVisible = loadState.source.refresh is LoadState.Error

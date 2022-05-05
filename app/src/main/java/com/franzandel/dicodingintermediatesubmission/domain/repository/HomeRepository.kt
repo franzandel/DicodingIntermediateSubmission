@@ -1,6 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.domain.repository
 
 import androidx.paging.PagingData
+import com.franzandel.dicodingintermediatesubmission.data.Result
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import kotlinx.coroutines.flow.Flow
 
@@ -10,5 +11,5 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface HomeRepository {
-    suspend fun getStories(token: String): Flow<PagingData<Story>>
+    suspend fun getStories(token: String): Result<Flow<PagingData<Story>>>
 }
