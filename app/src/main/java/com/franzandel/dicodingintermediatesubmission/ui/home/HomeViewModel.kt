@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.base.model.Navigation
 import com.franzandel.dicodingintermediatesubmission.data.Result
@@ -39,8 +40,9 @@ class HomeViewModel(
                         _homeResult.value = HomeResult(success = it)
                     }
                 }
-                is Result.Error -> _homeResult.value = HomeResult(error = 0)
-                is Result.Exception -> _homeResult.value = HomeResult(error = 0)
+                // error only handle if loginRepository.getToken() failed, rest already handled in adapter.loadStateFlow (HomeActivity)
+                is Result.Error -> _homeResult.value = HomeResult(error = R.string.system_error)
+                is Result.Exception -> _homeResult.value = HomeResult(error = R.string.system_error)
             }
         }
     }

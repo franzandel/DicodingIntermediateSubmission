@@ -24,7 +24,7 @@ class GetStoriesUseCase(
     override suspend fun getOperation(): Result<Flow<PagingData<Story>>> {
         return when (val result = loginRepository.getToken()) {
             is Result.Success -> {
-                Result.Success(homeRepository.getStories(result.data.first()))
+                homeRepository.getStories(result.data.first())
             }
             is Result.Error -> Result.Error(result.exception)
             is Result.Exception -> Result.Exception(result.throwable)
