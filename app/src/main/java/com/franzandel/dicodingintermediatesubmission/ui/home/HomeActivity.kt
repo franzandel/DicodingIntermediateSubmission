@@ -11,6 +11,7 @@ import androidx.paging.LoadState
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityHomeBinding
+import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -61,12 +62,18 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun initListeners() {
-        binding.srlHome.setOnRefreshListener {
-            viewModel.getStories()
-        }
+        binding.apply {
+            srlHome.setOnRefreshListener {
+                viewModel.getStories()
+            }
 
-        binding.btnRetry.setOnClickListener {
-            adapter.retry()
+            btnRetry.setOnClickListener {
+                adapter.retry()
+            }
+
+            fabAddStory.setOnClickListener {
+                startActivity(Intent(this@HomeActivity, AddStoryActivity::class.java))
+            }
         }
     }
 

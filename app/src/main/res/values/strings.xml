@@ -22,4 +22,9 @@
     <string name="retry">Retry</string>
 
     <string name="content_add_story">Add story</string>
+
+    <string name="add_story_from_camera">From Camera</string>
+    <string name="add_story_from_gallery">From Gallery</string>
+    <string name="add_story_description">Description</string>
+    <string name="add_story_upload">Upload</string>
 </resources>
