@@ -14,14 +14,15 @@
             android:id="@+id/guideline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.5" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.65" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_add_story"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/space_16"
-            android:src="@drawable/ic_baseline_image_search_256"
+            android:src="@drawable/ic_baseline_image_search_128"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,7 +36,7 @@
             app:layout_constraintEnd_toStartOf="@+id/btn_from_gallery"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_add_story" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_from_gallery"
@@ -47,7 +48,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/btn_from_camera"
-            app:layout_constraintTop_toBottomOf="@+id/iv_add_story" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
         <com.franzandel.dicodingintermediatesubmission.ui.customview.CustomEditText
             android:id="@+id/et_description"
@@ -71,6 +72,7 @@
             android:text="@string/add_story_upload"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_description" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

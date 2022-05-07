@@ -3,6 +3,9 @@
     package="com.franzandel.dicodingintermediatesubmission">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:name=".ThisApp"
@@ -12,6 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DicodingIntermediateSubmission">
+        <activity
+            android:name=".ui.camerax.CameraXActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.addstory.AddStoryActivity"
             android:exported="false" />
