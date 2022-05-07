@@ -5,6 +5,8 @@
 
     <dimen name="space_8">8dp</dimen>
     <dimen name="space_16">16dp</dimen>
+    <dimen name="space_40">40dp</dimen>
+    <dimen name="space_60">60dp</dimen>
 
     <dimen name="text_size_12">12sp</dimen>
     <dimen name="text_size_14">14sp</dimen>

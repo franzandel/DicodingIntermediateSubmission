@@ -86,4 +86,8 @@ dependencies {
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    implementation "androidx.camera:camera-camera2:1.1.0-beta03"
+    implementation "androidx.camera:camera-lifecycle:1.1.0-beta03"
+    implementation "androidx.camera:camera-view:1.1.0-beta03"
 }
