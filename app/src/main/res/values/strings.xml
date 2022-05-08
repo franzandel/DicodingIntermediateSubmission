@@ -27,4 +27,5 @@
     <string name="add_story_from_gallery">From Gallery</string>
     <string name="add_story_description">Description</string>
     <string name="add_story_upload">Upload</string>
+    <string name="add_story_success_upload">Success upload</string>
 </resources>
