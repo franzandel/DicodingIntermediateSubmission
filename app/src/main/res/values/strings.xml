@@ -28,4 +28,6 @@
     <string name="add_story_description">Description</string>
     <string name="add_story_upload">Upload</string>
     <string name="add_story_success_upload">Success upload</string>
+    <string name="add_story_select_image">Please select image first</string>
+    <string name="add_story_empty_description">Description should not be empty</string>
 </resources>
