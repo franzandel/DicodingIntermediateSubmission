@@ -11,6 +11,7 @@ import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -19,10 +20,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityAddStoryBinding
 import com.franzandel.dicodingintermediatesubmission.ui.camerax.CameraXActivity
+import com.franzandel.dicodingintermediatesubmission.ui.register.presentation.RegisterViewModel
+import com.franzandel.dicodingintermediatesubmission.utils.hideKeyboard
 import id.zelory.compressor.Compressor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -70,6 +74,12 @@ class AddStoryActivity : AppCompatActivity() {
 
             if (it.error != null) {
                 Toast.makeText(applicationContext, it.error, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        viewModel.descriptionValidation.observe(this) {
+            if (it != AddStoryViewModel.FORM_VALID) {
+                binding.etDescription.error = getString(it)
             }
         }
     }
@@ -128,6 +138,18 @@ class AddStoryActivity : AppCompatActivity() {
                         val compressedImageFile = Compressor.compress(this@AddStoryActivity, it)
                         viewModel.uploadImage(compressedImageFile, etDescription.text.toString())
                     }
+                } ?: run {
+                    Toast.makeText(
+                        this@AddStoryActivity,
+                        getString(R.string.add_story_select_image),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            etDescription.setOnFocusChangeListener { _, isFocus ->
+                if (!isFocus) {
+                    viewModel.validateDescription(etDescription.text.toString())
                 }
             }
         }
