@@ -14,11 +14,18 @@ import android.os.Environment
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
+import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityAddStoryBinding
 import com.franzandel.dicodingintermediatesubmission.ui.camerax.CameraXActivity
+import id.zelory.compressor.Compressor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -30,6 +37,11 @@ class AddStoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddStoryBinding
     private lateinit var galleryActivityResultLauncher: ActivityResultLauncher<String>
+
+    private val viewModel: AddStoryViewModel by viewModels { AddStoryViewModelFactory(applicationContext) }
+    private var file: File? = null
+
+    private val coroutineThread: CoroutineThread = CoroutineThreadImpl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,10 +55,22 @@ class AddStoryActivity : AppCompatActivity() {
         galleryActivityResultLauncher =
             registerForActivityResult(ActivityResultContracts.GetContent()) {
                 it?.let {
-                    uriToFile(it, this)
+                    val file = uriToFile(it, this)
+                    this.file = file
                     binding.ivAddStory.setImageURI(it)
                 }
             }
+
+        viewModel.uploadImageResult.observe(this) {
+            if (it.success != null) {
+                Toast.makeText(applicationContext, it.success, Toast.LENGTH_SHORT).show()
+
+            }
+
+            if (it.error != null) {
+                Toast.makeText(applicationContext, it.error, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private val launcherIntentCameraX = registerForActivityResult(
@@ -60,12 +84,13 @@ class AddStoryActivity : AppCompatActivity() {
                 BitmapFactory.decodeFile(myFile.path),
                 isBackCamera
             )
+            file = myFile
 
             binding.ivAddStory.setImageBitmap(result)
         }
     }
 
-    fun rotateBitmap(bitmap: Bitmap, isBackCamera: Boolean = false): Bitmap {
+    private fun rotateBitmap(bitmap: Bitmap, isBackCamera: Boolean = false): Bitmap {
         val matrix = Matrix()
         return if (isBackCamera) {
             matrix.postRotate(90f)
@@ -97,12 +122,17 @@ class AddStoryActivity : AppCompatActivity() {
             }
 
             btnUpload.setOnClickListener {
-
+                file?.let {
+                    lifecycleScope.launch(coroutineThread.background) {
+                        val compressedImageFile = Compressor.compress(this@AddStoryActivity, it)
+                        viewModel.uploadImage(compressedImageFile, etDescription.text.toString())
+                    }
+                }
             }
         }
     }
 
-    fun uriToFile(selectedImg: Uri, context: Context): File {
+    private fun uriToFile(selectedImg: Uri, context: Context): File {
         val contentResolver: ContentResolver = context.contentResolver
         val myFile = createCustomTempFile(context)
 
@@ -123,7 +153,7 @@ class AddStoryActivity : AppCompatActivity() {
     ).format(System.currentTimeMillis())
 
     // Untuk kasus Intent Camera
-    fun createCustomTempFile(context: Context): File {
+    private fun createCustomTempFile(context: Context): File {
         val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(timeStamp, ".jpg", storageDir)
     }
