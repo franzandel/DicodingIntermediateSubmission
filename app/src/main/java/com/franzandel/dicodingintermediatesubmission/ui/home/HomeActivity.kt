@@ -1,13 +1,16 @@
 package com.franzandel.dicodingintermediatesubmission.ui.home
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.RecyclerView
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityHomeBinding
@@ -22,6 +25,12 @@ class HomeActivity : AppCompatActivity() {
     private val adapter by lazy { HomeAdapter(viewModel, this) }
     private val viewModel: HomeViewModel by viewModels { HomeViewModelFactory(applicationContext) }
     private val coroutineThread: CoroutineThread = CoroutineThreadImpl()
+
+    private val uploadImageActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            adapter.refresh()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +68,14 @@ class HomeActivity : AppCompatActivity() {
         viewModel.navigateTo.observe(this) {
             startActivity(Intent(this, it.destination).putExtras(it.bundle))
         }
+
+        adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                if (positionStart == 0) {
+                    binding.rvHome.smoothScrollToPosition(0)
+                }
+            }
+        })
     }
 
     private fun initListeners() {
@@ -72,7 +89,9 @@ class HomeActivity : AppCompatActivity() {
             }
 
             fabAddStory.setOnClickListener {
-                startActivity(Intent(this@HomeActivity, AddStoryActivity::class.java))
+                uploadImageActivityResultLauncher.launch(
+                    Intent(this@HomeActivity, AddStoryActivity::class.java)
+                )
             }
         }
     }

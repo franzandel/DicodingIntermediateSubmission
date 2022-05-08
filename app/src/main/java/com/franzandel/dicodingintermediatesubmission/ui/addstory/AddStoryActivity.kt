@@ -64,7 +64,8 @@ class AddStoryActivity : AppCompatActivity() {
         viewModel.uploadImageResult.observe(this) {
             if (it.success != null) {
                 Toast.makeText(applicationContext, it.success, Toast.LENGTH_SHORT).show()
-
+                setResult(RESULT_OK)
+                finish()
             }
 
             if (it.error != null) {
