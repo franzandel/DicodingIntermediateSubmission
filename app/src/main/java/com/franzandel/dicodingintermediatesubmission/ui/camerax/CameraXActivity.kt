@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityCameraXactivityBinding
 import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
+import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -29,6 +30,10 @@ class CameraXActivity : AppCompatActivity() {
 
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var imageCapture: ImageCapture? = null
+
+    private val loadingDialog by lazy {
+        LoadingDialog.newInstance()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +74,7 @@ class CameraXActivity : AppCompatActivity() {
 
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
+        loadingDialog.show(supportFragmentManager)
 
         val photoFile = createFile(application)
 
@@ -83,29 +89,27 @@ class CameraXActivity : AppCompatActivity() {
                         "Gagal mengambil gambar.",
                         Toast.LENGTH_SHORT
                     ).show()
+                    loadingDialog.hide()
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val intent = Intent()
                     intent.putExtra("picture", photoFile)
-                    intent.putExtra(
-                        "isBackCamera",
-                        cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
-                    )
                     setResult(AddStoryActivity.CAMERA_X_RESULT, intent)
                     finish()
+                    loadingDialog.hide()
                 }
             }
         )
     }
 
-    val timeStamp: String = SimpleDateFormat(
+    private val timeStamp: String = SimpleDateFormat(
         "dd_MM_yyyy",
         Locale.US
     ).format(System.currentTimeMillis())
 
     // Untuk kasus CameraX
-    fun createFile(application: Application): File {
+    private fun createFile(application: Application): File {
         val mediaDir = application.externalMediaDirs.firstOrNull()?.let {
             File(it, application.resources.getString(R.string.app_name)).apply { mkdirs() }
         }
@@ -118,7 +122,6 @@ class CameraXActivity : AppCompatActivity() {
     }
 
     private fun startCamera() {
-
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener({
