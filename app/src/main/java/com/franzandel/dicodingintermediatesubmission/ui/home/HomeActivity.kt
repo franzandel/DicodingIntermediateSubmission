@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -90,7 +91,8 @@ class HomeActivity : AppCompatActivity() {
 
             fabAddStory.setOnClickListener {
                 uploadImageActivityResultLauncher.launch(
-                    Intent(this@HomeActivity, AddStoryActivity::class.java)
+                    Intent(this@HomeActivity, AddStoryActivity::class.java),
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(this@HomeActivity)
                 )
             }
         }
