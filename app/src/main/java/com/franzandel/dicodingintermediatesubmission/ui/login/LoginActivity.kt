@@ -6,6 +6,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.franzandel.dicodingintermediatesubmission.R
@@ -114,7 +115,10 @@ class LoginActivity : AppCompatActivity() {
             }
 
             tvNoAccountYet.setOnClickListener {
-                startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+                startActivity(
+                    Intent(this@LoginActivity, RegisterActivity::class.java),
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(this@LoginActivity).toBundle()
+                )
             }
         }
     }
