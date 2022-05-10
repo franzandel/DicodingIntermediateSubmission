@@ -4,6 +4,7 @@ import android.location.Geocoder
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityDetailBinding
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeViewModel
 import java.util.Locale
@@ -22,6 +23,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        title = getString(R.string.toolbar_detail)
         initDataBinding()
         initLocationUI()
     }
