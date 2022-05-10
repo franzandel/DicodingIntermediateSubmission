@@ -3,6 +3,9 @@ package com.franzandel.dicodingintermediatesubmission.ui.home
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -17,6 +20,7 @@ import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThr
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityHomeBinding
 import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
+import com.franzandel.dicodingintermediatesubmission.ui.login.LoginActivity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -28,11 +32,12 @@ class HomeActivity : AppCompatActivity() {
     private val viewModel: HomeViewModel by viewModels { HomeViewModelFactory(applicationContext) }
     private val coroutineThread: CoroutineThread = CoroutineThreadImpl()
 
-    private val uploadImageActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            adapter.refresh()
+    private val uploadImageActivityResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                adapter.refresh()
+            }
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +50,22 @@ class HomeActivity : AppCompatActivity() {
         initListeners()
         initPaging3AdapterListener()
         viewModel.getStories()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu_home, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.logout -> {
+                viewModel.clearStorage()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun initRV() {
@@ -73,6 +94,22 @@ class HomeActivity : AppCompatActivity() {
                 Intent(this, it.destination).putExtras(it.bundle),
                 ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle()
             )
+        }
+
+        viewModel.clearStorageResult.observe(this) {
+            if (it) {
+                startActivity(
+                    Intent(this, LoginActivity::class.java),
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle()
+                )
+                finishAffinity()
+            } else {
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.system_error),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
@@ -107,14 +144,17 @@ class HomeActivity : AppCompatActivity() {
     private fun initPaging3AdapterListener() {
         lifecycleScope.launch {
             adapter.loadStateFlow.collect { loadState ->
-                val isListEmpty = loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
+                val isListEmpty =
+                    loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
                 binding.apply {
                     rvHome.isVisible = !isListEmpty && loadState.source.refresh !is LoadState.Error
                     pbHome.isVisible = loadState.source.refresh is LoadState.Loading
                     tvFailedMessage.isVisible = loadState.source.refresh is LoadState.Error
                     btnRetry.isVisible = loadState.source.refresh is LoadState.Error
-                    tvEmptyMessage.isVisible = isListEmpty && loadState.source.refresh !is LoadState.Error
-                    btnEmptyMessage.isVisible = isListEmpty && loadState.source.refresh !is LoadState.Error
+                    tvEmptyMessage.isVisible =
+                        isListEmpty && loadState.source.refresh !is LoadState.Error
+                    btnEmptyMessage.isVisible =
+                        isListEmpty && loadState.source.refresh !is LoadState.Error
                 }
 
                 // Toast on any error, regardless of whether it came from RemoteMediator or PagingSource

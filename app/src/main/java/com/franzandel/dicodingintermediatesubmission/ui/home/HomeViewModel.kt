@@ -11,6 +11,7 @@ import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThr
 import com.franzandel.dicodingintermediatesubmission.base.model.Navigation
 import com.franzandel.dicodingintermediatesubmission.data.Result
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
+import com.franzandel.dicodingintermediatesubmission.domain.usecase.ClearStorageUseCase
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetStoriesUseCase
 import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
 import kotlinx.coroutines.flow.collect
@@ -23,6 +24,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val getStoriesUseCase: GetStoriesUseCase,
+    private val clearStorageUseCase: ClearStorageUseCase,
     private val coroutineThread: CoroutineThread
 ) : ViewModel() {
 
@@ -31,6 +33,9 @@ class HomeViewModel(
 
     private var _navigateTo = MutableLiveData<Navigation>()
     val navigateTo: LiveData<Navigation> = _navigateTo
+
+    private var _clearStorageResult = MutableLiveData<Boolean>()
+    val clearStorageResult: LiveData<Boolean> = _clearStorageResult
 
     fun getStories() {
         viewModelScope.launch(coroutineThread.main) {
@@ -54,6 +59,16 @@ class HomeViewModel(
                 Pair(EXTRA_STORY_DETAIL, HomeDetailMapper.transform(story))
             )
         )
+    }
+
+    fun clearStorage() {
+        viewModelScope.launch(coroutineThread.main) {
+            when (clearStorageUseCase.execute(Unit)) {
+                is Result.Success -> _clearStorageResult.value = true
+                is Result.Error -> _clearStorageResult.value = false
+                is Result.Exception -> _clearStorageResult.value = false
+            }
+        }
     }
 
     companion object {
