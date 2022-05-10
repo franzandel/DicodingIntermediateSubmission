@@ -90,15 +90,16 @@ class HomeActivity : AppCompatActivity() {
                 viewModel.getStories()
             }
 
+            btnEmptyMessage.setOnClickListener {
+                navigateToAddStory()
+            }
+
             btnRetry.setOnClickListener {
                 adapter.retry()
             }
 
             fabAddStory.setOnClickListener {
-                uploadImageActivityResultLauncher.launch(
-                    Intent(this@HomeActivity, AddStoryActivity::class.java),
-                    ActivityOptionsCompat.makeSceneTransitionAnimation(this@HomeActivity)
-                )
+                navigateToAddStory()
             }
         }
     }
@@ -107,10 +108,14 @@ class HomeActivity : AppCompatActivity() {
         lifecycleScope.launch {
             adapter.loadStateFlow.collect { loadState ->
                 val isListEmpty = loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
-                binding.rvHome.isVisible = !isListEmpty && loadState.source.refresh !is LoadState.Error
-                binding.pbHome.isVisible = loadState.source.refresh is LoadState.Loading
-                binding.tvFailedMessage.isVisible = loadState.source.refresh is LoadState.Error
-                binding.btnRetry.isVisible = loadState.source.refresh is LoadState.Error
+                binding.apply {
+                    rvHome.isVisible = !isListEmpty && loadState.source.refresh !is LoadState.Error
+                    pbHome.isVisible = loadState.source.refresh is LoadState.Loading
+                    tvFailedMessage.isVisible = loadState.source.refresh is LoadState.Error
+                    btnRetry.isVisible = loadState.source.refresh is LoadState.Error
+                    tvEmptyMessage.isVisible = isListEmpty && loadState.source.refresh !is LoadState.Error
+                    btnEmptyMessage.isVisible = isListEmpty && loadState.source.refresh !is LoadState.Error
+                }
 
                 // Toast on any error, regardless of whether it came from RemoteMediator or PagingSource
                 val errorState = loadState.source.append as? LoadState.Error
@@ -126,5 +131,12 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun navigateToAddStory() {
+        uploadImageActivityResultLauncher.launch(
+            Intent(this@HomeActivity, AddStoryActivity::class.java),
+            ActivityOptionsCompat.makeSceneTransitionAnimation(this@HomeActivity)
+        )
     }
 }
