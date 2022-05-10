@@ -67,7 +67,10 @@ class HomeActivity : AppCompatActivity() {
         }
 
         viewModel.navigateTo.observe(this) {
-            startActivity(Intent(this, it.destination).putExtras(it.bundle))
+            startActivity(
+                Intent(this, it.destination).putExtras(it.bundle),
+                ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle()
+            )
         }
 
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
