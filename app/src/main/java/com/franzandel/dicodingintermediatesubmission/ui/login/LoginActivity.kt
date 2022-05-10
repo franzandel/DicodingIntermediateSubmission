@@ -33,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel =
             ViewModelProvider(this, LoginViewModelFactory(applicationContext))[LoginViewModel::class.java]
+        title = getString(R.string.toolbar_login)
         initObserver()
         initListener()
     }

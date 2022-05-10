@@ -47,6 +47,7 @@ class AddStoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        title = getString(R.string.toolbar_add_story)
         initObservers()
         initListeners()
     }

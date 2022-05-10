@@ -30,4 +30,10 @@
     <string name="add_story_success_upload">Success upload</string>
     <string name="add_story_select_image">Please select image first</string>
     <string name="add_story_empty_description">Description should not be empty</string>
+
+    <string name="toolbar_login">Login</string>
+    <string name="toolbar_register">Register</string>
+    <string name="toolbar_home">Home</string>
+    <string name="toolbar_detail">Detail</string>
+    <string name="toolbar_add_story">Add Story</string>
 </resources>
