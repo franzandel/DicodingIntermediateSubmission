@@ -23,6 +23,9 @@
 
     <string name="content_add_story">Add story</string>
 
+    <string name="home_empty_message">No story yet, go add some stories!</string>
+    <string name="home_empty_btn_message">Go</string>
+
     <string name="add_story_from_camera">From Camera</string>
     <string name="add_story_from_gallery">From Gallery</string>
     <string name="add_story_description">Description</string>
