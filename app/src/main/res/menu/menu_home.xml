@@ -2,7 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/logout"
+        android:id="@+id/menu_settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/menu_home_settings"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_logout"
         android:title="@string/menu_home_logout"
         app:showAsAction="always" />
 </menu>

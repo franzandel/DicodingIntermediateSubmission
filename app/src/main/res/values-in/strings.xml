@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DicodingIntermediateSubmission</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirmation_password">Konfirmasi Password</string>
+    <string name="hint_name">Nama</string>
+    <string name="login_button_message">Masuk</string>
+    <string name="login_register_message">Belum punya akun?</string>
+    <string name="login_failed">Email atau password belum sesuai</string>
+    <string name="register_button_message">Daftar</string>
+    <string name="register_failed">Daftar gagal, coba lagi</string>
+    <string name="register_already_exist">Email sudah terpakai</string>
+    <string name="invalid_username">Email harus berbentuk email</string>
+    <string name="empty_username">Email tidak boleh kosong</string>
+    <string name="invalid_password">Password harus lebih dari 5 karakter</string>
+    <string name="empty_confirmation_password">Konfirmasi Password tidak boleh kosong</string>
+    <string name="invalid_confirmation_password">Konfirmasi Password harus sesuai dengan Password</string>
+    <string name="empty_name">Nama tidak boleh kosong</string>
+    <string name="system_error">Sistem bermasalah, coba lagi</string>
+    <string name="retry">Coba lagi</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="content_add_story">Tambah cerita</string>
+    <string name="home_empty_message">Belum ada cerita, ayo tambah cerita</string>
+    <string name="home_empty_btn_message">Gas</string>
+    <string name="home_logout_confirmation_title">Apakah anda yakin untuk keluar?</string>
+    <string name="menu_home_logout">Keluar</string>
+    <string name="menu_home_settings">Pengaturan</string>
+    <string name="add_story_from_camera">Dari Kamera</string>
+    <string name="add_story_from_gallery">Dari Gallery</string>
+    <string name="add_story_description">Deskripsi</string>
+    <string name="add_story_upload">Unggah</string>
+    <string name="add_story_success_upload">Berhasil unggah</string>
+    <string name="add_story_select_image">Pilih gambar terlebih dahulu</string>
+    <string name="add_story_empty_description">Deskripsi tidak boleh kosong</string>
+    <string name="toolbar_login">Masuk</string>
+    <string name="toolbar_register">Daftar</string>
+    <string name="toolbar_home">Beranda</string>
+    <string name="toolbar_detail">Detil</string>
+    <string name="toolbar_add_story">Tambah Cerita</string>
+</resources>
