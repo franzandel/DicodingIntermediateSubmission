@@ -1,24 +1,27 @@
 <resources>
     <string name="app_name">DicodingIntermediateSubmission</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="prompt_confirmation_password">Confirmation Password</string>
-    <string name="prompt_name">Name</string>
-    <string name="action_sign_in">Sign in</string>
-    <string name="no_account_yet">No account yet?</string>
-    <string name="welcome">"Welcome !"</string>
+
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirmation_password">Confirmation Password</string>
+    <string name="hint_name">Name</string>
+
+    <string name="login_button_message">Login</string>
+    <string name="login_register_message">No account yet?</string>
+    <string name="login_failed">Username or password not match</string>
+
+    <string name="register_button_message">Register</string>
+    <string name="register_failed">Register failed, please try again</string>
+    <string name="register_already_exist">Username already exist</string>
+
     <string name="invalid_username">Not a valid username</string>
     <string name="empty_username">Username should not be empty</string>
     <string name="invalid_password">Password must be more than 5 characters</string>
     <string name="empty_confirmation_password">Confirmation Password should not be empty</string>
     <string name="invalid_confirmation_password">Confirmation Password must match with password</string>
-    <string name="action_register">Register</string>
     <string name="empty_name">Name should not be empty</string>
-    <string name="login_failed">Username or password not match</string>
-    <string name="register_failed">Register failed, please try again</string>
-    <string name="register_already_exist">Username already exist</string>
     <string name="system_error">Unexpected system error, please try again</string>
+
     <string name="retry">Retry</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
