@@ -20,11 +20,14 @@
     <string name="register_already_exist">Username already exist</string>
     <string name="system_error">Unexpected system error, please try again</string>
     <string name="retry">Retry</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <string name="content_add_story">Add story</string>
 
     <string name="home_empty_message">No story yet, go add some stories!</string>
     <string name="home_empty_btn_message">Go</string>
+    <string name="home_logout_confirmation_title">Are you sure to logout?</string>
 
     <string name="menu_home_logout">Logout</string>
 

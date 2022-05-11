@@ -1,6 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.ui.home
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -21,6 +22,7 @@ import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThr
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityHomeBinding
 import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
 import com.franzandel.dicodingintermediatesubmission.ui.login.LoginActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -61,7 +63,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.logout -> {
-                viewModel.clearStorage()
+                showLogoutConfirmation()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -178,5 +180,17 @@ class HomeActivity : AppCompatActivity() {
             Intent(this@HomeActivity, AddStoryActivity::class.java),
             ActivityOptionsCompat.makeSceneTransitionAnimation(this@HomeActivity)
         )
+    }
+
+    private fun showLogoutConfirmation() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(getString(R.string.home_logout_confirmation_title))
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                viewModel.clearStorage()
+            }
+            .setNegativeButton(getString(R.string.no)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 }
