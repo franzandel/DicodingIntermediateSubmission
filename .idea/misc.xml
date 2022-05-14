@@ -22,6 +22,8 @@
         <entry key="app/src/main/res/layout/item_home.xml" value="0.31567028985507245" />
         <entry key="app/src/main/res/layout/item_load_state_footer.xml" value="0.19114583333333332" />
         <entry key="app/src/main/res/layout/layout_loading.xml" value="0.19114583333333332" />
+        <entry key="app/src/main/res/layout/story_widget.xml" value="0.31567028985507245" />
+        <entry key="app/src/main/res/layout/widget_item.xml" value="0.31567028985507245" />
         <entry key="app/src/main/res/menu/menu_home.xml" value="0.4244791666666667" />
       </map>
     </option>
