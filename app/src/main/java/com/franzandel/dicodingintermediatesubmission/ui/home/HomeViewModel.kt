@@ -12,7 +12,7 @@ import com.franzandel.dicodingintermediatesubmission.base.model.Navigation
 import com.franzandel.dicodingintermediatesubmission.data.Result
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.ClearStorageUseCase
-import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetStoriesUseCase
+import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetPagingStoriesUseCase
 import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
  */
 
 class HomeViewModel(
-    private val getStoriesUseCase: GetStoriesUseCase,
+    private val getPagingStoriesUseCase: GetPagingStoriesUseCase,
     private val clearStorageUseCase: ClearStorageUseCase,
     private val coroutineThread: CoroutineThread
 ) : ViewModel() {
@@ -39,7 +39,7 @@ class HomeViewModel(
 
     fun getStories() {
         viewModelScope.launch(coroutineThread.main) {
-            when (val result = getStoriesUseCase.execute()) {
+            when (val result = getPagingStoriesUseCase.execute()) {
                 is Result.Success -> {
                     result.data.cachedIn(viewModelScope).collect {
                         _homeResult.value = HomeResult(success = it)

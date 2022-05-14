@@ -1,6 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.data.service
 
 import com.franzandel.dicodingintermediatesubmission.data.model.HomeResponse
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
@@ -17,4 +18,9 @@ interface HomeService {
         @Query("page") page: Int,
         @Query("size") size: Int
     ): HomeResponse
+
+    @GET("stories")
+    fun getStories(
+        @Header("Authorization") header: String
+    ): Call<HomeResponse>
 }

@@ -9,6 +9,7 @@ import com.franzandel.dicodingintermediatesubmission.domain.model.Story
  */
 
 object HomeResponseMapper {
+
     fun transform(storyResponse: StoryResponse): Story {
         return with(storyResponse) {
             Story(
@@ -20,6 +21,12 @@ object HomeResponseMapper {
                 name = name,
                 photoUrl = photoUrl
             )
+        }
+    }
+
+    fun transform(storyResponses: List<StoryResponse>): List<Story> {
+        return storyResponses.map {
+            transform(it)
         }
     }
 }

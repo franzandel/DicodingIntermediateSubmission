@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/teal_700</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_baseline_android_128</item>
@@ -9,5 +10,15 @@
 
     <style name="Theme.App.StartingBelowAPI12" parent="Theme.AppCompat.NoActionBar">
         <item name="android:colorPrimaryDark">@color/teal_700</item>
+    </style>
+
+    <style name="Widget.DicodingIntermediateSubmission.AppWidget.Container" parent="android:Widget">
+        <item name="android:id">@android:id/background</item>
+        <item name="android:background">?android:attr/colorBackground</item>
+    </style>
+
+    <style name="Widget.DicodingIntermediateSubmission.AppWidget.InnerView" parent="android:Widget">
+        <item name="android:background">?android:attr/colorBackground</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 </resources>
