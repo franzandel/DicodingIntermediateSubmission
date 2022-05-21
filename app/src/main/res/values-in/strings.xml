@@ -44,4 +44,6 @@
     <string name="appwidget_text">CONTOH</string>
     <string name="add_widget">Tambah widget</string>
     <string name="app_widget_description">Ini adalah deskripsi widget</string>
+    <string name="widget_empty_message">Belum ada cerita, ayo tambah cerita</string>
+    <string name="widget_empty_btn_message">Gas</string>
 </resources>
