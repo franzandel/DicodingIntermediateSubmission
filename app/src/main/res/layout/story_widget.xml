@@ -16,12 +16,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:padding="8dp"
             android:background="@color/black"
+            android:padding="8dp"
             android:text="@string/app_name"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_size_16"
             android:textStyle="bold" />
 
         <StackView
@@ -32,16 +32,8 @@
             android:loopViews="true" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:background="@color/black"
-        android:text="Empty"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
+    <include
+        android:id="@+id/layout_empty_widget"
+        layout="@layout/layout_empty_widget"
         android:visibility="gone" />
 </FrameLayout>

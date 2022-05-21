@@ -10,6 +10,7 @@ import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.core.net.toUri
 import com.franzandel.dicodingintermediatesubmission.R
+import com.franzandel.dicodingintermediatesubmission.ui.splashscreen.SplashScreenActivity
 
 /**
  * Implementation of App Widget functionality.
@@ -21,12 +22,24 @@ class StoryWidget : AppWidgetProvider() {
         const val EXTRA_ITEM = "com.dicoding.picodiploma.EXTRA_ITEM"
 
         private fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
-            val intent = Intent(context, StackWidgetService::class.java)
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-            intent.data = intent.toUri(Intent.URI_INTENT_SCHEME).toUri()
+            val serviceIntent = Intent(context, StackWidgetService::class.java)
+            serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+            serviceIntent.data = serviceIntent.toUri(Intent.URI_INTENT_SCHEME).toUri()
+
             val views = RemoteViews(context.packageName, R.layout.story_widget)
-            views.setRemoteAdapter(R.id.sv_stories, intent)
-            views.setEmptyView(R.id.sv_stories, R.id.empty_view)
+            views.setRemoteAdapter(R.id.sv_stories, serviceIntent)
+            views.setEmptyView(R.id.sv_stories, R.id.layout_empty_widget)
+
+            val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            } else {
+                PendingIntent.FLAG_UPDATE_CURRENT
+            }
+            // TODO: Need to handle navigation to AddStoryActivity either using deeplink or constants
+            val splashScreenIntent = Intent(context, SplashScreenActivity::class.java)
+            val pendingIntent = PendingIntent.getActivity(context, 0, splashScreenIntent, flags)
+            views.setOnClickPendingIntent(R.id.btn_empty_message, pendingIntent)
+
             val toastIntent = Intent(context, StoryWidget::class.java)
             toastIntent.action = TOAST_ACTION
             toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
