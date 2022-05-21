@@ -30,6 +30,10 @@ class StackRemoteViewsFactory(
     private val stories = mutableListOf<Story>()
 
     override fun onCreate() {
+
+    }
+
+    override fun onDataSetChanged() {
         CoroutineScope(coroutineThread.main).launch {
             when (val result = getStoriesUseCase.execute()) {
                 is Result.Success -> {
@@ -47,10 +51,6 @@ class StackRemoteViewsFactory(
                 ).show()
             }
         }
-    }
-
-    override fun onDataSetChanged() {
-
     }
 
     override fun onDestroy() {
