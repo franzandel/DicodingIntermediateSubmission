@@ -83,11 +83,8 @@ class StackRemoteViewsFactory(
         return remoteViews
     }
 
-    override fun getLoadingView(): RemoteViews? {
-        // implement loading state here
-//        TODO("Not yet implemented")
-        return null
-    }
+    override fun getLoadingView(): RemoteViews =
+        RemoteViews(context.packageName, R.layout.layout_loading_widget)
 
     override fun getViewTypeCount(): Int = 1
 
