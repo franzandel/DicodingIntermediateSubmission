@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DicodingIntermediateSubmission</string>
+    <string name="app_name">Stories</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="hint_confirmation_password">Konfirmasi Password</string>
@@ -22,6 +22,7 @@
     <string name="yes">Ya</string>
     <string name="no">Tidak</string>
     <string name="content_add_story">Tambah cerita</string>
+    <string name="content_widget_story">Gambar cerita</string>
     <string name="home_empty_message">Belum ada cerita, ayo tambah cerita</string>
     <string name="home_empty_btn_message">Gas</string>
     <string name="home_logout_confirmation_title">Apakah anda yakin untuk keluar?</string>

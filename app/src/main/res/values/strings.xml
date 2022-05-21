@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DicodingIntermediateSubmission</string>
+    <string name="app_name">Stories</string>
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
@@ -27,6 +27,7 @@
     <string name="no">No</string>
 
     <string name="content_add_story">Add story</string>
+    <string name="content_widget_story">Story image</string>
 
     <string name="home_empty_message">No story yet, go add some stories!</string>
     <string name="home_empty_btn_message">Go</string>
