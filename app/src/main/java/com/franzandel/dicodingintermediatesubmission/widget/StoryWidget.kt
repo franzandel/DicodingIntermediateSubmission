@@ -50,6 +50,7 @@ class StoryWidget : AppWidgetProvider() {
             )
             views.setPendingIntentTemplate(R.id.sv_stories, toastPendingIntent)
             appWidgetManager.updateAppWidget(appWidgetId, views)
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.sv_stories)
         }
     }
 
