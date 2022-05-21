@@ -10,6 +10,7 @@ import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.base.model.Navigation
 import com.franzandel.dicodingintermediatesubmission.data.Result
+import com.franzandel.dicodingintermediatesubmission.data.consts.IntentConst
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.ClearStorageUseCase
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetPagingStoriesUseCase
@@ -56,7 +57,7 @@ class HomeViewModel(
         _navigateTo.value = Navigation(
             destination = DetailActivity::class.java,
             bundle = bundleOf(
-                Pair(EXTRA_STORY_DETAIL, HomeDetailMapper.transform(story))
+                Pair(IntentConst.EXTRA_STORY_DETAIL, HomeDetailMapper.transform(story))
             )
         )
     }
@@ -69,9 +70,5 @@ class HomeViewModel(
                 is Result.Exception -> _clearStorageResult.value = false
             }
         }
-    }
-
-    companion object {
-        const val EXTRA_STORY_DETAIL = "extra_story_detail"
     }
 }
