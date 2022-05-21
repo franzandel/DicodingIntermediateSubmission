@@ -2,15 +2,11 @@ package com.franzandel.dicodingintermediatesubmission.widget
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.data.Result
@@ -18,6 +14,7 @@ import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetStoriesUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.util.concurrent.ExecutionException
 
 /**
  * Created by Franz Andel
@@ -53,7 +50,7 @@ class StackRemoteViewsFactory(
     }
 
     override fun onDataSetChanged() {
-        // insert image here
+
     }
 
     override fun onDestroy() {
@@ -64,19 +61,19 @@ class StackRemoteViewsFactory(
 
     override fun getViewAt(position: Int): RemoteViews {
         val remoteViews = RemoteViews(context.packageName, R.layout.widget_item)
-        Glide.with(context)
+
+        val futureTargetBitmap = Glide.with(context)
             .asBitmap()
             .load(stories[position].photoUrl)
-            .into(object : CustomTarget<Bitmap>() {
-                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    remoteViews.setImageViewBitmap(R.id.imageView, resource)
-                }
+            .submit(250, 250)
+        try {
+            remoteViews.setImageViewBitmap(R.id.imageView, futureTargetBitmap.get())
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        } catch (e: ExecutionException) {
+            e.printStackTrace()
+        }
 
-                override fun onLoadCleared(placeholder: Drawable?) {
-
-                }
-            })
-//        rv.setImageViewBitmap(R.id.imageView, )
         val extras = bundleOf(
             StoryWidget.EXTRA_ITEM to position
         )

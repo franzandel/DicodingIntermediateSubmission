@@ -5,10 +5,13 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Build
 import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.core.net.toUri
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.AppWidgetTarget
 import com.franzandel.dicodingintermediatesubmission.R
 
 /**
@@ -70,17 +73,3 @@ class StoryWidget : AppWidgetProvider() {
         }
     }
 }
-
-//internal fun updateAppWidget(
-//    context: Context,
-//    appWidgetManager: AppWidgetManager,
-//    appWidgetId: Int
-//) {
-//    val widgetText = context.getString(R.string.appwidget_text)
-//    // Construct the RemoteViews object
-//    val views = RemoteViews(context.packageName, R.layout.story_widget)
-//    views.setTextViewText(R.id.appwidget_text, widgetText)
-//
-//    // Instruct the widget manager to update the widget
-//    appWidgetManager.updateAppWidget(appWidgetId, views)
-//}

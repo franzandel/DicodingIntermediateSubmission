@@ -10,13 +10,6 @@
         android:orientation="vertical"
         android:weightSum="10">
 
-        <StackView
-            android:id="@+id/stack_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="9"
-            android:loopViews="true" />
-
         <TextView
             android:id="@+id/banner_text"
             android:layout_width="match_parent"
@@ -30,6 +23,13 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <StackView
+            android:id="@+id/stack_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:loopViews="true" />
     </LinearLayout>
 
     <TextView
