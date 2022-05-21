@@ -1,7 +1,9 @@
 package com.franzandel.dicodingintermediatesubmission.widget
 
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import android.widget.Toast
@@ -10,8 +12,13 @@ import com.bumptech.glide.Glide
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.data.Result
+import com.franzandel.dicodingintermediatesubmission.data.consts.IntentConst
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetStoriesUseCase
+import com.franzandel.dicodingintermediatesubmission.ui.home.HomeDetailMapper
+import com.franzandel.dicodingintermediatesubmission.ui.splashscreen.SplashScreenActivity
+import com.franzandel.dicodingintermediatesubmission.utils.GsonUtils
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.util.concurrent.ExecutionException
@@ -75,7 +82,9 @@ class StackRemoteViewsFactory(
         }
 
         val extras = bundleOf(
-            StoryWidget.EXTRA_ITEM to position
+            IntentConst.EXTRA_STORY_DETAIL to GsonUtils.toJsonString(
+                HomeDetailMapper.transform(stories[position])
+            )
         )
         val fillInIntent = Intent()
         fillInIntent.putExtras(extras)

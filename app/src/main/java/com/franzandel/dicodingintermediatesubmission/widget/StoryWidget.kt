@@ -10,7 +10,12 @@ import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.core.net.toUri
 import com.franzandel.dicodingintermediatesubmission.R
+import com.franzandel.dicodingintermediatesubmission.data.consts.IntentConst
+import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
+import com.franzandel.dicodingintermediatesubmission.ui.detail.StoryDetail
+import com.franzandel.dicodingintermediatesubmission.ui.home.HomeViewModel
 import com.franzandel.dicodingintermediatesubmission.ui.splashscreen.SplashScreenActivity
+import com.franzandel.dicodingintermediatesubmission.utils.GsonUtils
 
 /**
  * Implementation of App Widget functionality.
@@ -18,8 +23,7 @@ import com.franzandel.dicodingintermediatesubmission.ui.splashscreen.SplashScree
 class StoryWidget : AppWidgetProvider() {
 
     companion object {
-        private const val TOAST_ACTION = "com.dicoding.picodiploma.TOAST_ACTION"
-        const val EXTRA_ITEM = "com.dicoding.picodiploma.EXTRA_ITEM"
+        private const val NAVIGATE_TO_DETAIL = "navigate_to_detail"
 
         private fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
             val serviceIntent = Intent(context, StackWidgetService::class.java)
@@ -41,7 +45,7 @@ class StoryWidget : AppWidgetProvider() {
             views.setOnClickPendingIntent(R.id.btn_empty_message, pendingIntent)
 
             val toastIntent = Intent(context, StoryWidget::class.java)
-            toastIntent.action = TOAST_ACTION
+            toastIntent.action = NAVIGATE_TO_DETAIL
             toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             val toastPendingIntent = PendingIntent.getBroadcast(context, 0, toastIntent,
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
@@ -77,9 +81,15 @@ class StoryWidget : AppWidgetProvider() {
         super.onReceive(context, intent)
 
         if (intent.action != null) {
-            if (intent.action == TOAST_ACTION) {
-                val viewIndex = intent.getIntExtra(EXTRA_ITEM, 0)
-                Toast.makeText(context, "Touched view $viewIndex", Toast.LENGTH_SHORT).show()
+            if (intent.action == NAVIGATE_TO_DETAIL) {
+                val jsonString = intent.getStringExtra(IntentConst.EXTRA_STORY_DETAIL)
+                val storyDetail = GsonUtils.fromJsonString(jsonString.orEmpty(), StoryDetail::class.java)
+                // TODO: Need to change this to always pass SplashScreen (For backstack handling)
+                val detailIntent = Intent(context, DetailActivity::class.java).apply {
+                    putExtra(IntentConst.EXTRA_STORY_DETAIL, storyDetail)
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                }
+                context?.startActivity(detailIntent)
             }
         }
     }

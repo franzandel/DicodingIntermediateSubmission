@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.franzandel.dicodingintermediatesubmission.R
+import com.franzandel.dicodingintermediatesubmission.data.consts.IntentConst
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityDetailBinding
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeViewModel
 import java.util.Locale
@@ -16,7 +17,7 @@ class DetailActivity : AppCompatActivity() {
     private val viewModel: DetailViewModel by viewModels { DetailViewModelFactory() }
 
     private val storyDetail: StoryDetail? by lazy {
-        intent.extras?.getParcelable(HomeViewModel.EXTRA_STORY_DETAIL)
+        intent.extras?.getParcelable(IntentConst.EXTRA_STORY_DETAIL)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
