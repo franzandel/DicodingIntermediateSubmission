@@ -5,13 +5,10 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Build
 import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.core.net.toUri
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.AppWidgetTarget
 import com.franzandel.dicodingintermediatesubmission.R
 
 /**
@@ -28,8 +25,8 @@ class StoryWidget : AppWidgetProvider() {
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             intent.data = intent.toUri(Intent.URI_INTENT_SCHEME).toUri()
             val views = RemoteViews(context.packageName, R.layout.story_widget)
-            views.setRemoteAdapter(R.id.stack_view, intent)
-            views.setEmptyView(R.id.stack_view, R.id.empty_view)
+            views.setRemoteAdapter(R.id.sv_stories, intent)
+            views.setEmptyView(R.id.sv_stories, R.id.empty_view)
             val toastIntent = Intent(context, StoryWidget::class.java)
             toastIntent.action = TOAST_ACTION
             toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
@@ -38,7 +35,7 @@ class StoryWidget : AppWidgetProvider() {
                     PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
                 else 0
             )
-            views.setPendingIntentTemplate(R.id.stack_view, toastPendingIntent)
+            views.setPendingIntentTemplate(R.id.sv_stories, toastPendingIntent)
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
     }
