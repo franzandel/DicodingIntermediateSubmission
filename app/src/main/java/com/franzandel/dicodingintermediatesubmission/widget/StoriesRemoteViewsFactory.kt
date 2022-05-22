@@ -1,9 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.widget
 
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import android.widget.Toast
@@ -16,9 +14,7 @@ import com.franzandel.dicodingintermediatesubmission.data.consts.IntentConst
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetStoriesUseCase
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeDetailMapper
-import com.franzandel.dicodingintermediatesubmission.ui.splashscreen.SplashScreenActivity
 import com.franzandel.dicodingintermediatesubmission.utils.GsonUtils
-import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.util.concurrent.ExecutionException
@@ -28,7 +24,7 @@ import java.util.concurrent.ExecutionException
  * on 14 May 2022.
  */
 
-class StackRemoteViewsFactory(
+class StoriesRemoteViewsFactory(
     private val context: Context,
     private val getStoriesUseCase: GetStoriesUseCase,
     private val coroutineThread: CoroutineThread
@@ -67,14 +63,14 @@ class StackRemoteViewsFactory(
     override fun getCount(): Int = stories.size
 
     override fun getViewAt(position: Int): RemoteViews {
-        val remoteViews = RemoteViews(context.packageName, R.layout.widget_item)
+        val remoteViews = RemoteViews(context.packageName, R.layout.widget_story_item)
 
         val futureTargetBitmap = Glide.with(context)
             .asBitmap()
             .load(stories[position].photoUrl)
             .submit(250, 250)
         try {
-            remoteViews.setImageViewBitmap(R.id.imageView, futureTargetBitmap.get())
+            remoteViews.setImageViewBitmap(R.id.iv_story_item, futureTargetBitmap.get())
         } catch (e: InterruptedException) {
             e.printStackTrace()
         } catch (e: ExecutionException) {
@@ -88,7 +84,7 @@ class StackRemoteViewsFactory(
         )
         val fillInIntent = Intent()
         fillInIntent.putExtras(extras)
-        remoteViews.setOnClickFillInIntent(R.id.imageView, fillInIntent)
+        remoteViews.setOnClickFillInIntent(R.id.iv_story_item, fillInIntent)
         return remoteViews
     }
 
