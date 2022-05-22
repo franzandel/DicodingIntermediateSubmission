@@ -13,7 +13,6 @@ import com.franzandel.dicodingintermediatesubmission.data.remote.HomeRemoteSourc
 import com.franzandel.dicodingintermediatesubmission.data.repository.HomeRepositoryImpl
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 import com.franzandel.dicodingintermediatesubmission.data.service.LoginService
-import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetPagingStoriesUseCase
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetStoriesUseCase
 
 /**
@@ -21,11 +20,11 @@ import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetStoriesUs
  * on 14 May 2022.
  */
 
-class StackWidgetService : RemoteViewsService() {
+class StoriesWidgetService : RemoteViewsService() {
 
     override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
         val coroutineThread = CoroutineThreadImpl()
-        return StackRemoteViewsFactory(
+        return StoriesRemoteViewsFactory(
             context = applicationContext,
             getStoriesUseCase = GetStoriesUseCase(
                 homeRepository = HomeRepositoryImpl(

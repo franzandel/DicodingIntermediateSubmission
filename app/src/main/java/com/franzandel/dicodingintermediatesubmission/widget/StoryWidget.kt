@@ -7,13 +7,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.widget.RemoteViews
-import android.widget.Toast
 import androidx.core.net.toUri
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.data.consts.IntentConst
 import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
 import com.franzandel.dicodingintermediatesubmission.ui.detail.StoryDetail
-import com.franzandel.dicodingintermediatesubmission.ui.home.HomeViewModel
 import com.franzandel.dicodingintermediatesubmission.ui.splashscreen.SplashScreenActivity
 import com.franzandel.dicodingintermediatesubmission.utils.GsonUtils
 
@@ -26,7 +24,7 @@ class StoryWidget : AppWidgetProvider() {
         private const val NAVIGATE_TO_DETAIL = "navigate_to_detail"
 
         private fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
-            val serviceIntent = Intent(context, StackWidgetService::class.java)
+            val serviceIntent = Intent(context, StoriesWidgetService::class.java)
             serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             serviceIntent.data = serviceIntent.toUri(Intent.URI_INTENT_SCHEME).toUri()
 
