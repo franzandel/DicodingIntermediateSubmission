@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.data.consts.IntentConst
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityDetailBinding
-import com.franzandel.dicodingintermediatesubmission.ui.home.HomeViewModel
 import java.util.Locale
 
 class DetailActivity : AppCompatActivity() {

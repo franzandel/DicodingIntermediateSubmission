@@ -9,8 +9,8 @@ import android.os.Build
 import android.widget.RemoteViews
 import androidx.core.net.toUri
 import com.franzandel.dicodingintermediatesubmission.R
+import com.franzandel.dicodingintermediatesubmission.data.consts.IntentActionConst
 import com.franzandel.dicodingintermediatesubmission.data.consts.IntentConst
-import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
 import com.franzandel.dicodingintermediatesubmission.ui.detail.StoryDetail
 import com.franzandel.dicodingintermediatesubmission.ui.splashscreen.SplashScreenActivity
 import com.franzandel.dicodingintermediatesubmission.utils.GsonUtils
@@ -21,8 +21,6 @@ import com.franzandel.dicodingintermediatesubmission.utils.GsonUtils
 class StoryWidget : AppWidgetProvider() {
 
     companion object {
-        private const val NAVIGATE_TO_DETAIL = "navigate_to_detail"
-
         private fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
             val serviceIntent = Intent(context, StoriesWidgetService::class.java)
             serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
@@ -37,13 +35,14 @@ class StoryWidget : AppWidgetProvider() {
             } else {
                 PendingIntent.FLAG_UPDATE_CURRENT
             }
-            // TODO: Need to handle navigation to AddStoryActivity either using deeplink or constants
-            val splashScreenIntent = Intent(context, SplashScreenActivity::class.java)
-            val pendingIntent = PendingIntent.getActivity(context, 0, splashScreenIntent, flags)
+            val addStoryIntent = Intent(context, SplashScreenActivity::class.java).apply {
+                action = IntentActionConst.NAVIGATE_TO_ADD_STORY
+            }
+            val pendingIntent = PendingIntent.getActivity(context, 0, addStoryIntent, flags)
             views.setOnClickPendingIntent(R.id.btn_empty_message, pendingIntent)
 
             val toastIntent = Intent(context, StoryWidget::class.java)
-            toastIntent.action = NAVIGATE_TO_DETAIL
+            toastIntent.action = IntentActionConst.NAVIGATE_TO_DETAIL
             toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             val toastPendingIntent = PendingIntent.getBroadcast(context, 0, toastIntent,
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
@@ -78,13 +77,13 @@ class StoryWidget : AppWidgetProvider() {
     override fun onReceive(context: Context?, intent: Intent) {
         super.onReceive(context, intent)
 
-        if (intent.action != null) {
-            if (intent.action == NAVIGATE_TO_DETAIL) {
+        intent.action?.let { intentAction ->
+            if (intentAction == IntentActionConst.NAVIGATE_TO_DETAIL) {
                 val jsonString = intent.getStringExtra(IntentConst.EXTRA_STORY_DETAIL)
                 val storyDetail = GsonUtils.fromJsonString(jsonString.orEmpty(), StoryDetail::class.java)
-                // TODO: Need to change this to always pass SplashScreen (For backstack handling)
-                val detailIntent = Intent(context, DetailActivity::class.java).apply {
+                val detailIntent = Intent(context, SplashScreenActivity::class.java).apply {
                     putExtra(IntentConst.EXTRA_STORY_DETAIL, storyDetail)
+                    action = IntentActionConst.NAVIGATE_TO_DETAIL
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 }
                 context?.startActivity(detailIntent)
