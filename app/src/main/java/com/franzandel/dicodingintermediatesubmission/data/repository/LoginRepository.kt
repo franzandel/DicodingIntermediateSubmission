@@ -1,5 +1,7 @@
-package com.franzandel.dicodingintermediatesubmission.data
+package com.franzandel.dicodingintermediatesubmission.data.repository
 
+import com.franzandel.dicodingintermediatesubmission.data.remote.LoginRemoteSource
+import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.local.LoginLocalSource
 import com.franzandel.dicodingintermediatesubmission.data.mapper.LoginResponseMapper
 import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest

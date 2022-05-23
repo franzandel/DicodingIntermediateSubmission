@@ -1,6 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.utils
 
-import com.franzandel.dicodingintermediatesubmission.data.Result
+import com.franzandel.dicodingintermediatesubmission.base.model.Result
 
 /**
  * Created by Franz Andel

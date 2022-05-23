@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThreadImpl
-import com.franzandel.dicodingintermediatesubmission.data.LoginRemoteSource
-import com.franzandel.dicodingintermediatesubmission.data.LoginRepository
+import com.franzandel.dicodingintermediatesubmission.data.remote.LoginRemoteSource
+import com.franzandel.dicodingintermediatesubmission.data.repository.LoginRepository
 import com.franzandel.dicodingintermediatesubmission.data.service.LoginService
 import com.franzandel.dicodingintermediatesubmission.data.RetrofitObject
 import com.franzandel.dicodingintermediatesubmission.data.local.HomeLocalSourceImpl

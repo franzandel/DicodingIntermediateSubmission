@@ -3,8 +3,8 @@ package com.franzandel.dicodingintermediatesubmission.domain.usecase
 import androidx.paging.PagingData
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.base.usecase.BaseUseCase
-import com.franzandel.dicodingintermediatesubmission.data.LoginRepository
-import com.franzandel.dicodingintermediatesubmission.data.Result
+import com.franzandel.dicodingintermediatesubmission.data.repository.LoginRepository
+import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.repository.HomeRepository
 import kotlinx.coroutines.flow.Flow
