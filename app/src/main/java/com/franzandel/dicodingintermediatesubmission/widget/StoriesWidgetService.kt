@@ -2,9 +2,10 @@ package com.franzandel.dicodingintermediatesubmission.widget
 
 import android.content.Intent
 import android.widget.RemoteViewsService
+import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThreadImpl
-import com.franzandel.dicodingintermediatesubmission.data.remote.LoginRemoteSource
-import com.franzandel.dicodingintermediatesubmission.data.repository.LoginRepository
+import com.franzandel.dicodingintermediatesubmission.data.remote.LoginRemoteSourceImpl
+import com.franzandel.dicodingintermediatesubmission.data.repository.LoginRepositoryImpl
 import com.franzandel.dicodingintermediatesubmission.data.RetrofitObject
 import com.franzandel.dicodingintermediatesubmission.data.local.HomeLocalSourceImpl
 import com.franzandel.dicodingintermediatesubmission.data.local.LoginLocalSourceImpl
@@ -13,6 +14,7 @@ import com.franzandel.dicodingintermediatesubmission.data.remote.HomeRemoteSourc
 import com.franzandel.dicodingintermediatesubmission.data.repository.HomeRepositoryImpl
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 import com.franzandel.dicodingintermediatesubmission.data.service.LoginService
+import com.franzandel.dicodingintermediatesubmission.domain.repository.LoginRepository
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetStoriesUseCase
 
 /**
@@ -23,7 +25,15 @@ import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetStoriesUs
 class StoriesWidgetService : RemoteViewsService() {
 
     override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
-        val coroutineThread = CoroutineThreadImpl()
+        val coroutineThread: CoroutineThread = CoroutineThreadImpl()
+        val loginRepository: LoginRepository = LoginRepositoryImpl(
+            remoteSource = LoginRemoteSourceImpl(
+                RetrofitObject.retrofit.create(LoginService::class.java)
+            ),
+            localSource = LoginLocalSourceImpl(
+                applicationContext.settingsDataStore
+            )
+        )
         return StoriesRemoteViewsFactory(
             context = applicationContext,
             getStoriesUseCase = GetStoriesUseCase(
@@ -35,14 +45,7 @@ class StoriesWidgetService : RemoteViewsService() {
                         applicationContext.settingsDataStore
                     )
                 ),
-                loginRepository = LoginRepository(
-                    remoteSource = LoginRemoteSource(
-                        RetrofitObject.retrofit.create(LoginService::class.java)
-                    ),
-                    localSource = LoginLocalSourceImpl(
-                        applicationContext.settingsDataStore
-                    )
-                ),
+                loginRepository = loginRepository,
                 coroutineThread = coroutineThread
             ),
             coroutineThread = coroutineThread

@@ -1,19 +1,20 @@
 package com.franzandel.dicodingintermediatesubmission.data.repository
 
-import com.franzandel.dicodingintermediatesubmission.data.remote.LoginRemoteSource
+import com.franzandel.dicodingintermediatesubmission.data.remote.LoginRemoteSourceImpl
 import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.local.LoginLocalSource
 import com.franzandel.dicodingintermediatesubmission.data.mapper.LoginResponseMapper
 import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
 import com.franzandel.dicodingintermediatesubmission.domain.model.Login
+import com.franzandel.dicodingintermediatesubmission.domain.repository.LoginRepository
 import kotlinx.coroutines.flow.Flow
 
-class LoginRepository(
-    private val remoteSource: LoginRemoteSource,
+class LoginRepositoryImpl(
+    private val remoteSource: LoginRemoteSourceImpl,
     private val localSource: LoginLocalSource
-) {
+): LoginRepository {
 
-    suspend fun login(loginRequest: LoginRequest): Result<Login> {
+    override suspend fun login(loginRequest: LoginRequest): Result<Login> {
         return when (val result = remoteSource.login(loginRequest)) {
             is Result.Success -> {
                 val login = LoginResponseMapper.transform(result.data)
@@ -25,7 +26,7 @@ class LoginRepository(
         }
     }
 
-    suspend fun getToken(): Result<Flow<String>> {
+    override suspend fun getToken(): Result<Flow<String>> {
         return localSource.getToken()
     }
 }
