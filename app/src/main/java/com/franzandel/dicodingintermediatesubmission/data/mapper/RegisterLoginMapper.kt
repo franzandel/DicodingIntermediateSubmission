@@ -2,8 +2,8 @@ package com.franzandel.dicodingintermediatesubmission.data.mapper
 
 import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
 import com.franzandel.dicodingintermediatesubmission.domain.model.Login
-import com.franzandel.dicodingintermediatesubmission.ui.register.data.model.RegisterRequest
-import com.franzandel.dicodingintermediatesubmission.ui.register.domain.model.Register
+import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
+import com.franzandel.dicodingintermediatesubmission.domain.model.Register
 
 /**
  * Created by Franz Andel

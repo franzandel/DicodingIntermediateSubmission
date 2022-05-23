@@ -1,4 +1,4 @@
-package com.franzandel.dicodingintermediatesubmission.ui.register.domain.model
+package com.franzandel.dicodingintermediatesubmission.domain.model
 
 /**
  * Created by Franz Andel
