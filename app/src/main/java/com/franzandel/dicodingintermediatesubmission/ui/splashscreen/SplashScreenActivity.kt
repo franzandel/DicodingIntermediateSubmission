@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -65,7 +66,14 @@ class SplashScreenActivity : AppCompatActivity() {
                     HomeActivity::class.java
                 }
 
-                startActivity(Intent(this, clazz))
+                startActivity(
+                    Intent(this, clazz).apply {
+                        action = intent.action
+                        intent.extras?.let { bundle ->
+                            putExtras(bundle)
+                        }
+                    }
+                )
                 finish()
             }
         }, DELAY_ONE_SECOND)

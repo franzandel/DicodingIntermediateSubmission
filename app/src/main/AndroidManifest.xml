@@ -31,11 +31,13 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.home.HomeActivity"
+            android:launchMode="singleTask"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.splashscreen.SplashScreenActivity"
             android:exported="true"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.App.Starting">
             <intent-filter>

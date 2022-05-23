@@ -19,8 +19,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThreadImpl
+import com.franzandel.dicodingintermediatesubmission.data.consts.IntentActionConst
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityHomeBinding
 import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
+import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
 import com.franzandel.dicodingintermediatesubmission.ui.login.LoginActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.collect
@@ -52,6 +54,13 @@ class HomeActivity : AppCompatActivity() {
         initListeners()
         initPaging3AdapterListener()
         viewModel.getStories()
+        handleIntentAction()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        this.intent = intent
+        handleIntentAction()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -196,5 +205,24 @@ class HomeActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
             .show()
+    }
+
+    private fun handleIntentAction() {
+        intent.action?.let { action ->
+            val clazz = when (action) {
+                IntentActionConst.NAVIGATE_TO_DETAIL -> DetailActivity::class.java
+                IntentActionConst.NAVIGATE_TO_ADD_STORY -> AddStoryActivity::class.java
+                else -> null
+            }
+            clazz?.let {
+                startActivity(
+                    Intent(this, it).apply {
+                        intent.extras?.let { bundle ->
+                            putExtras(bundle)
+                        }
+                    }
+                )
+            }
+        }
     }
 }
