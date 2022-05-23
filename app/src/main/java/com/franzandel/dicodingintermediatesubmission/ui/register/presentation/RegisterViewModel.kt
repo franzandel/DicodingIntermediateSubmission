@@ -57,8 +57,7 @@ class RegisterViewModel(
                 when (val result = useCase.execute(registerRequest)) {
                     is Result.Success -> {
                         _loading.value = false
-                        _registerResult.value =
-                            RegisterResult(success = RegisterInUserView(displayName = name))
+                        _registerResult.value = RegisterResult(success = Unit)
                     }
                     is Result.Error -> {
                         _loading.value = false
