@@ -2,9 +2,10 @@ package com.franzandel.dicodingintermediatesubmission.ui.register.domain.usecase
 
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.base.usecase.BaseRequestUseCase
-import com.franzandel.dicodingintermediatesubmission.data.repository.LoginRepository
+import com.franzandel.dicodingintermediatesubmission.data.repository.LoginRepositoryImpl
 import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.mapper.RegisterLoginMapper
+import com.franzandel.dicodingintermediatesubmission.domain.repository.LoginRepository
 import com.franzandel.dicodingintermediatesubmission.ui.register.data.model.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.ui.register.domain.model.Register
 import com.franzandel.dicodingintermediatesubmission.ui.register.domain.repository.RegisterRepository
