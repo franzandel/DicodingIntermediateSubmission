@@ -39,11 +39,10 @@ class LoginViewModel(
                     email = username,
                     password = password
                 )
-                when (val result = loginUseCase.execute(loginRequest)) {
+                when (loginUseCase.execute(loginRequest)) {
                     is Result.Success -> {
                         _loading.value = false
-                        _loginResult.value =
-                            LoginResult(success = LoggedInUserView(displayName = result.data.loginResult?.name.orEmpty()))
+                        _loginResult.value = LoginResult(success = Unit)
                     }
                     is Result.Error -> {
                         _loading.value = false
