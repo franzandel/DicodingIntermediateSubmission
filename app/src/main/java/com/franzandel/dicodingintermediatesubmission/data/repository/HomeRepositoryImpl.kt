@@ -1,13 +1,12 @@
 package com.franzandel.dicodingintermediatesubmission.data.repository
 
 import androidx.paging.PagingData
-import com.franzandel.dicodingintermediatesubmission.data.Result
+import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.local.HomeLocalSource
 import com.franzandel.dicodingintermediatesubmission.data.mapper.HomeResponseMapper
 import com.franzandel.dicodingintermediatesubmission.data.remote.HomeRemoteSource
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.repository.HomeRepository
-import com.franzandel.dicodingintermediatesubmission.ui.register.data.mapper.RegisterResponseMapper
 import kotlinx.coroutines.flow.Flow
 
 class HomeRepositoryImpl(

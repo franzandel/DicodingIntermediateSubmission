@@ -4,14 +4,13 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.franzandel.dicodingintermediatesubmission.data.Result
+import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.consts.PaginationConst
 import com.franzandel.dicodingintermediatesubmission.data.mapper.HomeResponseMapper
 import com.franzandel.dicodingintermediatesubmission.data.model.HomeResponse
 import com.franzandel.dicodingintermediatesubmission.data.paging.HomePagingSource
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
-import com.franzandel.dicodingintermediatesubmission.ui.register.data.model.RegisterResponse
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.Flow

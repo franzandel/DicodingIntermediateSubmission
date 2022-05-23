@@ -1,6 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.data.remote
 
-import com.franzandel.dicodingintermediatesubmission.data.Result
+import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryRequest
 import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryResponse
 import com.franzandel.dicodingintermediatesubmission.data.service.AddStoryService

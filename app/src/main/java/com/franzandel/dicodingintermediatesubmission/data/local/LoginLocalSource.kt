@@ -1,6 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.data.local
 
-import com.franzandel.dicodingintermediatesubmission.data.Result
+import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import kotlinx.coroutines.flow.Flow
 
 /**

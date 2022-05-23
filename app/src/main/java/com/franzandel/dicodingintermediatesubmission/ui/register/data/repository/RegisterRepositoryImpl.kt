@@ -1,6 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.ui.register.data.repository
 
-import com.franzandel.dicodingintermediatesubmission.data.Result
+import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import com.franzandel.dicodingintermediatesubmission.ui.register.data.mapper.RegisterResponseMapper
 import com.franzandel.dicodingintermediatesubmission.ui.register.data.model.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.ui.register.data.remote.RegisterRemoteSource

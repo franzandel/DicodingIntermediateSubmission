@@ -1,4 +1,4 @@
-package com.franzandel.dicodingintermediatesubmission.data
+package com.franzandel.dicodingintermediatesubmission.base.model
 
 import retrofit2.HttpException
 
