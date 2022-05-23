@@ -12,9 +12,6 @@ import retrofit2.HttpException
 import retrofit2.Response
 import kotlin.coroutines.resume
 
-/**
- * Class that handles authentication w/ login credentials and retrieves user information.
- */
 class LoginRemoteSource(private val service: LoginService) {
 
     suspend fun login(loginRequest: LoginRequest): Result<LoginResponse> {
@@ -48,10 +45,6 @@ class LoginRemoteSource(private val service: LoginService) {
                 }
             })
         }
-    }
-
-    fun logout() {
-        // TODO: revoke authentication
     }
 }
 

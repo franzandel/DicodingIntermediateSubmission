@@ -4,7 +4,7 @@ import com.franzandel.dicodingintermediatesubmission.data.model.StoryResponse
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 
 /**
- * Created by Franz Andel <franz.andel@ovo.id>
+ * Created by Franz Andel
  * on 02 May 2022.
  */
 

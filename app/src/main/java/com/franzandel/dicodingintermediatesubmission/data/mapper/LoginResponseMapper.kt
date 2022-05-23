@@ -10,6 +10,7 @@ import com.franzandel.dicodingintermediatesubmission.domain.model.LoginResult
  */
 
 object LoginResponseMapper {
+
     fun transform(loginResponse: LoginResponse): Login {
         return with(loginResponse) {
             Login(

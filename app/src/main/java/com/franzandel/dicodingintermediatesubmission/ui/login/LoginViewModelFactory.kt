@@ -12,10 +12,6 @@ import com.franzandel.dicodingintermediatesubmission.data.local.LoginLocalSource
 import com.franzandel.dicodingintermediatesubmission.data.local.serializer.settingsDataStore
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.LoginUseCase
 
-/**
- * ViewModel provider factory to instantiate LoginViewModel.
- * Required given LoginViewModel has a non-empty constructor
- */
 class LoginViewModelFactory(private val applicationContext: Context) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")

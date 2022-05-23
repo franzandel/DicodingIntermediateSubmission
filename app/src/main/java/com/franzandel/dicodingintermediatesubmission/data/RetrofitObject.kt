@@ -21,7 +21,7 @@ object RetrofitObject {
         )
         .build()
 
-    val retrofit = Retrofit.Builder()
+    val retrofit: Retrofit = Retrofit.Builder()
         .client(okHttpClient)
         .baseUrl("https://story-api.dicoding.dev/v1/")
         .addConverterFactory(GsonConverterFactory.create())

@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.data.Result
-import com.franzandel.dicodingintermediatesubmission.ui.login.LoggedInUserView
 import com.franzandel.dicodingintermediatesubmission.ui.login.LoginViewModel
 import com.franzandel.dicodingintermediatesubmission.ui.register.data.model.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.ui.register.domain.usecase.RegisterUseCase
