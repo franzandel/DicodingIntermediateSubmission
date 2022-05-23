@@ -1,7 +1,7 @@
-package com.franzandel.dicodingintermediatesubmission.ui.register.data.service
+package com.franzandel.dicodingintermediatesubmission.data.service
 
-import com.franzandel.dicodingintermediatesubmission.ui.register.data.model.RegisterRequest
-import com.franzandel.dicodingintermediatesubmission.ui.register.data.model.RegisterResponse
+import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.RegisterResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST

@@ -11,10 +11,10 @@ import com.franzandel.dicodingintermediatesubmission.data.local.LoginLocalSource
 import com.franzandel.dicodingintermediatesubmission.data.local.serializer.settingsDataStore
 import com.franzandel.dicodingintermediatesubmission.data.service.LoginService
 import com.franzandel.dicodingintermediatesubmission.domain.repository.LoginRepository
-import com.franzandel.dicodingintermediatesubmission.ui.register.data.remote.RegisterRemoteSourceImpl
-import com.franzandel.dicodingintermediatesubmission.ui.register.data.repository.RegisterRepositoryImpl
-import com.franzandel.dicodingintermediatesubmission.ui.register.data.service.RegisterService
-import com.franzandel.dicodingintermediatesubmission.ui.register.domain.usecase.RegisterUseCase
+import com.franzandel.dicodingintermediatesubmission.data.remote.RegisterRemoteSourceImpl
+import com.franzandel.dicodingintermediatesubmission.data.repository.RegisterRepositoryImpl
+import com.franzandel.dicodingintermediatesubmission.data.service.RegisterService
+import com.franzandel.dicodingintermediatesubmission.domain.usecase.RegisterUseCase
 
 class RegisterViewModelFactory(private val applicationContext: Context) : ViewModelProvider.Factory {
 

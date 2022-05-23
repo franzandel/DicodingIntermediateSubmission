@@ -1,11 +1,11 @@
-package com.franzandel.dicodingintermediatesubmission.ui.register.data.repository
+package com.franzandel.dicodingintermediatesubmission.data.repository
 
 import com.franzandel.dicodingintermediatesubmission.base.model.Result
-import com.franzandel.dicodingintermediatesubmission.ui.register.data.mapper.RegisterResponseMapper
-import com.franzandel.dicodingintermediatesubmission.ui.register.data.model.RegisterRequest
-import com.franzandel.dicodingintermediatesubmission.ui.register.data.remote.RegisterRemoteSource
-import com.franzandel.dicodingintermediatesubmission.ui.register.domain.model.Register
-import com.franzandel.dicodingintermediatesubmission.ui.register.domain.repository.RegisterRepository
+import com.franzandel.dicodingintermediatesubmission.data.mapper.RegisterResponseMapper
+import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
+import com.franzandel.dicodingintermediatesubmission.data.remote.RegisterRemoteSource
+import com.franzandel.dicodingintermediatesubmission.domain.model.Register
+import com.franzandel.dicodingintermediatesubmission.domain.repository.RegisterRepository
 
 class RegisterRepositoryImpl(
     private val remoteSource: RegisterRemoteSource

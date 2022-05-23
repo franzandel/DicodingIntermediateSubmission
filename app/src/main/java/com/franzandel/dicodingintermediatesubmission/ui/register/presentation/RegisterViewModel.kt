@@ -9,8 +9,8 @@ import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import com.franzandel.dicodingintermediatesubmission.ui.login.LoginViewModel
-import com.franzandel.dicodingintermediatesubmission.ui.register.data.model.RegisterRequest
-import com.franzandel.dicodingintermediatesubmission.ui.register.domain.usecase.RegisterUseCase
+import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
+import com.franzandel.dicodingintermediatesubmission.domain.usecase.RegisterUseCase
 import kotlinx.coroutines.launch
 
 /**
