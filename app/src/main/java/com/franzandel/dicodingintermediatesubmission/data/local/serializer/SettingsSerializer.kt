@@ -11,7 +11,7 @@ import java.io.InputStream
 import java.io.OutputStream
 
 /**
- * Created by Franz Andel <franz.andel@ovo.id>
+ * Created by Franz Andel
  * on 29 April 2022.
  */
 

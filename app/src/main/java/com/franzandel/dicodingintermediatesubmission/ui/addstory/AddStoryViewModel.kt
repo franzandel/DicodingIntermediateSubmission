@@ -18,7 +18,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 /**
- * Created by Franz Andel <franz.andel@ovo.id>
+ * Created by Franz Andel
  * on 07 May 2022.
  */
 

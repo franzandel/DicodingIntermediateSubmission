@@ -15,10 +15,6 @@ import com.franzandel.dicodingintermediatesubmission.ui.register.data.repository
 import com.franzandel.dicodingintermediatesubmission.ui.register.data.service.RegisterService
 import com.franzandel.dicodingintermediatesubmission.ui.register.domain.usecase.RegisterUseCase
 
-/**
- * ViewModel provider factory to instantiate LoginViewModel.
- * Required given LoginViewModel has a non-empty constructor
- */
 class RegisterViewModelFactory(private val applicationContext: Context) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")

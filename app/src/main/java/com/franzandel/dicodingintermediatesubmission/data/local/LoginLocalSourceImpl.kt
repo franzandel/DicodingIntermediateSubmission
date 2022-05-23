@@ -7,7 +7,9 @@ import com.franzandel.dicodingintermediatesubmission.utils.suspendTryCatch
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class LoginLocalSourceImpl(private val settingsDataStore: DataStore<AuthenticationSession>) : LoginLocalSource {
+class LoginLocalSourceImpl(
+    private val settingsDataStore: DataStore<AuthenticationSession>
+) : LoginLocalSource {
 
     override suspend fun saveToken(token: String): Result<Unit> {
         return suspendTryCatch {
