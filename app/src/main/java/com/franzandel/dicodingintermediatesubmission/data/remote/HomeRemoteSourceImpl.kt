@@ -11,6 +11,7 @@ import com.franzandel.dicodingintermediatesubmission.data.model.HomeResponse
 import com.franzandel.dicodingintermediatesubmission.data.paging.HomePagingSource
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
+import com.franzandel.dicodingintermediatesubmission.utils.awaitResponse
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.Flow
@@ -43,35 +44,6 @@ class HomeRemoteSourceImpl(private val service: HomeService) : HomeRemoteSource 
         )
 
     override suspend fun getStories(token: String): Result<HomeResponse> {
-        return suspendCancellableCoroutine { continuation ->
-            service.getStories("Bearer $token").enqueue(object : Callback<HomeResponse> {
-                override fun onResponse(
-                    call: Call<HomeResponse>,
-                    response: Response<HomeResponse>
-                ) {
-                    continuation.resumeWith(runCatching {
-                        if (response.isSuccessful) {
-                            val body = response.body()
-                            if (body == null) {
-                                Result.Exception(NullPointerException("Response body is null"))
-                            } else {
-                                Result.Success(body)
-                            }
-                        } else {
-                            val loginResponse = Gson().fromJson<HomeResponse>(
-                                response.errorBody()?.charStream()?.readText(),
-                                object : TypeToken<HomeResponse>() {}.type
-                            )
-                            Result.Error(HttpException(response), loginResponse)
-                        }
-                    })
-                }
-
-                override fun onFailure(call: Call<HomeResponse>, t: Throwable) {
-                    if (continuation.isCancelled) return
-                    continuation.resume(Result.Exception(t))
-                }
-            })
-        }
+        return service.getStories("Bearer $token").awaitResponse()
     }
 }
