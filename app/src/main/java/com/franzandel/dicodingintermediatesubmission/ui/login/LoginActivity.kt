@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityLoginBinding
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
@@ -18,7 +18,9 @@ import com.franzandel.dicodingintermediatesubmission.utils.hideKeyboard
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by viewModels {
+        LoginViewModelFactory(applicationContext)
+    }
     private lateinit var binding: ActivityLoginBinding
 
     private val loadingDialog by lazy {
@@ -31,8 +33,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        loginViewModel =
-            ViewModelProvider(this, LoginViewModelFactory(applicationContext))[LoginViewModel::class.java]
         title = getString(R.string.toolbar_login)
         initObserver()
         initListener()
@@ -117,7 +117,8 @@ class LoginActivity : AppCompatActivity() {
             tvNoAccountYet.setOnClickListener {
                 startActivity(
                     Intent(this@LoginActivity, RegisterActivity::class.java),
-                    ActivityOptionsCompat.makeSceneTransitionAnimation(this@LoginActivity).toBundle()
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(this@LoginActivity)
+                        .toBundle()
                 )
             }
         }
