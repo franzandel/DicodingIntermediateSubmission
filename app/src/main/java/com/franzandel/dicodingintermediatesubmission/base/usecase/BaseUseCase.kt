@@ -12,12 +12,6 @@ abstract class BaseUseCase<Output>(
     private val coroutineThread: CoroutineThread
 ) {
 
-    suspend fun execute(): Output {
-        return withContext(coroutineThread.background) {
-            getOperation()
-        }
-    }
-
     suspend operator fun invoke(): Output {
         return withContext(coroutineThread.background) {
             getOperation()
