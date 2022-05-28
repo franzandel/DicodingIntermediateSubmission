@@ -38,7 +38,7 @@ class StoriesRemoteViewsFactory(
 
     override fun onDataSetChanged() {
         CoroutineScope(coroutineThread.main).launch {
-            when (val result = getStoriesUseCase.execute()) {
+            when (val result = getStoriesUseCase()) {
                 is Result.Success -> {
                     stories.addAll(result.data)
                 }

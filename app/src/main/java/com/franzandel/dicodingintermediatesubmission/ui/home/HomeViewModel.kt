@@ -40,7 +40,7 @@ class HomeViewModel(
 
     fun getStories() {
         viewModelScope.launch(coroutineThread.main) {
-            when (val result = getPagingStoriesUseCase.execute()) {
+            when (val result = getPagingStoriesUseCase()) {
                 is Result.Success -> {
                     result.data.cachedIn(viewModelScope).collect {
                         _homeResult.value = HomeResult(success = it)
@@ -64,7 +64,7 @@ class HomeViewModel(
 
     fun clearStorage() {
         viewModelScope.launch(coroutineThread.main) {
-            when (clearStorageUseCase.execute(Unit)) {
+            when (clearStorageUseCase(Unit)) {
                 is Result.Success -> _clearStorageResult.value = true
                 is Result.Error -> _clearStorageResult.value = false
                 is Result.Exception -> _clearStorageResult.value = false

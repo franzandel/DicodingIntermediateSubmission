@@ -52,7 +52,7 @@ class AddStoryViewModel(
                     file = imageMultipart,
                     description = descriptionRequestBody
                 )
-                when (uploadImageUseCase.execute(addStoryRequest)) {
+                when (uploadImageUseCase(addStoryRequest)) {
                     is Result.Success -> {
                         _loading.value = false
                         _uploadImageResult.value =

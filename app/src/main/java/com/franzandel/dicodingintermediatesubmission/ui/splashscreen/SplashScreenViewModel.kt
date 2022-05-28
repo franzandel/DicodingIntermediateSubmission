@@ -25,7 +25,7 @@ class SplashScreenViewModel(
 
     fun getToken() {
         viewModelScope.launch(coroutineThread.main) {
-            when (val result = getTokenUseCase.execute()) {
+            when (val result = getTokenUseCase()) {
                 is Result.Success -> {
                     result.data.collect {
                         _isTokenEmpty.value = it.isEmpty()

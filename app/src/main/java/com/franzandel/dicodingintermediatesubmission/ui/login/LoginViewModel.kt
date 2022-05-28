@@ -39,7 +39,7 @@ class LoginViewModel(
                     email = username,
                     password = password
                 )
-                when (loginUseCase.execute(loginRequest)) {
+                when (loginUseCase(loginRequest)) {
                     is Result.Success -> {
                         _loading.value = false
                         _loginResult.value = LoginResult(success = Unit)
