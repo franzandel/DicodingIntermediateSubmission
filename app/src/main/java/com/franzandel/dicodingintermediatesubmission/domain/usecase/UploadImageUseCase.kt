@@ -20,7 +20,7 @@ class UploadImageUseCase(
 ) : BaseRequestUseCase<Result<AddStory>, AddStoryRequest>(coroutineThread) {
 
     override suspend fun getOperation(bodyRequest: AddStoryRequest): Result<AddStory> {
-        return when (val result = getTokenUseCase.execute()) {
+        return when (val result = getTokenUseCase()) {
             is Result.Success -> {
                 repository.uploadImage(result.data.first(), bodyRequest)
             }

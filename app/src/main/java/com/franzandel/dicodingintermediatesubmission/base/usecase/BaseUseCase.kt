@@ -18,5 +18,11 @@ abstract class BaseUseCase<Output>(
         }
     }
 
+    suspend operator fun invoke(): Output {
+        return withContext(coroutineThread.background) {
+            getOperation()
+        }
+    }
+
     protected abstract suspend fun getOperation(): Output
 }

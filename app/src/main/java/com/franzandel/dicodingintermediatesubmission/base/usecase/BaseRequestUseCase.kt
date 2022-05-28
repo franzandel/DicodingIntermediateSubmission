@@ -12,7 +12,7 @@ abstract class BaseRequestUseCase<Output, BodyRequest>(
     private val coroutineThread: CoroutineThread
 ) {
 
-    suspend fun execute(bodyRequest: BodyRequest): Output {
+    suspend operator fun invoke(bodyRequest: BodyRequest): Output {
         return withContext(coroutineThread.background) {
             getOperation(bodyRequest)
         }

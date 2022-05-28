@@ -54,7 +54,7 @@ class RegisterViewModel(
                     email = username,
                     password = password
                 )
-                when (val result = useCase.execute(registerRequest)) {
+                when (val result = useCase(registerRequest)) {
                     is Result.Success -> {
                         _loading.value = false
                         _registerResult.value = RegisterResult(success = Unit)
