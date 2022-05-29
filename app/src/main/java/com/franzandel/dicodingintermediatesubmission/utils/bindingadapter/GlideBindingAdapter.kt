@@ -1,4 +1,4 @@
-package com.franzandel.dicodingintermediatesubmission.bindingadapter
+package com.franzandel.dicodingintermediatesubmission.utils.bindingadapter
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
