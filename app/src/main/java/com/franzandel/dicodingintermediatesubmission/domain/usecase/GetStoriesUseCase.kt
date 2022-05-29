@@ -2,12 +2,10 @@ package com.franzandel.dicodingintermediatesubmission.domain.usecase
 
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.base.usecase.BaseUseCase
-import com.franzandel.dicodingintermediatesubmission.data.repository.LoginRepositoryImpl
 import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.repository.HomeRepository
 import com.franzandel.dicodingintermediatesubmission.domain.repository.LoginRepository
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 
 /**
@@ -22,16 +20,16 @@ class GetStoriesUseCase(
 ) : BaseUseCase<Result<List<Story>>>(coroutineThread) {
 
     override suspend fun getOperation(): Result<List<Story>> {
-        return when (val result = loginRepository.getToken()) {
+        return when (val tokenResult = loginRepository.getToken()) {
             is Result.Success -> {
-                when (val ffff = homeRepository.getStories(result.data.first())) {
-                    is Result.Success -> ffff
-                    is Result.Error -> ffff
-                    is Result.Exception -> ffff
+                when (val storiesResult = homeRepository.getStories(tokenResult.data.first())) {
+                    is Result.Success -> storiesResult
+                    is Result.Error -> storiesResult
+                    is Result.Exception -> storiesResult
                 }
             }
             is Result.Error -> Result.Error()
-            is Result.Exception -> Result.Exception(result.throwable)
+            is Result.Exception -> Result.Exception(tokenResult.throwable)
         }
     }
 }

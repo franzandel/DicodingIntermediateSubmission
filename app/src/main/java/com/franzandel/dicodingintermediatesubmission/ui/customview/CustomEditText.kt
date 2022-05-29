@@ -98,6 +98,7 @@ class CustomEditText : AppCompatEditText, OnTouchListener, TextWatcher {
                         when {
                             text != null -> text?.clear()
                         }
+                        requestFocus()
                         hideClearButton()
                         true
                     }
