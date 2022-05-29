@@ -16,6 +16,7 @@ import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 import com.franzandel.dicodingintermediatesubmission.data.service.LoginService
 import com.franzandel.dicodingintermediatesubmission.domain.repository.LoginRepository
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetStoriesUseCase
+import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetTokenUseCase
 
 /**
  * Created by Franz Andel
@@ -45,7 +46,10 @@ class StoriesWidgetService : RemoteViewsService() {
                         applicationContext.settingsDataStore
                     )
                 ),
-                loginRepository = loginRepository,
+                getTokenUseCase = GetTokenUseCase(
+                    repository = loginRepository,
+                    coroutineThread = coroutineThread
+                ),
                 coroutineThread = coroutineThread
             ),
             coroutineThread = coroutineThread

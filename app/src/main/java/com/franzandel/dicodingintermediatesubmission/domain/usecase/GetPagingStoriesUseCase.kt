@@ -17,12 +17,12 @@ import kotlinx.coroutines.flow.first
 
 class GetPagingStoriesUseCase(
     private val homeRepository: HomeRepository,
-    private val loginRepository: LoginRepository,
+    private val getTokenUseCase: GetTokenUseCase,
     coroutineThread: CoroutineThread
 ) : BaseUseCase<Result<Flow<PagingData<Story>>>>(coroutineThread) {
 
     override suspend fun getOperation(): Result<Flow<PagingData<Story>>> {
-        return when (val tokenResult = loginRepository.getToken()) {
+        return when (val tokenResult = getTokenUseCase()) {
             is Result.Success -> {
                 when (val pagingStoriesResult =
                     homeRepository.getPagingStories(tokenResult.data.first())) {

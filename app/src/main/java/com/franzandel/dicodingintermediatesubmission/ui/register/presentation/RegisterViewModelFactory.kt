@@ -14,6 +14,7 @@ import com.franzandel.dicodingintermediatesubmission.domain.repository.LoginRepo
 import com.franzandel.dicodingintermediatesubmission.data.remote.RegisterRemoteSourceImpl
 import com.franzandel.dicodingintermediatesubmission.data.repository.RegisterRepositoryImpl
 import com.franzandel.dicodingintermediatesubmission.data.service.RegisterService
+import com.franzandel.dicodingintermediatesubmission.domain.usecase.LoginUseCase
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.RegisterUseCase
 
 class RegisterViewModelFactory(private val applicationContext: Context) : ViewModelProvider.Factory {
@@ -37,7 +38,10 @@ class RegisterViewModelFactory(private val applicationContext: Context) : ViewMo
                             RetrofitObject.retrofit.create(RegisterService::class.java)
                         )
                     ),
-                    loginRepository = loginRepository,
+                    loginUseCase = LoginUseCase(
+                        repository = loginRepository,
+                        coroutineThread = coroutineThread
+                    ),
                     coroutineThread = coroutineThread
                 ),
                 coroutineThread = coroutineThread
