@@ -55,4 +55,8 @@
     <string name="app_widget_description">This is an app widget description</string>
     <string name="widget_empty_message">No story yet, go add some stories!</string>
     <string name="widget_empty_btn_message">Go</string>
+
+    <string name="permission_denied">Permission denied. Please go to settings to enable it.</string>
+    <string name="failed_get_image">Failed to get image.</string>
+    <string name="failed_show_camera">Failed to show camera.</string>
 </resources>

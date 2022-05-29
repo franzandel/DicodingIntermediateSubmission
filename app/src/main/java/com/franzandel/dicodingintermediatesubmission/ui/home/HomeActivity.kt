@@ -7,7 +7,6 @@ import android.provider.Settings
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -24,7 +23,9 @@ import com.franzandel.dicodingintermediatesubmission.databinding.ActivityHomeBin
 import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
 import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
 import com.franzandel.dicodingintermediatesubmission.ui.login.LoginActivity
+import com.franzandel.dicodingintermediatesubmission.utils.showDefaultSnackbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -99,7 +100,7 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
             if (it.error != null) {
-                Toast.makeText(applicationContext, it.error, Toast.LENGTH_SHORT).show()
+                showDefaultSnackbar(getString(it.error), Snackbar.LENGTH_LONG)
             }
             binding.srlHome.isRefreshing = false
         }
@@ -119,11 +120,7 @@ class HomeActivity : AppCompatActivity() {
                 )
                 finishAffinity()
             } else {
-                Toast.makeText(
-                    applicationContext,
-                    getString(R.string.system_error),
-                    Toast.LENGTH_SHORT
-                ).show()
+                showDefaultSnackbar(getString(R.string.system_error), Snackbar.LENGTH_SHORT)
             }
         }
 
@@ -172,17 +169,13 @@ class HomeActivity : AppCompatActivity() {
                         isListEmpty && loadState.source.refresh !is LoadState.Error
                 }
 
-                // Toast on any error, regardless of whether it came from RemoteMediator or PagingSource
+                // Show snackbar on any error, regardless of whether it came from RemoteMediator or PagingSource
                 val errorState = loadState.source.append as? LoadState.Error
                     ?: loadState.source.prepend as? LoadState.Error
                     ?: loadState.append as? LoadState.Error
                     ?: loadState.prepend as? LoadState.Error
                 errorState?.let {
-                    Toast.makeText(
-                        this@HomeActivity,
-                        "\uD83D\uDE28 Wooops ${it.error}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    showDefaultSnackbar("\uD83D\uDE28 Wooops ${it.error}", Snackbar.LENGTH_LONG)
                 }
             }
         }

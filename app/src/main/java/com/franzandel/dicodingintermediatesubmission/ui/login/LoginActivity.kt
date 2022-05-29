@@ -3,7 +3,6 @@ package com.franzandel.dicodingintermediatesubmission.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +14,8 @@ import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
 import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
 import com.franzandel.dicodingintermediatesubmission.ui.register.presentation.RegisterActivity
 import com.franzandel.dicodingintermediatesubmission.utils.hideKeyboard
+import com.franzandel.dicodingintermediatesubmission.utils.showDefaultSnackbar
+import com.google.android.material.snackbar.Snackbar
 
 class LoginActivity : AppCompatActivity() {
 
@@ -125,6 +126,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+        showDefaultSnackbar(getString(errorString), Snackbar.LENGTH_SHORT)
     }
 }

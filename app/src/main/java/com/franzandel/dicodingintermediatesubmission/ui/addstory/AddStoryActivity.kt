@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -22,6 +21,8 @@ import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThr
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityAddStoryBinding
 import com.franzandel.dicodingintermediatesubmission.ui.camerax.CameraXActivity
+import com.franzandel.dicodingintermediatesubmission.utils.showDefaultSnackbar
+import com.google.android.material.snackbar.Snackbar
 import id.zelory.compressor.Compressor
 import kotlinx.coroutines.launch
 import java.io.File
@@ -64,13 +65,13 @@ class AddStoryActivity : AppCompatActivity() {
 
         viewModel.uploadImageResult.observe(this) {
             if (it.success != null) {
-                Toast.makeText(applicationContext, it.success, Toast.LENGTH_SHORT).show()
+                showDefaultSnackbar(getString(it.success), Snackbar.LENGTH_SHORT)
                 setResult(RESULT_OK)
                 finish()
             }
 
             if (it.error != null) {
-                Toast.makeText(applicationContext, it.error, Toast.LENGTH_SHORT).show()
+                showDefaultSnackbar(getString(it.error), Snackbar.LENGTH_LONG)
             }
         }
 
@@ -117,11 +118,9 @@ class AddStoryActivity : AppCompatActivity() {
                         viewModel.uploadImage(compressedImageFile, etDescription.text.toString())
                     }
                 } ?: run {
-                    Toast.makeText(
-                        this@AddStoryActivity,
-                        getString(R.string.add_story_select_image),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showDefaultSnackbar(
+                        getString(R.string.add_story_select_image), Snackbar.LENGTH_SHORT
+                    )
                 }
             }
 
@@ -173,11 +172,7 @@ class AddStoryActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (!allPermissionsGranted()) {
-                Toast.makeText(
-                    this,
-                    "Tidak mendapatkan permission.",
-                    Toast.LENGTH_SHORT
-                ).show()
+                showDefaultSnackbar(getString(R.string.permission_denied), Snackbar.LENGTH_SHORT)
                 finish()
             } else {
                 val intent = Intent(this@AddStoryActivity, CameraXActivity::class.java)
