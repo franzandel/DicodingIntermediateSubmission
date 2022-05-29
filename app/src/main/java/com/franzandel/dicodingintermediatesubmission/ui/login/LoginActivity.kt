@@ -16,12 +16,12 @@ import com.franzandel.dicodingintermediatesubmission.ui.register.presentation.Re
 import com.franzandel.dicodingintermediatesubmission.utils.hideKeyboard
 import com.franzandel.dicodingintermediatesubmission.utils.showDefaultSnackbar
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
-    private val loginViewModel: LoginViewModel by viewModels {
-        LoginViewModelFactory(applicationContext)
-    }
+    private val loginViewModel: LoginViewModel by viewModels()
     private lateinit var binding: ActivityLoginBinding
 
     private val loadingDialog by lazy {

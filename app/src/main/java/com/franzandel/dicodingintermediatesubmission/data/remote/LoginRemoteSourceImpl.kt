@@ -5,8 +5,9 @@ import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
 import com.franzandel.dicodingintermediatesubmission.data.model.LoginResponse
 import com.franzandel.dicodingintermediatesubmission.data.service.LoginService
 import com.franzandel.dicodingintermediatesubmission.utils.awaitResponse
+import javax.inject.Inject
 
-class LoginRemoteSourceImpl(private val service: LoginService): LoginRemoteSource {
+class LoginRemoteSourceImpl @Inject constructor(private val service: LoginService): LoginRemoteSource {
 
     override suspend fun login(loginRequest: LoginRequest): Result<LoginResponse> {
         return service.login(loginRequest).awaitResponse()
