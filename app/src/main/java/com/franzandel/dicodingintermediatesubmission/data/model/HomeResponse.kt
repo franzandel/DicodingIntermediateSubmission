@@ -1,10 +1,9 @@
 package com.franzandel.dicodingintermediatesubmission.data.model
 
 import androidx.annotation.Keep
+import com.franzandel.dicodingintermediatesubmission.base.model.BaseResponse
 
 @Keep
 data class HomeResponse(
-    val error: Boolean,
-    val listStory: List<StoryResponse>,
-    val message: String
-)
+    val listStory: List<StoryResponse>
+): BaseResponse()

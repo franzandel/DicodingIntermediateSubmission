@@ -1,8 +1,8 @@
 package com.franzandel.dicodingintermediatesubmission.data.remote
 
+import com.franzandel.dicodingintermediatesubmission.base.model.BaseResponse
 import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryRequest
-import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryResponse
 
 /**
  * Created by Franz Andel
@@ -10,5 +10,5 @@ import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryResponse
  */
 
 interface AddStoryRemoteSource {
-    suspend fun uploadImage(token: String, addStoryRequest: AddStoryRequest): Result<AddStoryResponse>
+    suspend fun uploadImage(token: String, addStoryRequest: AddStoryRequest): Result<BaseResponse>
 }

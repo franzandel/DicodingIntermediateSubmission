@@ -1,6 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.data.mapper
 
-import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryResponse
+import com.franzandel.dicodingintermediatesubmission.base.model.BaseResponse
 import com.franzandel.dicodingintermediatesubmission.domain.model.AddStory
 
 /**
@@ -10,8 +10,8 @@ import com.franzandel.dicodingintermediatesubmission.domain.model.AddStory
 
 object AddStoryResponseMapper {
 
-    fun transform(addStoryResponse: AddStoryResponse): AddStory {
-        return with(addStoryResponse) {
+    fun transform(baseResponse: BaseResponse): AddStory {
+        return with(baseResponse) {
             AddStory(
                 error = error,
                 message = message

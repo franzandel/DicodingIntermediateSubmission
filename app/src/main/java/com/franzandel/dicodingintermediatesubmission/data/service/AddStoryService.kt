@@ -1,6 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.data.service
 
-import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryResponse
+import com.franzandel.dicodingintermediatesubmission.base.model.BaseResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -21,5 +21,5 @@ interface AddStoryService {
         @Header("Authorization") header: String,
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody,
-    ): Call<AddStoryResponse>
+    ): Call<BaseResponse>
 }
