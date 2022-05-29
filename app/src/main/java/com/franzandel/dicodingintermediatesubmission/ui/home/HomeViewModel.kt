@@ -7,16 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.franzandel.dicodingintermediatesubmission.R
-import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
+import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.base.model.Navigation
-import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.consts.IntentConst
-import com.franzandel.dicodingintermediatesubmission.domain.model.Login
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.ClearStorageUseCase
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetPagingStoriesUseCase
 import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
-import com.franzandel.dicodingintermediatesubmission.ui.login.LoginResult
 import com.franzandel.dicodingintermediatesubmission.utils.onError
 import com.franzandel.dicodingintermediatesubmission.utils.onException
 import com.franzandel.dicodingintermediatesubmission.utils.onSuccess

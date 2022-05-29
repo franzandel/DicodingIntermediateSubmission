@@ -1,4 +1,4 @@
-package com.franzandel.dicodingintermediatesubmission.base.coroutine
+package com.franzandel.dicodingintermediatesubmission.core.coroutine
 
 import kotlinx.coroutines.CoroutineDispatcher
 

@@ -1,6 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.utils
 
-import com.franzandel.dicodingintermediatesubmission.base.model.Result
+import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.suspendCancellableCoroutine
 import retrofit2.Call

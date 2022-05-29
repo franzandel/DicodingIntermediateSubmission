@@ -1,7 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.data.repository
 
 import androidx.paging.PagingData
-import com.franzandel.dicodingintermediatesubmission.base.model.Result
+import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.local.HomeLocalSource
 import com.franzandel.dicodingintermediatesubmission.data.mapper.HomeResponseMapper
 import com.franzandel.dicodingintermediatesubmission.data.remote.HomeRemoteSource

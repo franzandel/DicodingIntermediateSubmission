@@ -17,8 +17,8 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.franzandel.dicodingintermediatesubmission.R
-import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
-import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThreadImpl
+import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
+import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityAddStoryBinding
 import com.franzandel.dicodingintermediatesubmission.ui.camerax.CameraXActivity
 import com.franzandel.dicodingintermediatesubmission.utils.showDefaultSnackbar

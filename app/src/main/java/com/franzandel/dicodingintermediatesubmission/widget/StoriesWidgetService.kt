@@ -2,8 +2,8 @@ package com.franzandel.dicodingintermediatesubmission.widget
 
 import android.content.Intent
 import android.widget.RemoteViewsService
-import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
-import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThreadImpl
+import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
+import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.data.remote.LoginRemoteSourceImpl
 import com.franzandel.dicodingintermediatesubmission.data.repository.LoginRepositoryImpl
 import com.franzandel.dicodingintermediatesubmission.data.RetrofitObject

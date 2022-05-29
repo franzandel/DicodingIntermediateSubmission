@@ -2,7 +2,7 @@ package com.franzandel.dicodingintermediatesubmission.ui.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThreadImpl
+import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThreadImpl
 
 class DetailViewModelFactory : ViewModelProvider.Factory {
 

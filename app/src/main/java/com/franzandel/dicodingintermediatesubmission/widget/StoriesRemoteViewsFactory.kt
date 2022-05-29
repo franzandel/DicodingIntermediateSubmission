@@ -8,8 +8,8 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide
 import com.franzandel.dicodingintermediatesubmission.R
-import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
-import com.franzandel.dicodingintermediatesubmission.base.model.Result
+import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
+import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.consts.IntentConst
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetStoriesUseCase
