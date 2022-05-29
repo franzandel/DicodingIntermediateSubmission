@@ -3,7 +3,6 @@ package com.franzandel.dicodingintermediatesubmission.ui.register.presentation
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.franzandel.dicodingintermediatesubmission.R
@@ -11,6 +10,8 @@ import com.franzandel.dicodingintermediatesubmission.databinding.ActivityRegiste
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
 import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
 import com.franzandel.dicodingintermediatesubmission.utils.hideKeyboard
+import com.franzandel.dicodingintermediatesubmission.utils.showDefaultSnackbar
+import com.google.android.material.snackbar.Snackbar
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -71,7 +72,7 @@ class RegisterActivity : AppCompatActivity() {
                 startActivity(Intent(this, HomeActivity::class.java))
                 finishAffinity()
             } else {
-                Toast.makeText(this, getString(it.error), Toast.LENGTH_SHORT).show()
+                showDefaultSnackbar(getString(it.error), Snackbar.LENGTH_LONG)
             }
         }
     }

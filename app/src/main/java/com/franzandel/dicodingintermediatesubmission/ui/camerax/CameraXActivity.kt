@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -18,6 +17,8 @@ import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityCameraXactivityBinding
 import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
 import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
+import com.franzandel.dicodingintermediatesubmission.utils.showDefaultSnackbar
+import com.google.android.material.snackbar.Snackbar
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -84,11 +85,7 @@ class CameraXActivity : AppCompatActivity() {
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
-                    Toast.makeText(
-                        this@CameraXActivity,
-                        "Gagal mengambil gambar.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showDefaultSnackbar(getString(R.string.failed_get_image), Snackbar.LENGTH_SHORT)
                     loadingDialog.hide()
                 }
 
@@ -144,11 +141,7 @@ class CameraXActivity : AppCompatActivity() {
                 )
 
             } catch (exc: Exception) {
-                Toast.makeText(
-                    this,
-                    "Gagal memunculkan kamera.",
-                    Toast.LENGTH_SHORT
-                ).show()
+                showDefaultSnackbar(getString(R.string.failed_show_camera), Snackbar.LENGTH_SHORT)
             }
         }, ContextCompat.getMainExecutor(this))
     }

@@ -46,4 +46,8 @@
     <string name="app_widget_description">Ini adalah deskripsi widget</string>
     <string name="widget_empty_message">Belum ada cerita, ayo tambah cerita</string>
     <string name="widget_empty_btn_message">Gas</string>
+
+    <string name="permission_denied">Tidak mendapatkan izin. Harap aktifkan melalui pengaturan</string>
+    <string name="failed_get_image">Gagal mengambil gambar.</string>
+    <string name="failed_show_camera">Gagal menampilkan kamera.</string>
 </resources>
