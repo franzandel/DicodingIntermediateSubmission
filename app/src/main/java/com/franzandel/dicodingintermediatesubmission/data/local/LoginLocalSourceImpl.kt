@@ -6,8 +6,9 @@ import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.utils.suspendTryCatch
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class LoginLocalSourceImpl(
+class LoginLocalSourceImpl @Inject constructor(
     private val settingsDataStore: DataStore<AuthenticationSession>
 ) : LoginLocalSource {
 

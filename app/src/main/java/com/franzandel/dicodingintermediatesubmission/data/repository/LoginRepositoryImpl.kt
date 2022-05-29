@@ -8,8 +8,9 @@ import com.franzandel.dicodingintermediatesubmission.data.remote.LoginRemoteSour
 import com.franzandel.dicodingintermediatesubmission.domain.model.Login
 import com.franzandel.dicodingintermediatesubmission.domain.repository.LoginRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class LoginRepositoryImpl(
+class LoginRepositoryImpl @Inject constructor(
     private val remoteSource: LoginRemoteSource,
     private val localSource: LoginLocalSource
 ) : LoginRepository {

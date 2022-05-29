@@ -12,9 +12,12 @@ import com.franzandel.dicodingintermediatesubmission.domain.usecase.LoginUseCase
 import com.franzandel.dicodingintermediatesubmission.utils.onError
 import com.franzandel.dicodingintermediatesubmission.utils.onException
 import com.franzandel.dicodingintermediatesubmission.utils.onSuccess
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(
+@HiltViewModel
+class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val coroutineThread: CoroutineThread
 ) : ViewModel() {
