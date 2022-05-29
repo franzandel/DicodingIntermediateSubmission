@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.franzandel.dicodingintermediatesubmission.base.model.Result
+import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.consts.PaginationConst
 import com.franzandel.dicodingintermediatesubmission.data.mapper.HomeResponseMapper
 import com.franzandel.dicodingintermediatesubmission.data.model.HomeResponse
@@ -12,16 +12,8 @@ import com.franzandel.dicodingintermediatesubmission.data.paging.HomePagingSourc
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.utils.awaitResponse
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.suspendCancellableCoroutine
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.HttpException
-import retrofit2.Response
-import kotlin.coroutines.resume
 
 class HomeRemoteSourceImpl(private val service: HomeService) : HomeRemoteSource {
 

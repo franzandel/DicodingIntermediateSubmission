@@ -2,7 +2,7 @@ package com.franzandel.dicodingintermediatesubmission.data.local
 
 import androidx.datastore.core.DataStore
 import com.example.application.AuthenticationSession
-import com.franzandel.dicodingintermediatesubmission.base.model.Result
+import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.utils.suspendTryCatch
 
 class HomeLocalSourceImpl(

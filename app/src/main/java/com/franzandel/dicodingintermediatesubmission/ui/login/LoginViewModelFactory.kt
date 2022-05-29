@@ -3,8 +3,8 @@ package com.franzandel.dicodingintermediatesubmission.ui.login
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
-import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThreadImpl
+import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
+import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.data.remote.LoginRemoteSourceImpl
 import com.franzandel.dicodingintermediatesubmission.data.repository.LoginRepositoryImpl
 import com.franzandel.dicodingintermediatesubmission.data.service.LoginService
