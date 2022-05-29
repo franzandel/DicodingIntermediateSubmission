@@ -7,6 +7,7 @@ import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.repository.HomeRepository
 import com.franzandel.dicodingintermediatesubmission.domain.repository.LoginRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 
 /**
@@ -23,9 +24,13 @@ class GetStoriesUseCase(
     override suspend fun getOperation(): Result<List<Story>> {
         return when (val result = loginRepository.getToken()) {
             is Result.Success -> {
-                homeRepository.getStories(result.data.first())
+                when (val ffff = homeRepository.getStories(result.data.first())) {
+                    is Result.Success -> ffff
+                    is Result.Error -> ffff
+                    is Result.Exception -> ffff
+                }
             }
-            is Result.Error -> Result.Error(result.exception)
+            is Result.Error -> Result.Error()
             is Result.Exception -> Result.Exception(result.throwable)
         }
     }

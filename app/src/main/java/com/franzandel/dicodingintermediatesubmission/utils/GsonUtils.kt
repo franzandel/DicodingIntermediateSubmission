@@ -10,7 +10,7 @@ import com.google.gson.reflect.TypeToken
 
 object GsonUtils {
 
-    private val gson = Gson()
+    val gson = Gson()
 
     fun toJsonString(dataclass: Any): String {
         return gson.toJson(dataclass)

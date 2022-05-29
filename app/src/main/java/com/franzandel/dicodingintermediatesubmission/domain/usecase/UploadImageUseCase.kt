@@ -1,8 +1,8 @@
 package com.franzandel.dicodingintermediatesubmission.domain.usecase
 
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
-import com.franzandel.dicodingintermediatesubmission.base.usecase.BaseRequestUseCase
 import com.franzandel.dicodingintermediatesubmission.base.model.Result
+import com.franzandel.dicodingintermediatesubmission.base.usecase.BaseRequestUseCase
 import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryRequest
 import com.franzandel.dicodingintermediatesubmission.domain.model.AddStory
 import com.franzandel.dicodingintermediatesubmission.domain.repository.AddStoryRepository
@@ -24,8 +24,8 @@ class UploadImageUseCase(
             is Result.Success -> {
                 repository.uploadImage(result.data.first(), bodyRequest)
             }
-            is Result.Error -> Result.Error(result.exception)
-            is Result.Exception -> Result.Exception(result.throwable)
+            is Result.Error -> Result.Error()
+            is Result.Exception -> result
         }
     }
 }

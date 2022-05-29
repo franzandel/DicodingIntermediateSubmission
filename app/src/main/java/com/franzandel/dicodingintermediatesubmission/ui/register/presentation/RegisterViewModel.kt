@@ -7,10 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
-import com.franzandel.dicodingintermediatesubmission.base.model.Result
-import com.franzandel.dicodingintermediatesubmission.ui.login.LoginViewModel
 import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
+import com.franzandel.dicodingintermediatesubmission.domain.model.Register
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.RegisterUseCase
+import com.franzandel.dicodingintermediatesubmission.ui.login.LoginViewModel
+import com.franzandel.dicodingintermediatesubmission.utils.onError
+import com.franzandel.dicodingintermediatesubmission.utils.onException
+import com.franzandel.dicodingintermediatesubmission.utils.onSuccess
 import kotlinx.coroutines.launch
 
 /**
@@ -54,29 +57,22 @@ class RegisterViewModel(
                     email = username,
                     password = password
                 )
-                when (val result = useCase(registerRequest)) {
-                    is Result.Success -> {
+                useCase(registerRequest)
+                    .onSuccess {
                         _loading.value = false
                         _registerResult.value = RegisterResult(success = Unit)
-                    }
-                    is Result.Error -> {
+                    }.onError { _, register: Register? ->
                         _loading.value = false
-                        if (result.errorData?.message.equals(
-                                EMAIL_ALREADY_TAKEN,
-                                ignoreCase = true
-                            )
-                        ) {
+                        if (register?.message.equals(EMAIL_ALREADY_TAKEN, ignoreCase = true)) {
                             _registerResult.value =
                                 RegisterResult(error = R.string.register_already_exist)
                         } else {
                             _registerResult.value = RegisterResult(error = R.string.register_failed)
                         }
-                    }
-                    is Result.Exception -> {
+                    }.onException {
                         _loading.value = false
                         _registerResult.value = RegisterResult(error = R.string.system_error)
                     }
-                }
             }
         }
     }
