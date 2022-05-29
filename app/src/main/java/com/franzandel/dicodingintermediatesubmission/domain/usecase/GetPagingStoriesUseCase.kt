@@ -22,12 +22,17 @@ class GetPagingStoriesUseCase(
 ) : BaseUseCase<Result<Flow<PagingData<Story>>>>(coroutineThread) {
 
     override suspend fun getOperation(): Result<Flow<PagingData<Story>>> {
-        return when (val result = loginRepository.getToken()) {
+        return when (val tokenResult = loginRepository.getToken()) {
             is Result.Success -> {
-                homeRepository.getPagingStories(result.data.first())
+                when (val pagingStoriesResult =
+                    homeRepository.getPagingStories(tokenResult.data.first())) {
+                    is Result.Success -> pagingStoriesResult
+                    is Result.Error -> pagingStoriesResult
+                    is Result.Exception -> pagingStoriesResult
+                }
             }
             is Result.Error -> Result.Error()
-            is Result.Exception -> result
+            is Result.Exception -> tokenResult
         }
     }
 }
