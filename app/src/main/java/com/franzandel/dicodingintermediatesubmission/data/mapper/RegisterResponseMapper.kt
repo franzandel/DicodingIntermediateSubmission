@@ -1,6 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.data.mapper
 
-import com.franzandel.dicodingintermediatesubmission.data.model.RegisterResponse
+import com.franzandel.dicodingintermediatesubmission.base.model.BaseResponse
 import com.franzandel.dicodingintermediatesubmission.domain.model.Register
 
 /**
@@ -9,8 +9,8 @@ import com.franzandel.dicodingintermediatesubmission.domain.model.Register
  */
 
 object RegisterResponseMapper {
-    fun transform(registerResponse: RegisterResponse): Register {
-        return with(registerResponse) {
+    fun transform(baseResponse: BaseResponse): Register {
+        return with(baseResponse) {
             Register(
                 error = error,
                 message = message

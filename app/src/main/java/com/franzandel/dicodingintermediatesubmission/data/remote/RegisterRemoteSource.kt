@@ -1,8 +1,8 @@
 package com.franzandel.dicodingintermediatesubmission.data.remote
 
+import com.franzandel.dicodingintermediatesubmission.base.model.BaseResponse
 import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
-import com.franzandel.dicodingintermediatesubmission.data.model.RegisterResponse
 
 /**
  * Created by Franz Andel
@@ -10,5 +10,5 @@ import com.franzandel.dicodingintermediatesubmission.data.model.RegisterResponse
  */
 
 interface RegisterRemoteSource {
-    suspend fun register(registerRequest: RegisterRequest): Result<RegisterResponse>
+    suspend fun register(registerRequest: RegisterRequest): Result<BaseResponse>
 }

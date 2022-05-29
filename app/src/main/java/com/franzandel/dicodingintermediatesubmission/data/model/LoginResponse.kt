@@ -1,10 +1,9 @@
 package com.franzandel.dicodingintermediatesubmission.data.model
 
 import androidx.annotation.Keep
+import com.franzandel.dicodingintermediatesubmission.base.model.BaseResponse
 
 @Keep
 data class LoginResponse(
-    val error: Boolean,
-    val loginResult: LoginResultResponse? = null,
-    val message: String
-)
+    val loginResult: LoginResultResponse? = null
+): BaseResponse()
