@@ -15,12 +15,12 @@ import kotlinx.coroutines.flow.first
 
 class GetStoriesUseCase(
     private val homeRepository: HomeRepository,
-    private val loginRepository: LoginRepository,
+    private val getTokenUseCase: GetTokenUseCase,
     coroutineThread: CoroutineThread
 ) : BaseUseCase<Result<List<Story>>>(coroutineThread) {
 
     override suspend fun getOperation(): Result<List<Story>> {
-        return when (val tokenResult = loginRepository.getToken()) {
+        return when (val tokenResult = getTokenUseCase()) {
             is Result.Success -> {
                 when (val storiesResult = homeRepository.getStories(tokenResult.data.first())) {
                     is Result.Success -> storiesResult

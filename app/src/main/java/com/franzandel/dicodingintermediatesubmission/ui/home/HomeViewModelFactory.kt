@@ -16,6 +16,7 @@ import com.franzandel.dicodingintermediatesubmission.data.repository.HomeReposit
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.ClearStorageUseCase
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetPagingStoriesUseCase
+import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetTokenUseCase
 
 class HomeViewModelFactory(private val applicationContext: Context) : ViewModelProvider.Factory {
 
@@ -42,7 +43,10 @@ class HomeViewModelFactory(private val applicationContext: Context) : ViewModelP
             return HomeViewModel(
                 getPagingStoriesUseCase = GetPagingStoriesUseCase(
                     homeRepository = homeRepository,
-                    loginRepository = loginRepository,
+                    getTokenUseCase = GetTokenUseCase(
+                        repository = loginRepository,
+                        coroutineThread = coroutineThread
+                    ),
                     coroutineThread = coroutineThread
                 ),
                 clearStorageUseCase = ClearStorageUseCase(
