@@ -5,8 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
-import com.franzandel.dicodingintermediatesubmission.base.model.Result
+import com.franzandel.dicodingintermediatesubmission.domain.model.Login
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetTokenUseCase
+import com.franzandel.dicodingintermediatesubmission.utils.onError
+import com.franzandel.dicodingintermediatesubmission.utils.onException
+import com.franzandel.dicodingintermediatesubmission.utils.onSuccess
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -25,15 +28,16 @@ class SplashScreenViewModel(
 
     fun getToken() {
         viewModelScope.launch(coroutineThread.main) {
-            when (val result = getTokenUseCase()) {
-                is Result.Success -> {
-                    result.data.collect {
+            getTokenUseCase()
+                .onSuccess { result ->
+                    result.collect {
                         _isTokenEmpty.value = it.isEmpty()
                     }
+                }.onError { _, _ ->
+                    _isTokenEmpty.value = true
+                }.onException {
+                    _isTokenEmpty.value = true
                 }
-                is Result.Error -> _isTokenEmpty.value = true
-                is Result.Exception -> _isTokenEmpty.value = true
-            }
         }
     }
 }

@@ -22,8 +22,14 @@ class HomeRepositoryImpl(
     override suspend fun getStories(token: String): Result<List<Story>> {
         return when (val result = remoteSource.getStories(token)) {
             is Result.Success -> Result.Success(HomeResponseMapper.transform(result.data.listStory))
-            is Result.Error -> Result.Error(result.exception)
-            is Result.Exception -> Result.Exception(result.throwable)
+            is Result.Error ->
+                Result.Error(
+                    result.responseCode,
+                    result.errorData?.let {
+                        HomeResponseMapper.transform(it.listStory)
+                    }
+                )
+            is Result.Exception -> result
         }
     }
 }

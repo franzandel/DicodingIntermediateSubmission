@@ -11,10 +11,15 @@ import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThr
 import com.franzandel.dicodingintermediatesubmission.base.model.Navigation
 import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.consts.IntentConst
+import com.franzandel.dicodingintermediatesubmission.domain.model.Login
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.ClearStorageUseCase
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetPagingStoriesUseCase
 import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
+import com.franzandel.dicodingintermediatesubmission.ui.login.LoginResult
+import com.franzandel.dicodingintermediatesubmission.utils.onError
+import com.franzandel.dicodingintermediatesubmission.utils.onException
+import com.franzandel.dicodingintermediatesubmission.utils.onSuccess
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -40,16 +45,17 @@ class HomeViewModel(
 
     fun getStories() {
         viewModelScope.launch(coroutineThread.main) {
-            when (val result = getPagingStoriesUseCase()) {
-                is Result.Success -> {
-                    result.data.cachedIn(viewModelScope).collect {
+            getPagingStoriesUseCase()
+                .onSuccess { pagingStory ->
+                    pagingStory.cachedIn(viewModelScope).collect {
                         _homeResult.value = HomeResult(success = it)
                     }
+                }.onError { _, _ ->
+                    // error only handle if loginRepository.getToken() failed, rest already handled in adapter.loadStateFlow (HomeActivity)
+                    _homeResult.value = HomeResult(error = R.string.system_error)
+                }.onException {
+                    _homeResult.value = HomeResult(error = R.string.system_error)
                 }
-                // error only handle if loginRepository.getToken() failed, rest already handled in adapter.loadStateFlow (HomeActivity)
-                is Result.Error -> _homeResult.value = HomeResult(error = R.string.system_error)
-                is Result.Exception -> _homeResult.value = HomeResult(error = R.string.system_error)
-            }
         }
     }
 
@@ -64,11 +70,14 @@ class HomeViewModel(
 
     fun clearStorage() {
         viewModelScope.launch(coroutineThread.main) {
-            when (clearStorageUseCase(Unit)) {
-                is Result.Success -> _clearStorageResult.value = true
-                is Result.Error -> _clearStorageResult.value = false
-                is Result.Exception -> _clearStorageResult.value = false
-            }
+            clearStorageUseCase(Unit)
+                .onSuccess {
+                    _clearStorageResult.value = true
+                }.onError { _, _ ->
+                    _clearStorageResult.value = false
+                }.onException {
+                    _clearStorageResult.value = false
+                }
         }
     }
 }

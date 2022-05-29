@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
 class LoginRepositoryImpl(
     private val remoteSource: LoginRemoteSource,
     private val localSource: LoginLocalSource
-): LoginRepository {
+) : LoginRepository {
 
     override suspend fun login(loginRequest: LoginRequest): Result<Login> {
         return when (val result = remoteSource.login(loginRequest)) {
@@ -21,8 +21,15 @@ class LoginRepositoryImpl(
                 localSource.saveToken(login.loginResult?.token.orEmpty())
                 Result.Success(login)
             }
-            is Result.Error -> Result.Error(result.exception)
-            is Result.Exception -> Result.Exception(result.throwable)
+            is Result.Error -> {
+                Result.Error(
+                    result.responseCode,
+                    result.errorData?.let {
+                        LoginResponseMapper.transform(it)
+                    }
+                )
+            }
+            is Result.Exception -> result
         }
     }
 

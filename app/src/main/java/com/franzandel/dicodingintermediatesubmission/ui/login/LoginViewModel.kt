@@ -7,9 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.base.coroutine.CoroutineThread
-import com.franzandel.dicodingintermediatesubmission.base.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
+import com.franzandel.dicodingintermediatesubmission.domain.model.Login
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.LoginUseCase
+import com.franzandel.dicodingintermediatesubmission.utils.onError
+import com.franzandel.dicodingintermediatesubmission.utils.onException
+import com.franzandel.dicodingintermediatesubmission.utils.onSuccess
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
@@ -39,20 +42,17 @@ class LoginViewModel(
                     email = username,
                     password = password
                 )
-                when (loginUseCase(loginRequest)) {
-                    is Result.Success -> {
+                loginUseCase(loginRequest)
+                    .onSuccess {
                         _loading.value = false
                         _loginResult.value = LoginResult(success = Unit)
-                    }
-                    is Result.Error -> {
+                    }.onError { _, _ ->
                         _loading.value = false
                         _loginResult.value = LoginResult(error = R.string.login_failed)
-                    }
-                    is Result.Exception -> {
+                    }.onException {
                         _loading.value = false
                         _loginResult.value = LoginResult(error = R.string.system_error)
                     }
-                }
             }
         }
     }

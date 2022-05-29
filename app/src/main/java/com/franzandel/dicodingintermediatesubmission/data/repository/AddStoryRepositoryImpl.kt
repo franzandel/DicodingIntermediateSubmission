@@ -9,10 +9,19 @@ import com.franzandel.dicodingintermediatesubmission.domain.repository.AddStoryR
 
 class AddStoryRepositoryImpl(private val remoteSource: AddStoryRemoteSource) : AddStoryRepository {
 
-    override suspend fun uploadImage(token: String, addStoryRequest: AddStoryRequest): Result<AddStory> {
+    override suspend fun uploadImage(
+        token: String,
+        addStoryRequest: AddStoryRequest
+    ): Result<AddStory> {
         return when (val result = remoteSource.uploadImage(token, addStoryRequest)) {
             is Result.Success -> Result.Success(AddStoryResponseMapper.transform(result.data))
-            is Result.Error -> Result.Error(result.exception)
+            is Result.Error ->
+                Result.Error(
+                    result.responseCode,
+                    result.errorData?.let {
+                        AddStoryResponseMapper.transform(it)
+                    }
+                )
             is Result.Exception -> result
         }
     }
