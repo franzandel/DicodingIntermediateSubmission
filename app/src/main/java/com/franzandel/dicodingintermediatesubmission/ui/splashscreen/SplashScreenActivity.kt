@@ -15,13 +15,13 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
 import com.franzandel.dicodingintermediatesubmission.ui.login.LoginActivity
+import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("CustomSplashScreen")
+@AndroidEntryPoint
 class SplashScreenActivity : AppCompatActivity() {
 
-    private val viewModel: SplashScreenViewModel by viewModels {
-        SplashScreenViewModelFactory(applicationContext)
-    }
+    private val viewModel: SplashScreenViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         var splashScreen: SplashScreen? = null

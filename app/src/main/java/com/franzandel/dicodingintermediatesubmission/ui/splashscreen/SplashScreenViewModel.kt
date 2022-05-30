@@ -9,15 +9,18 @@ import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetTokenUseC
 import com.franzandel.dicodingintermediatesubmission.utils.onError
 import com.franzandel.dicodingintermediatesubmission.utils.onException
 import com.franzandel.dicodingintermediatesubmission.utils.onSuccess
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Created by Franz Andel
  * on 02 May 2022.
  */
 
-class SplashScreenViewModel(
+@HiltViewModel
+class SplashScreenViewModel @Inject constructor(
     private val getTokenUseCase: GetTokenUseCase,
     private val coroutineThread: CoroutineThread
 ) : ViewModel() {
