@@ -4,8 +4,9 @@ import androidx.datastore.core.DataStore
 import com.example.application.AuthenticationSession
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.utils.suspendTryCatch
+import javax.inject.Inject
 
-class HomeLocalSourceImpl(
+class HomeLocalSourceImpl @Inject constructor(
     private val settingsDataStore: DataStore<AuthenticationSession>
 ) : HomeLocalSource {
 

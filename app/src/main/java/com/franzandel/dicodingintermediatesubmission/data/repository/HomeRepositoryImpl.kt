@@ -8,8 +8,9 @@ import com.franzandel.dicodingintermediatesubmission.data.remote.HomeRemoteSourc
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.repository.HomeRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class HomeRepositoryImpl(
+class HomeRepositoryImpl @Inject constructor(
     private val remoteSource: HomeRemoteSource,
     private val localSource: HomeLocalSource
 ) : HomeRepository {
