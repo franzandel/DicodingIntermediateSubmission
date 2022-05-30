@@ -14,8 +14,9 @@ import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.utils.awaitResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class HomeRemoteSourceImpl(private val service: HomeService) : HomeRemoteSource {
+class HomeRemoteSourceImpl @Inject constructor(private val service: HomeService) : HomeRemoteSource {
 
     override suspend fun getPagingStories(token: String): Result<Flow<PagingData<Story>>> =
         Result.Success(

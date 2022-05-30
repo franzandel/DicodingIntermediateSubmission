@@ -32,9 +32,4 @@ object LoginModule {
     @ViewModelScoped
     fun provideLoginService(retrofit: Retrofit): LoginService =
         retrofit.create(LoginService::class.java)
-
-    @Provides
-    @ViewModelScoped
-    fun provideSettingsDataStore(@ApplicationContext context: Context): DataStore<AuthenticationSession> =
-        context.settingsDataStore
 }

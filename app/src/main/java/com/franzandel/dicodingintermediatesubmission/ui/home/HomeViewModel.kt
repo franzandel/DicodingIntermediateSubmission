@@ -17,15 +17,18 @@ import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
 import com.franzandel.dicodingintermediatesubmission.utils.onError
 import com.franzandel.dicodingintermediatesubmission.utils.onException
 import com.franzandel.dicodingintermediatesubmission.utils.onSuccess
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Created by Franz Andel
  * on 02 May 2022.
  */
 
-class HomeViewModel(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     private val getPagingStoriesUseCase: GetPagingStoriesUseCase,
     private val clearStorageUseCase: ClearStorageUseCase,
     private val coroutineThread: CoroutineThread
