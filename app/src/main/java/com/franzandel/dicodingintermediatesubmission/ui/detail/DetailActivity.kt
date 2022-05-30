@@ -7,13 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.data.consts.IntentConst
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
+@AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
 
-    private val viewModel: DetailViewModel by viewModels { DetailViewModelFactory() }
+    private val viewModel: DetailViewModel by viewModels()
 
     private val storyDetail: StoryDetail? by lazy {
         intent.extras?.getParcelable(IntentConst.EXTRA_STORY_DETAIL)
