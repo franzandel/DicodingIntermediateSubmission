@@ -7,13 +7,14 @@ import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryRequest
 import com.franzandel.dicodingintermediatesubmission.domain.model.AddStory
 import com.franzandel.dicodingintermediatesubmission.domain.repository.AddStoryRepository
 import kotlinx.coroutines.flow.first
+import javax.inject.Inject
 
 /**
  * Created by Franz Andel
  * on 07 May 2022.
  */
 
-class UploadImageUseCase(
+class UploadImageUseCase @Inject constructor(
     private val repository: AddStoryRepository,
     private val getTokenUseCase: GetTokenUseCase,
     coroutineThread: CoroutineThread

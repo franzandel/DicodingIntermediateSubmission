@@ -23,6 +23,7 @@ import com.franzandel.dicodingintermediatesubmission.databinding.ActivityAddStor
 import com.franzandel.dicodingintermediatesubmission.ui.camerax.CameraXActivity
 import com.franzandel.dicodingintermediatesubmission.utils.showDefaultSnackbar
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor
 import kotlinx.coroutines.launch
 import java.io.File
@@ -32,14 +33,13 @@ import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+@AndroidEntryPoint
 class AddStoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddStoryBinding
     private lateinit var galleryActivityResultLauncher: ActivityResultLauncher<String>
 
-    private val viewModel: AddStoryViewModel by viewModels {
-        AddStoryViewModelFactory(applicationContext)
-    }
+    private val viewModel: AddStoryViewModel by viewModels()
     private var file: File? = null
 
     private val coroutineThread: CoroutineThread = CoroutineThreadImpl()

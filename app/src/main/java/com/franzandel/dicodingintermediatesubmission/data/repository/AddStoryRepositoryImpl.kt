@@ -6,8 +6,9 @@ import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryRequest
 import com.franzandel.dicodingintermediatesubmission.data.remote.AddStoryRemoteSource
 import com.franzandel.dicodingintermediatesubmission.domain.model.AddStory
 import com.franzandel.dicodingintermediatesubmission.domain.repository.AddStoryRepository
+import javax.inject.Inject
 
-class AddStoryRepositoryImpl(private val remoteSource: AddStoryRemoteSource) : AddStoryRepository {
+class AddStoryRepositoryImpl @Inject constructor(private val remoteSource: AddStoryRemoteSource) : AddStoryRepository {
 
     override suspend fun uploadImage(
         token: String,
