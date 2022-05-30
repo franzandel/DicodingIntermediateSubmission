@@ -14,14 +14,17 @@ import com.franzandel.dicodingintermediatesubmission.ui.login.LoginViewModel
 import com.franzandel.dicodingintermediatesubmission.utils.onError
 import com.franzandel.dicodingintermediatesubmission.utils.onException
 import com.franzandel.dicodingintermediatesubmission.utils.onSuccess
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Created by Franz Andel
  * on 27 April 2022.
  */
 
-class RegisterViewModel(
+@HiltViewModel
+class RegisterViewModel @Inject constructor(
     private val useCase: RegisterUseCase,
     private val coroutineThread: CoroutineThread
 ) : ViewModel() {

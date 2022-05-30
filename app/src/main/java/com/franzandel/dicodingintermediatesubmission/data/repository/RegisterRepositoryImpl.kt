@@ -6,8 +6,9 @@ import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.data.remote.RegisterRemoteSource
 import com.franzandel.dicodingintermediatesubmission.domain.model.Register
 import com.franzandel.dicodingintermediatesubmission.domain.repository.RegisterRepository
+import javax.inject.Inject
 
-class RegisterRepositoryImpl(
+class RegisterRepositoryImpl @Inject constructor(
     private val remoteSource: RegisterRemoteSource
 ) : RegisterRepository {
 

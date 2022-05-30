@@ -7,13 +7,14 @@ import com.franzandel.dicodingintermediatesubmission.data.mapper.RegisterLoginMa
 import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.domain.model.Register
 import com.franzandel.dicodingintermediatesubmission.domain.repository.RegisterRepository
+import javax.inject.Inject
 
 /**
  * Created by Franz Andel
  * on 28 April 2022.
  */
 
-class RegisterUseCase(
+class RegisterUseCase @Inject constructor(
     private val registerRepository: RegisterRepository,
     private val loginUseCase: LoginUseCase,
     coroutineThread: CoroutineThread
