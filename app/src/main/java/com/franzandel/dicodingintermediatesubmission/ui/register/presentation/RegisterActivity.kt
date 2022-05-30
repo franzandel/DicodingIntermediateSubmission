@@ -12,14 +12,14 @@ import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
 import com.franzandel.dicodingintermediatesubmission.utils.hideKeyboard
 import com.franzandel.dicodingintermediatesubmission.utils.showDefaultSnackbar
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
 
-    private val viewModel: RegisterViewModel by viewModels {
-        RegisterViewModelFactory(applicationContext)
-    }
+    private val viewModel: RegisterViewModel by viewModels()
 
     private val loadingDialog by lazy {
         LoadingDialog.newInstance()

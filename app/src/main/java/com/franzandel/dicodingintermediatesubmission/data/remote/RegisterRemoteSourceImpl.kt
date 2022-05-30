@@ -5,8 +5,10 @@ import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.data.service.RegisterService
 import com.franzandel.dicodingintermediatesubmission.utils.awaitResponse
+import javax.inject.Inject
 
-class RegisterRemoteSourceImpl(private val service: RegisterService) : RegisterRemoteSource {
+class RegisterRemoteSourceImpl @Inject constructor(private val service: RegisterService) :
+    RegisterRemoteSource {
 
     override suspend fun register(registerRequest: RegisterRequest): Result<BaseResponse> {
         return service.register(registerRequest).awaitResponse()
