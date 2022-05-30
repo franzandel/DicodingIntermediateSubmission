@@ -8,14 +8,17 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Created by Franz Andel
  * on 04 May 2022.
  */
 
-class DetailViewModel(private val coroutineThread: CoroutineThread) : ViewModel() {
+@HiltViewModel
+class DetailViewModel @Inject constructor(private val coroutineThread: CoroutineThread) : ViewModel() {
 
     private var _location = MutableLiveData<String>()
     val location: LiveData<String> = _location
