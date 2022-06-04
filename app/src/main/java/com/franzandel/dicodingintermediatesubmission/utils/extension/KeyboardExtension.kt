@@ -1,4 +1,4 @@
-package com.franzandel.dicodingintermediatesubmission.utils
+package com.franzandel.dicodingintermediatesubmission.utils.extension
 
 import android.app.Activity
 import android.view.View

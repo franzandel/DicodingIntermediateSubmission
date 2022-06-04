@@ -1,4 +1,4 @@
-package com.franzandel.dicodingintermediatesubmission.utils
+package com.franzandel.dicodingintermediatesubmission.utils.extension
 
 import android.R
 import android.app.Activity

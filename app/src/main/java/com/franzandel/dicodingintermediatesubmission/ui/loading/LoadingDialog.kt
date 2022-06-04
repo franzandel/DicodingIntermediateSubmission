@@ -18,12 +18,6 @@ import com.franzandel.dicodingintermediatesubmission.R
 
 class LoadingDialog : DialogFragment() {
 
-    companion object {
-        fun newInstance(): LoadingDialog = LoadingDialog()
-
-        private const val TAG = "LoadingDialog"
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,6 +48,12 @@ class LoadingDialog : DialogFragment() {
     fun hide() {
         if (isAdded || isVisible)
             dismiss()
+    }
+
+    companion object {
+        fun newInstance(): LoadingDialog = LoadingDialog()
+
+        private const val TAG = "LoadingDialog"
     }
 }
 
