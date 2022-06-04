@@ -1,8 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.ui.home
 
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ItemHomeBinding
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 

@@ -1,7 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.utils
 
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 /**
  * Created by Franz Andel
