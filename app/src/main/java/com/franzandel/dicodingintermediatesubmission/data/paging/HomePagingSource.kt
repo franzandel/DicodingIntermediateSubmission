@@ -2,6 +2,7 @@ package com.franzandel.dicodingintermediatesubmission.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.franzandel.dicodingintermediatesubmission.base.data.NetworkObject
 import com.franzandel.dicodingintermediatesubmission.data.consts.PaginationConst
 import com.franzandel.dicodingintermediatesubmission.data.model.StoryResponse
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
@@ -25,7 +26,7 @@ class HomePagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, StoryResponse> {
         val position = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val response = service.getStories("Bearer $token", position, params.loadSize)
+            val response = service.getStories(NetworkObject.wrapBearer(token), position, params.loadSize)
             val stories = response.listStory
             val nextKey = if (stories.isEmpty()) {
                 null
