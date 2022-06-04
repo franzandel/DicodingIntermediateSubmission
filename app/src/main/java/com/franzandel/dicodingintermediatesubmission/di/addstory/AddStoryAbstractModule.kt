@@ -2,18 +2,11 @@ package com.franzandel.dicodingintermediatesubmission.di.addstory
 
 import androidx.lifecycle.ViewModel
 import com.franzandel.dicodingintermediatesubmission.core.annotation.ViewModelKey
-import com.franzandel.dicodingintermediatesubmission.data.local.LoginLocalSource
-import com.franzandel.dicodingintermediatesubmission.data.local.LoginLocalSourceImpl
 import com.franzandel.dicodingintermediatesubmission.data.remote.AddStoryRemoteSource
 import com.franzandel.dicodingintermediatesubmission.data.remote.AddStoryRemoteSourceImpl
-import com.franzandel.dicodingintermediatesubmission.data.remote.LoginRemoteSource
-import com.franzandel.dicodingintermediatesubmission.data.remote.LoginRemoteSourceImpl
 import com.franzandel.dicodingintermediatesubmission.data.repository.AddStoryRepositoryImpl
-import com.franzandel.dicodingintermediatesubmission.data.repository.LoginRepositoryImpl
 import com.franzandel.dicodingintermediatesubmission.domain.repository.AddStoryRepository
-import com.franzandel.dicodingintermediatesubmission.domain.repository.LoginRepository
 import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryViewModel
-import com.franzandel.dicodingintermediatesubmission.ui.login.LoginViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

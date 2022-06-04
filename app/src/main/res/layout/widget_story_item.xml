@@ -11,5 +11,6 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        tools:srcCompat="@drawable/ic_launcher_background" />
+        tools:srcCompat="@drawable/ic_launcher_background"
+        android:contentDescription="@string/content_widget_story" />
 </LinearLayout>

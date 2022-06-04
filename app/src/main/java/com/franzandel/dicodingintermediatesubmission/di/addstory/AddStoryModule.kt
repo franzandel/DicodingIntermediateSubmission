@@ -1,7 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.di.addstory
 
 import com.franzandel.dicodingintermediatesubmission.data.service.AddStoryService
-import com.franzandel.dicodingintermediatesubmission.data.service.LoginService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

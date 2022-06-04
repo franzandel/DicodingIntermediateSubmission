@@ -2,7 +2,6 @@ package com.franzandel.dicodingintermediatesubmission.di.register
 
 import androidx.lifecycle.ViewModel
 import com.franzandel.dicodingintermediatesubmission.core.annotation.ViewModelKey
-import com.franzandel.dicodingintermediatesubmission.data.remote.LoginRemoteSourceImpl
 import com.franzandel.dicodingintermediatesubmission.data.remote.RegisterRemoteSource
 import com.franzandel.dicodingintermediatesubmission.data.remote.RegisterRemoteSourceImpl
 import com.franzandel.dicodingintermediatesubmission.data.repository.RegisterRepositoryImpl
