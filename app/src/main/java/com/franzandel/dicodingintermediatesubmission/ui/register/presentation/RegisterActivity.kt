@@ -9,8 +9,8 @@ import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityRegisterBinding
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
 import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
-import com.franzandel.dicodingintermediatesubmission.utils.hideKeyboard
-import com.franzandel.dicodingintermediatesubmission.utils.showDefaultSnackbar
+import com.franzandel.dicodingintermediatesubmission.utils.extension.hideKeyboard
+import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefaultSnackbar
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 

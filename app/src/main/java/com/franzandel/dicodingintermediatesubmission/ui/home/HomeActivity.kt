@@ -23,7 +23,7 @@ import com.franzandel.dicodingintermediatesubmission.databinding.ActivityHomeBin
 import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
 import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
 import com.franzandel.dicodingintermediatesubmission.ui.login.LoginActivity
-import com.franzandel.dicodingintermediatesubmission.utils.showDefaultSnackbar
+import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefaultSnackbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
