@@ -1,5 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.data.remote
 
+import com.franzandel.dicodingintermediatesubmission.base.data.NetworkObject
 import com.franzandel.dicodingintermediatesubmission.base.model.BaseResponse
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryRequest
@@ -11,7 +12,7 @@ class AddStoryRemoteSourceImpl @Inject constructor(private val service: AddStory
 
     override suspend fun uploadImage(token: String, addStoryRequest: AddStoryRequest): Result<BaseResponse> {
         return service.uploadImage(
-            "Bearer $token", addStoryRequest.file, addStoryRequest.description
+            NetworkObject.wrapBearer(token), addStoryRequest.file, addStoryRequest.description
         ).awaitResponse()
     }
 }

@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.franzandel.dicodingintermediatesubmission.base.data.NetworkObject
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.consts.PaginationConst
 import com.franzandel.dicodingintermediatesubmission.data.mapper.HomeResponseMapper
@@ -37,6 +38,6 @@ class HomeRemoteSourceImpl @Inject constructor(private val service: HomeService)
         )
 
     override suspend fun getStories(token: String): Result<HomeResponse> {
-        return service.getStories("Bearer $token").awaitResponse()
+        return service.getStories(NetworkObject.wrapBearer(token)).awaitResponse()
     }
 }
