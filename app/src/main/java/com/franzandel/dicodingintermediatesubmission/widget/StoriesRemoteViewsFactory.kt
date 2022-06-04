@@ -15,17 +15,19 @@ import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetStoriesUseCase
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeDetailMapper
 import com.franzandel.dicodingintermediatesubmission.utils.GsonUtils
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.util.concurrent.ExecutionException
+import javax.inject.Inject
 
 /**
  * Created by Franz Andel
  * on 14 May 2022.
  */
 
-class StoriesRemoteViewsFactory(
-    private val context: Context,
+class StoriesRemoteViewsFactory @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val getStoriesUseCase: GetStoriesUseCase,
     private val coroutineThread: CoroutineThread
 ) : RemoteViewsService.RemoteViewsFactory {

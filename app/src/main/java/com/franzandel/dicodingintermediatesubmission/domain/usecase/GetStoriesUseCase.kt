@@ -6,13 +6,14 @@ import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.repository.HomeRepository
 import kotlinx.coroutines.flow.first
+import javax.inject.Inject
 
 /**
  * Created by Franz Andel
  * on 14 May 2022.
  */
 
-class GetStoriesUseCase(
+class GetStoriesUseCase @Inject constructor(
     private val homeRepository: HomeRepository,
     private val getTokenUseCase: GetTokenUseCase,
     coroutineThread: CoroutineThread
