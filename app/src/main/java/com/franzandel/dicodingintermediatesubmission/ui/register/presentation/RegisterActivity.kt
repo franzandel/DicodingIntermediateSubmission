@@ -6,6 +6,8 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.franzandel.dicodingintermediatesubmission.R
+import com.franzandel.dicodingintermediatesubmission.data.consts.ValidationConst
+import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityRegisterBinding
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
 import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
@@ -35,26 +37,8 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
-        viewModel.nameValidation.observe(this) {
-            if (it != RegisterViewModel.FORM_VALID) {
-                binding.etName.error = getString(it)
-            }
-        }
-
-        viewModel.usernameValidation.observe(this) {
-            if (it != RegisterViewModel.FORM_VALID) {
-                binding.etUsername.error = getString(it)
-            }
-        }
-
-        viewModel.passwordValidation.observe(this) {
-            if (it != RegisterViewModel.FORM_VALID) {
-                binding.etPassword.error = getString(it)
-            }
-        }
-
         viewModel.passwordConfirmationValidation.observe(this) {
-            if (it != RegisterViewModel.FORM_VALID) {
+            if (it != ValidationConst.FORM_VALID) {
                 binding.etConfirmationPassword.error = getString(it)
             }
         }
@@ -79,57 +63,6 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun initListeners() {
         binding.apply {
-            etName.setOnFocusChangeListener { _, isFocus ->
-                if (!isFocus) {
-                    viewModel.validateName(etName.text.toString())
-                }
-            }
-
-            etName.setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE -> {
-                        hideKeyboard()
-                        viewModel.validateName(etName.text.toString())
-                        true
-                    }
-                    else -> false
-                }
-            }
-
-            etUsername.setOnFocusChangeListener { _, isFocus ->
-                if (!isFocus) {
-                    viewModel.validateUsername(etUsername.text.toString())
-                }
-            }
-
-            etUsername.setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE -> {
-                        hideKeyboard()
-                        viewModel.validateUsername(etUsername.text.toString())
-                        true
-                    }
-                    else -> false
-                }
-            }
-
-            etPassword.setOnFocusChangeListener { _, isFocus ->
-                if (!isFocus) {
-                    viewModel.validatePassword(etPassword.text.toString())
-                }
-            }
-
-            etPassword.setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE -> {
-                        hideKeyboard()
-                        viewModel.validatePassword(etPassword.text.toString())
-                        true
-                    }
-                    else -> false
-                }
-            }
-
             etConfirmationPassword.setOnFocusChangeListener { _, isFocus ->
                 if (!isFocus) {
                     viewModel.validateConfirmationPassword(
@@ -154,10 +87,16 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             btnRegister.setOnClickListener {
+                val registerRequest = RegisterRequest(
+                    name = binding.etName.text.toString(),
+                    email = binding.etUsername.text.toString(),
+                    password = binding.etPassword.text.toString()
+                )
                 viewModel.register(
-                    binding.etName.text.toString(),
-                    binding.etUsername.text.toString(),
-                    binding.etPassword.text.toString(),
+                    registerRequest,
+                    binding.etName.error == null,
+                    binding.etUsername.error == null,
+                    binding.etPassword.error == null,
                     binding.etConfirmationPassword.text.toString()
                 )
             }
