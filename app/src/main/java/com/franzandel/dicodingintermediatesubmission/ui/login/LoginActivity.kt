@@ -2,18 +2,17 @@ package com.franzandel.dicodingintermediatesubmission.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import com.franzandel.dicodingintermediatesubmission.R
+import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityLoginBinding
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
 import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
 import com.franzandel.dicodingintermediatesubmission.ui.register.presentation.RegisterActivity
-import com.franzandel.dicodingintermediatesubmission.utils.extension.hideKeyboard
 import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefaultSnackbar
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,18 +40,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initObserver() {
         binding.apply {
-            loginViewModel.usernameValidation.observe(this@LoginActivity) {
-                if (it != LoginViewModel.FORM_VALID) {
-                    etUsername.error = getString(it)
-                }
-            }
-
-            loginViewModel.passwordValidation.observe(this@LoginActivity) {
-                if (it != LoginViewModel.FORM_VALID) {
-                    etPassword.error = getString(it)
-                }
-            }
-
             loginViewModel.loading.observe(this@LoginActivity) {
                 if (it) {
                     loadingDialog.show(supportFragmentManager)
@@ -77,42 +64,16 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initListener() {
         binding.apply {
-            etUsername.setOnFocusChangeListener { _, isFocus ->
-                if (!isFocus) {
-                    loginViewModel.validateUsername(etUsername.text.toString())
-                }
-            }
-
-            etUsername.setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_NEXT -> {
-                        hideKeyboard()
-                        loginViewModel.validateUsername(etUsername.text.toString())
-                        true
-                    }
-                    else -> false
-                }
-            }
-
-            etPassword.setOnFocusChangeListener { _, isFocus ->
-                if (!isFocus) {
-                    loginViewModel.validatePassword(etPassword.text.toString())
-                }
-            }
-
-            etPassword.setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE -> {
-                        hideKeyboard()
-                        loginViewModel.validatePassword(etPassword.text.toString())
-                        true
-                    }
-                    else -> false
-                }
-            }
-
             btnLogin.setOnClickListener {
-                loginViewModel.login(etUsername.text.toString(), etPassword.text.toString())
+                val loginRequest = LoginRequest(
+                    email = etUsername.text.toString(),
+                    password = etPassword.text.toString()
+                )
+                loginViewModel.login(
+                    loginRequest,
+                    etUsername.error == null,
+                    etPassword.error == null
+                )
             }
 
             tvNoAccountYet.setOnClickListener {

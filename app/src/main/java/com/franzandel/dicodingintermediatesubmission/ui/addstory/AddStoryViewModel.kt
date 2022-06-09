@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
+import com.franzandel.dicodingintermediatesubmission.data.consts.ValidationConst
 import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryRequest
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.UploadImageUseCase
 import com.franzandel.dicodingintermediatesubmission.ui.login.LoginViewModel
@@ -79,12 +80,8 @@ class AddStoryViewModel @Inject constructor(
             _descriptionValidation.value = R.string.add_story_empty_description
             false
         } else {
-            _descriptionValidation.value = LoginViewModel.FORM_VALID
+            _descriptionValidation.value = ValidationConst.FORM_VALID
             true
         }
-    }
-
-    companion object {
-        const val FORM_VALID = 0
     }
 }

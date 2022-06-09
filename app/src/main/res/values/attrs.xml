@@ -4,4 +4,13 @@
         <attr name="appWidgetInnerRadius" format="dimension" />
         <attr name="appWidgetRadius" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="CustomEditText">
+        <attr name="inputValidation" format="enum">
+            <enum name="none" value="0" />
+            <enum name="email" value="1" />
+            <enum name="password" value="2" />
+            <enum name="name" value="3" />
+        </attr>
+    </declare-styleable>
 </resources>

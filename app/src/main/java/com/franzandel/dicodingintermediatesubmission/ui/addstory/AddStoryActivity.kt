@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThreadImpl
+import com.franzandel.dicodingintermediatesubmission.data.consts.ValidationConst
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityAddStoryBinding
 import com.franzandel.dicodingintermediatesubmission.ui.camerax.CameraXActivity
 import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefaultSnackbar
@@ -76,7 +77,7 @@ class AddStoryActivity : AppCompatActivity() {
         }
 
         viewModel.descriptionValidation.observe(this) {
-            if (it != AddStoryViewModel.FORM_VALID) {
+            if (it != ValidationConst.FORM_VALID) {
                 binding.etDescription.error = getString(it)
             }
         }
