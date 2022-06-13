@@ -47,6 +47,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        all {
+            buildConfigField 'String', "STORY_API_BASE_URL", '"https://story-api.dicoding.dev/v1/"'
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

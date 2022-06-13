@@ -176,8 +176,9 @@ class AddStoryActivity : AppCompatActivity() {
                 showDefaultSnackbar(getString(R.string.permission_denied), Snackbar.LENGTH_SHORT)
                 finish()
             } else {
-                val intent = Intent(this@AddStoryActivity, CameraXActivity::class.java)
-                launcherIntentCameraX.launch(intent)
+                launcherIntentCameraX.launch(
+                    Intent(this@AddStoryActivity, CameraXActivity::class.java)
+                )
             }
         }
     }
