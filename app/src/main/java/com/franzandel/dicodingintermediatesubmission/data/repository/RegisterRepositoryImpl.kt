@@ -18,9 +18,7 @@ class RegisterRepositoryImpl @Inject constructor(
             is Result.Error -> {
                 Result.Error(
                     result.responseCode,
-                    result.errorData?.let {
-                        RegisterResponseMapper.transform(it)
-                    }
+                    result.errorData?.let(RegisterResponseMapper::transform)
                 )
             }
             is Result.Exception -> result

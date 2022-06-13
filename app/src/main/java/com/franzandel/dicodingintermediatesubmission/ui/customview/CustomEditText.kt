@@ -124,13 +124,13 @@ class CustomEditText @JvmOverloads constructor(
 
             if (layoutDirection == View.LAYOUT_DIRECTION_RTL) {
                 clearButtonEnd = (clearButtonImage.intrinsicWidth + paddingStart).toFloat()
-                when {
-                    event.x < clearButtonEnd -> isClearButtonClicked = true
+                if (event.x < clearButtonEnd) {
+                    isClearButtonClicked = true
                 }
             } else {
                 clearButtonStart = (width - paddingEnd - clearButtonImage.intrinsicWidth).toFloat()
-                when {
-                    event.x > clearButtonStart -> isClearButtonClicked = true
+                if (event.x > clearButtonStart) {
+                    isClearButtonClicked = true
                 }
             }
             if (isClearButtonClicked && error == null) {
@@ -140,8 +140,8 @@ class CustomEditText @JvmOverloads constructor(
                         true
                     }
                     MotionEvent.ACTION_UP -> {
-                        when {
-                            text != null -> text?.clear()
+                        if (text != null) {
+                            text?.clear()
                         }
                         requestFocus()
                         hideClearButton()

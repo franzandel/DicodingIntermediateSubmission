@@ -27,7 +27,6 @@ import java.util.concurrent.Executors
 
 class CameraXActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraXactivityBinding
-    private lateinit var cameraExecutor: ExecutorService
 
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var imageCapture: ImageCapture? = null
@@ -41,9 +40,6 @@ class CameraXActivity : AppCompatActivity() {
 
         binding = ActivityCameraXactivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        cameraExecutor = Executors.newSingleThreadExecutor()
-
         initListeners()
     }
 
@@ -51,11 +47,6 @@ class CameraXActivity : AppCompatActivity() {
         super.onResume()
         hideSystemUI()
         startCamera()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        cameraExecutor.shutdown()
     }
 
     private fun initListeners() {
