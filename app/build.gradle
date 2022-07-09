@@ -106,6 +106,9 @@ dependencies {
     implementation("com.google.dagger:hilt-android:${versions.hilt}")
     kapt("com.google.dagger:hilt-android-compiler:${versions.hilt}")
 
+    implementation("androidx.room:room-runtime:${versions.room}")
+    annotationProcessor("androidx.room:room-compiler:${versions.room}")
+
     testImplementation "junit:junit:${testVersions.junit}"
 
     androidTestImplementation "androidx.test.ext:junit:${androidTestVersions.junitExt}"
