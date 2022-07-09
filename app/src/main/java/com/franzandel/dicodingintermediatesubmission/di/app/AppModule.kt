@@ -1,8 +1,10 @@
 package com.franzandel.dicodingintermediatesubmission.di.app
 
 import android.content.Context
+import androidx.room.Room
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.franzandel.dicodingintermediatesubmission.BuildConfig
+import com.franzandel.dicodingintermediatesubmission.data.database.StoriesDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -45,4 +47,12 @@ object AppModule {
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+    @Provides
+    @Singleton
+    fun provideStoriesDatabase(@ApplicationContext context: Context): StoriesDatabase =
+        Room.databaseBuilder(
+            context,
+            StoriesDatabase::class.java, "stories-db"
+        ).build()
 }
