@@ -72,7 +72,7 @@
                 android:layout_marginHorizontal="@dimen/space_8"
                 android:layout_marginVertical="@dimen/space_8"
                 android:gravity="end"
-                android:text="@{story.createdAt}"
+                android:text="@{story.formattedCreatedAt}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
