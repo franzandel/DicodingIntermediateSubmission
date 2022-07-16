@@ -6,7 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.franzandel.dicodingintermediatesubmission.data.model.HomeEntity
+import com.franzandel.dicodingintermediatesubmission.data.model.StoryEntity
 
 /**
  * Created by Franz Andel <franz.andel@ovo.id>
@@ -15,25 +15,16 @@ import com.franzandel.dicodingintermediatesubmission.data.model.HomeEntity
 
 @Dao
 interface HomeDao {
-    @Query("SELECT * FROM home")
-    fun getAll(): PagingSource<Int, HomeEntity>
-//    fun getAllQuote(): PagingSource<Int, QuoteResponseItem>
-
-//    @Query("SELECT * FROM home WHERE uid IN (:userIds)")
-//    fun loadAllByIds(userIds: IntArray): List<HomeEntity>
-
-//    @Query("SELECT * FROM home WHERE first_name LIKE :first AND " +
-//        "last_name LIKE :last LIMIT 1")
-//    fun findByName(first: String, last: String): HomeEntity
+    @Query("SELECT * FROM story")
+    fun getAll(): PagingSource<Int, StoryEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun insertAll(vararg users: HomeEntity)
-    fun insertAll(home: HomeEntity)
+    fun insertAll(home: List<StoryEntity>)
 
     @Delete
-    fun delete(home: HomeEntity)
+    fun delete(home: StoryEntity)
 
-    @Query("DELETE FROM home")
+    @Query("DELETE FROM story")
     fun deleteAll()
 }
 

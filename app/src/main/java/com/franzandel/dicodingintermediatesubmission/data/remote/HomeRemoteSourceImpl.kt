@@ -1,5 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.data.remote
 
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -7,9 +8,10 @@ import androidx.paging.map
 import com.franzandel.dicodingintermediatesubmission.base.data.NetworkObject
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.consts.PaginationConst
+import com.franzandel.dicodingintermediatesubmission.data.database.StoriesDatabase
 import com.franzandel.dicodingintermediatesubmission.data.mapper.HomeResponseMapper
 import com.franzandel.dicodingintermediatesubmission.data.model.HomeResponse
-import com.franzandel.dicodingintermediatesubmission.data.paging.HomePagingSource
+import com.franzandel.dicodingintermediatesubmission.data.remotemediator.HomeRemoteMediator
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.utils.awaitResponse
@@ -17,8 +19,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class HomeRemoteSourceImpl @Inject constructor(private val service: HomeService) : HomeRemoteSource {
+class HomeRemoteSourceImpl @Inject constructor(
+    private val database: StoriesDatabase,
+    private val service: HomeService
+) : HomeRemoteSource {
 
+    @OptIn(ExperimentalPagingApi::class)
     override suspend fun getPagingStories(token: String): Result<Flow<PagingData<Story>>> =
         Result.Success(
             Pager(
@@ -27,12 +33,13 @@ class HomeRemoteSourceImpl @Inject constructor(private val service: HomeService)
                     pageSize = PaginationConst.NETWORK_PAGE_SIZE,
                     enablePlaceholders = false
                 ),
+                remoteMediator = HomeRemoteMediator(database, service, token),
                 pagingSourceFactory = {
-                    HomePagingSource(service, token)
+                    database.homeDao().getAll()
                 }
             ).flow.map {
-                it.map { storyResponse ->
-                    HomeResponseMapper.transform(storyResponse)
+                it.map { storyEntity ->
+                    HomeResponseMapper.transform(storyEntity)
                 }
             }
         )

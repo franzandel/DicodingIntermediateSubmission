@@ -25,6 +25,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
     private const val TIMEOUT_TIME = 60L
+    private const val STORIES_DB = "stories-db"
 
     @Provides
     @Singleton
@@ -53,6 +54,7 @@ object AppModule {
     fun provideStoriesDatabase(@ApplicationContext context: Context): StoriesDatabase =
         Room.databaseBuilder(
             context,
-            StoriesDatabase::class.java, "stories-db"
+            StoriesDatabase::class.java,
+            STORIES_DB
         ).build()
 }

@@ -19,7 +19,6 @@ import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.data.consts.IntentActionConst
-import com.franzandel.dicodingintermediatesubmission.data.remotemediator.HomeRemoteMediator
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityHomeBinding
 import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
 import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
@@ -39,11 +38,13 @@ class HomeActivity : AppCompatActivity() {
     private val adapter by lazy { HomeAdapter(viewModel, this) }
     private val viewModel: HomeViewModel by viewModels()
     private val coroutineThread: CoroutineThread = CoroutineThreadImpl()
+    private var isStoryAdded = false
 
     private val uploadImageActivityResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 adapter.refresh()
+                isStoryAdded = true
             }
         }
 
@@ -129,8 +130,9 @@ class HomeActivity : AppCompatActivity() {
 
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                if (positionStart == 0) {
+                if (positionStart == 0 && isStoryAdded) {
                     binding.rvHome.smoothScrollToPosition(0)
+                    isStoryAdded = false
                 }
             }
         })

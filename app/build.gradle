@@ -63,6 +63,10 @@ android {
         dataBinding true
         viewBinding true
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+        freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
+    }
 }
 
 dependencies {
@@ -107,7 +111,9 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:${versions.hilt}")
 
     implementation("androidx.room:room-runtime:${versions.room}")
-    annotationProcessor("androidx.room:room-compiler:${versions.room}")
+    kapt("androidx.room:room-compiler:${versions.room}")
+    implementation("androidx.room:room-ktx:${versions.room}")
+    implementation("androidx.room:room-paging:${versions.room}")
 
     testImplementation "junit:junit:${testVersions.junit}"
 
