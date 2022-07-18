@@ -18,7 +18,7 @@ ext.versions = [
         cameraX: '1.2.0-alpha01',
         okhttp: '4.9.3',
         compressor: '3.0.1',
-        hilt: '2.38.1',
+        hilt: '2.42',
         room: '2.4.2'
 ]
 
