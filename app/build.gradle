@@ -5,6 +5,7 @@ plugins {
     id 'kotlin-parcelize'
     id "com.google.protobuf" version "0.8.12"
     id("dagger.hilt.android.plugin")
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 apply from: "$rootDir/app/dependencies.gradle"
 
@@ -114,6 +115,8 @@ dependencies {
     kapt("androidx.room:room-compiler:${versions.room}")
     implementation("androidx.room:room-ktx:${versions.room}")
     implementation("androidx.room:room-paging:${versions.room}")
+
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
 
     testImplementation "junit:junit:${testVersions.junit}"
 
