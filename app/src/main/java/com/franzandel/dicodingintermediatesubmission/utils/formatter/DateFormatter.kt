@@ -1,4 +1,4 @@
-package com.franzandel.dicodingintermediatesubmission.ui.formatter
+package com.franzandel.dicodingintermediatesubmission.utils.formatter
 
 import android.icu.text.DateFormat
 import android.icu.text.SimpleDateFormat

@@ -1,9 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.domain.model
 
-import android.icu.text.DateFormat
-import android.icu.text.SimpleDateFormat
-import com.franzandel.dicodingintermediatesubmission.ui.formatter.DateFormatter
-import java.util.Locale
+import com.franzandel.dicodingintermediatesubmission.utils.formatter.DateFormatter
 
 /**
  * Created by Franz Andel

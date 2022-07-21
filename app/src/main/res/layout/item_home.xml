@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="story"
             type="com.franzandel.dicodingintermediatesubmission.domain.model.Story" />
@@ -41,6 +43,18 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Budi" />
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_8"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                tools:text="Location"
+                tools:visibility="visible" />
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_story"
                 android:layout_width="match_parent"
@@ -48,7 +62,7 @@
                 android:layout_marginTop="@dimen/space_8"
                 android:scaleType="center"
                 app:glideUrl="@{story.photoUrl}"
-                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_location"
                 tools:src="@drawable/ic_launcher_background" />
 
             <androidx.appcompat.widget.AppCompatTextView

@@ -1,7 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.ui.detail
 
 import android.os.Parcelable
-import com.franzandel.dicodingintermediatesubmission.ui.formatter.DateFormatter
+import com.franzandel.dicodingintermediatesubmission.utils.formatter.DateFormatter
 import kotlinx.parcelize.Parcelize
 
 /**
