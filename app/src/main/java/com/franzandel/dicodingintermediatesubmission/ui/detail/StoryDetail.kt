@@ -1,6 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.ui.detail
 
 import android.os.Parcelable
+import com.franzandel.dicodingintermediatesubmission.ui.formatter.DateFormatter
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -17,4 +18,7 @@ data class StoryDetail(
     val longitude: Double?,
     val name: String,
     val photoUrl: String
-): Parcelable
+): Parcelable {
+    val formattedCreatedAt: String
+        get() = DateFormatter.formatLongDate(createdAt)
+}
