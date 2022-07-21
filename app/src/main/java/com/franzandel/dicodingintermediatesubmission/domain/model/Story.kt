@@ -2,6 +2,7 @@ package com.franzandel.dicodingintermediatesubmission.domain.model
 
 import android.icu.text.DateFormat
 import android.icu.text.SimpleDateFormat
+import com.franzandel.dicodingintermediatesubmission.ui.formatter.DateFormatter
 import java.util.Locale
 
 /**
@@ -19,9 +20,5 @@ data class Story(
     val photoUrl: String
 ) {
     val formattedCreatedAt: String
-        get() {
-            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SZ", Locale.getDefault())
-            return DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.SHORT)
-                .format(sdf.parse(createdAt))
-        }
+        get() = DateFormatter.formatLongDate(createdAt)
 }
