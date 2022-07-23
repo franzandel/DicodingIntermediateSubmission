@@ -18,7 +18,6 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
-import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.data.consts.ValidationConst
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityAddStoryBinding
 import com.franzandel.dicodingintermediatesubmission.ui.camerax.CameraXActivity
@@ -33,17 +32,19 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.Locale
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddStoryActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var coroutineThread: CoroutineThread
 
     private lateinit var binding: ActivityAddStoryBinding
     private lateinit var galleryActivityResultLauncher: ActivityResultLauncher<String>
 
     private val viewModel: AddStoryViewModel by viewModels()
     private var file: File? = null
-
-    private val coroutineThread: CoroutineThread = CoroutineThreadImpl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
