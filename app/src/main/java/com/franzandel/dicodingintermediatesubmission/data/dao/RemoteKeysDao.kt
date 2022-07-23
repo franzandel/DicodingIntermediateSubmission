@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.franzandel.dicodingintermediatesubmission.data.model.RemoteKeysEntity
 
 /**
- * Created by Franz Andel <franz.andel@ovo.id>
+ * Created by Franz Andel
  * on 12 July 2022.
  */
 
@@ -17,8 +17,8 @@ interface RemoteKeysDao {
     suspend fun insertAll(remoteKey: List<RemoteKeysEntity>)
 
     @Query("SELECT * FROM remote_keys WHERE id = :id")
-    suspend fun getRemoteKeysId(id: String): RemoteKeysEntity?
+    suspend fun getRemoteKeys(id: String): RemoteKeysEntity?
 
     @Query("DELETE FROM remote_keys")
-    suspend fun deleteRemoteKeys()
+    suspend fun deleteAll()
 }

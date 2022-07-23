@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -17,7 +16,6 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
-import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.data.consts.IntentActionConst
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityHomeBinding
 import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
@@ -42,6 +40,8 @@ class HomeActivity : AppCompatActivity() {
     private val adapter by lazy { HomeAdapter(viewModel, this) }
     private val viewModel: HomeViewModel by viewModels()
     private var isStoryAdded = false
+    private var isLocationSpecificChosen = false
+    private var menu: Menu? = null
 
     private val uploadImageActivityResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -61,7 +61,7 @@ class HomeActivity : AppCompatActivity() {
         initObservers()
         initListeners()
         initPaging3AdapterListener()
-        viewModel.getStories()
+        viewModel.getLocationPreference()
         handleIntentAction()
     }
 
@@ -72,8 +72,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.menu_home, menu)
+        menuInflater.inflate(R.menu.menu_home, menu)
+        this.menu = menu
         return true
     }
 
@@ -85,6 +85,19 @@ class HomeActivity : AppCompatActivity() {
             }
             R.id.menu_logout -> {
                 showLogoutConfirmation()
+                true
+            }
+            R.id.menu_location_preference -> {
+                item.isChecked = !item.isChecked
+                isLocationSpecificChosen = item.isChecked
+
+                val locationPreference = if (isLocationSpecificChosen) {
+                    ONLY_WITH_LOCATION_STORIES
+                } else {
+                    ALL_STORIES
+                }
+                viewModel.getStories(locationPreference)
+                viewModel.setLocationPreference(locationPreference)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -131,6 +144,12 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.locationPreference.observe(this) {
+            isLocationSpecificChosen = it == ONLY_WITH_LOCATION_STORIES
+            menu?.findItem(R.id.menu_location_preference)?.isChecked = isLocationSpecificChosen
+            viewModel.getStories(it)
+        }
+
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 if (positionStart == 0 && isStoryAdded) {
@@ -144,7 +163,12 @@ class HomeActivity : AppCompatActivity() {
     private fun initListeners() {
         binding.apply {
             srlHome.setOnRefreshListener {
-                viewModel.getStories()
+                val locationPreference = if (isLocationSpecificChosen) {
+                    ONLY_WITH_LOCATION_STORIES
+                } else {
+                    ALL_STORIES
+                }
+                viewModel.getStories(locationPreference)
             }
 
             btnEmptyMessage.setOnClickListener {
@@ -225,5 +249,10 @@ class HomeActivity : AppCompatActivity() {
                 )
             }
         }
+    }
+
+    companion object {
+        const val ALL_STORIES = 0
+        private const val ONLY_WITH_LOCATION_STORIES = 1
     }
 }

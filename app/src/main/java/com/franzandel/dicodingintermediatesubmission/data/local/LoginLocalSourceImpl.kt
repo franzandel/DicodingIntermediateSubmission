@@ -12,8 +12,8 @@ class LoginLocalSourceImpl @Inject constructor(
     private val settingsDataStore: DataStore<AuthenticationSession>
 ) : LoginLocalSource {
 
-    override suspend fun saveToken(token: String): Result<Unit> {
-        return suspendTryCatch {
+    override suspend fun saveToken(token: String): Result<Unit> =
+        suspendTryCatch {
             settingsDataStore.updateData { settings ->
                 settings.toBuilder()
                     .setToken(token)
@@ -21,10 +21,9 @@ class LoginLocalSourceImpl @Inject constructor(
             }
             Result.Success(Unit)
         }
-    }
 
-    override suspend fun getToken(): Result<Flow<String>> {
-        return suspendTryCatch {
+    override suspend fun getToken(): Result<Flow<String>> =
+        suspendTryCatch {
             Result.Success(
                 settingsDataStore.data
                     .map { settings ->
@@ -32,5 +31,4 @@ class LoginLocalSourceImpl @Inject constructor(
                     }
             )
         }
-    }
 }

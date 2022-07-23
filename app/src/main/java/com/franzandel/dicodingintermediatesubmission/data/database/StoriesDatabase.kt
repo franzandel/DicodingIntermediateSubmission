@@ -8,7 +8,7 @@ import com.franzandel.dicodingintermediatesubmission.data.model.RemoteKeysEntity
 import com.franzandel.dicodingintermediatesubmission.data.model.StoryEntity
 
 /**
- * Created by Franz Andel <franz.andel@ovo.id>
+ * Created by Franz Andel
  * on 09 July 2022.
  */
 

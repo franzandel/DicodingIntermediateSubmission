@@ -5,7 +5,7 @@ import android.icu.text.SimpleDateFormat
 import java.util.Locale
 
 /**
- * Created by Franz Andel <franz.andel@ovo.id>
+ * Created by Franz Andel
  * on 21 July 2022.
  */
 

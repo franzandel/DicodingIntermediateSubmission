@@ -16,7 +16,8 @@ interface HomeService {
     suspend fun getStories(
         @Header("Authorization") header: String,
         @Query("page") page: Int,
-        @Query("size") size: Int
+        @Query("size") size: Int,
+        @Query("location") location: Int
     ): HomeResponse
 
     @GET("stories")

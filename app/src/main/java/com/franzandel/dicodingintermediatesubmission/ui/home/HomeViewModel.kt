@@ -12,7 +12,9 @@ import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThr
 import com.franzandel.dicodingintermediatesubmission.data.consts.IntentConst
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.ClearStorageUseCase
+import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetLocationPreferenceUseCase
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetPagingStoriesUseCase
+import com.franzandel.dicodingintermediatesubmission.domain.usecase.SetLocationPreferenceUseCase
 import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
 import com.franzandel.dicodingintermediatesubmission.utils.onError
 import com.franzandel.dicodingintermediatesubmission.utils.onException
@@ -31,6 +33,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getPagingStoriesUseCase: GetPagingStoriesUseCase,
     private val clearStorageUseCase: ClearStorageUseCase,
+    private val getLocationPreferenceUseCase: GetLocationPreferenceUseCase,
+    private val setLocationPreferenceUseCase: SetLocationPreferenceUseCase,
     private val coroutineThread: CoroutineThread
 ) : ViewModel() {
 
@@ -43,9 +47,12 @@ class HomeViewModel @Inject constructor(
     private var _clearStorageResult = MutableLiveData<Boolean>()
     val clearStorageResult: LiveData<Boolean> = _clearStorageResult
 
-    fun getStories() {
+    private var _locationPreference = MutableLiveData<Int>()
+    val locationPreference: LiveData<Int> = _locationPreference
+
+    fun getStories(location: Int) {
         viewModelScope.launch(coroutineThread.main) {
-            getPagingStoriesUseCase()
+            getPagingStoriesUseCase(location)
                 .onSuccess { pagingStory ->
                     pagingStory.cachedIn(viewModelScope).collect {
                         _homeResult.value = HomeResult(success = it)
@@ -70,7 +77,7 @@ class HomeViewModel @Inject constructor(
 
     fun clearStorage() {
         viewModelScope.launch(coroutineThread.main) {
-            clearStorageUseCase(Unit)
+            clearStorageUseCase()
                 .onSuccess {
                     _clearStorageResult.value = true
                 }.onError { _, _ ->
@@ -78,6 +85,27 @@ class HomeViewModel @Inject constructor(
                 }.onException {
                     _clearStorageResult.value = false
                 }
+        }
+    }
+
+    fun getLocationPreference() {
+        viewModelScope.launch(coroutineThread.main) {
+            getLocationPreferenceUseCase()
+                .onSuccess { result ->
+                    result.collect {
+                        _locationPreference.value = it
+                    }
+                }.onError { _, _ ->
+                    _locationPreference.value = HomeActivity.ALL_STORIES
+                }.onException {
+                    _locationPreference.value = HomeActivity.ALL_STORIES
+                }
+        }
+    }
+
+    fun setLocationPreference(locationPreference: Int) {
+        viewModelScope.launch(coroutineThread.main) {
+            setLocationPreferenceUseCase(locationPreference)
         }
     }
 }
