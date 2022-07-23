@@ -13,7 +13,7 @@ import com.franzandel.dicodingintermediatesubmission.data.model.StoryEntity
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 
 /**
- * Created by Franz Andel <franz.andel@ovo.id>
+ * Created by Franz Andel
  * on 09 July 2022.
  */
 
@@ -21,7 +21,8 @@ import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 class HomeRemoteMediator(
     private val database: StoriesDatabase,
     private val apiService: HomeService,
-    private val token: String
+    private val token: String,
+    private val location: Int
 ) : RemoteMediator<Int, StoryEntity>() {
 
     private companion object {
@@ -57,13 +58,13 @@ class HomeRemoteMediator(
 
         try {
             val storiesResponse =
-                apiService.getStories(NetworkObject.wrapBearer(token), page, state.config.pageSize)
+                apiService.getStories(NetworkObject.wrapBearer(token), page, state.config.pageSize, location)
             val endOfPaginationReached = storiesResponse.listStory.isEmpty()
 
             database.withTransaction {
                 if (loadType == LoadType.REFRESH) {
                     database.homeDao().deleteAll()
-                    database.remoteKeysDao().deleteRemoteKeys()
+                    database.remoteKeysDao().deleteAll()
                 }
 
                 val prevKey = if (page == 1) null else page - 1
@@ -87,20 +88,20 @@ class HomeRemoteMediator(
 
     private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, StoryEntity>): RemoteKeysEntity? {
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()?.let { data ->
-            database.remoteKeysDao().getRemoteKeysId(data.id)
+            database.remoteKeysDao().getRemoteKeys(data.id)
         }
     }
 
     private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, StoryEntity>): RemoteKeysEntity? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()?.let { data ->
-            database.remoteKeysDao().getRemoteKeysId(data.id)
+            database.remoteKeysDao().getRemoteKeys(data.id)
         }
     }
 
     private suspend fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, StoryEntity>): RemoteKeysEntity? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { id ->
-                database.remoteKeysDao().getRemoteKeysId(id)
+                database.remoteKeysDao().getRemoteKeys(id)
             }
         }
     }

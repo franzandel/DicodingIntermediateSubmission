@@ -11,7 +11,9 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface HomeRepository {
-    suspend fun getPagingStories(token: String): Result<Flow<PagingData<Story>>>
+    suspend fun getPagingStories(token: String, location: Int): Result<Flow<PagingData<Story>>>
     suspend fun clearStorage(): Result<Unit>
     suspend fun getStories(token: String): Result<List<Story>>
+    suspend fun saveLocationPreference(locationPreference: Int): Result<Unit>
+    suspend fun getLocationPreference(): Result<Flow<Int>>
 }

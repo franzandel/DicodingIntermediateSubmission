@@ -12,6 +12,6 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface HomeRemoteSource {
-    suspend fun getPagingStories(token: String): Result<Flow<PagingData<Story>>>
+    suspend fun getPagingStories(token: String, location: Int): Result<Flow<PagingData<Story>>>
     suspend fun getStories(token: String): Result<HomeResponse>
 }

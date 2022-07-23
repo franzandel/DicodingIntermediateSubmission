@@ -3,6 +3,8 @@ package com.franzandel.dicodingintermediatesubmission.di.shared
 import android.content.Context
 import androidx.datastore.core.DataStore
 import com.example.application.AuthenticationSession
+import com.example.application.HomeSession
+import com.franzandel.dicodingintermediatesubmission.data.local.serializer.homeDataStore
 import com.franzandel.dicodingintermediatesubmission.data.local.serializer.settingsDataStore
 import dagger.Module
 import dagger.Provides
@@ -24,4 +26,9 @@ object SharedModule {
     @ViewModelScoped
     fun provideSettingsDataStore(@ApplicationContext context: Context): DataStore<AuthenticationSession> =
         context.settingsDataStore
+
+    @Provides
+    @ViewModelScoped
+    fun provideHomeDataStore(@ApplicationContext context: Context): DataStore<HomeSession> =
+        context.homeDataStore
 }

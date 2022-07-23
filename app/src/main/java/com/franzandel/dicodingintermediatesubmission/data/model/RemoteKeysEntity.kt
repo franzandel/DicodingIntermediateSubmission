@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 /**
- * Created by Franz Andel <franz.andel@ovo.id>
+ * Created by Franz Andel
  * on 12 July 2022.
  */
 

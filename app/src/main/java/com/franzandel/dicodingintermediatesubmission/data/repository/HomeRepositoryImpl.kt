@@ -15,8 +15,8 @@ class HomeRepositoryImpl @Inject constructor(
     private val localSource: HomeLocalSource
 ) : HomeRepository {
 
-    override suspend fun getPagingStories(token: String): Result<Flow<PagingData<Story>>> =
-        remoteSource.getPagingStories(token)
+    override suspend fun getPagingStories(token: String, location: Int): Result<Flow<PagingData<Story>>> =
+        remoteSource.getPagingStories(token, location)
 
     override suspend fun clearStorage(): Result<Unit> = localSource.clearStorage()
 
@@ -33,4 +33,10 @@ class HomeRepositoryImpl @Inject constructor(
             is Result.Exception -> result
         }
     }
+
+    override suspend fun saveLocationPreference(locationPreference: Int): Result<Unit> =
+        localSource.saveLocationPreference(locationPreference)
+
+    override suspend fun getLocationPreference(): Result<Flow<Int>> =
+        localSource.getLocationPreference()
 }

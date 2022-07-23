@@ -25,7 +25,7 @@ class HomeRemoteSourceImpl @Inject constructor(
 ) : HomeRemoteSource {
 
     @OptIn(ExperimentalPagingApi::class)
-    override suspend fun getPagingStories(token: String): Result<Flow<PagingData<Story>>> =
+    override suspend fun getPagingStories(token: String, location: Int): Result<Flow<PagingData<Story>>> =
         Result.Success(
             Pager(
                 config = PagingConfig(
@@ -33,7 +33,7 @@ class HomeRemoteSourceImpl @Inject constructor(
                     pageSize = PaginationConst.NETWORK_PAGE_SIZE,
                     enablePlaceholders = false
                 ),
-                remoteMediator = HomeRemoteMediator(database, service, token),
+                remoteMediator = HomeRemoteMediator(database, service, token, location),
                 pagingSourceFactory = {
                     database.homeDao().getAll()
                 }

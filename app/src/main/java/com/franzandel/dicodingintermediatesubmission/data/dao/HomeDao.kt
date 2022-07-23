@@ -9,7 +9,7 @@ import androidx.room.Query
 import com.franzandel.dicodingintermediatesubmission.data.model.StoryEntity
 
 /**
- * Created by Franz Andel <franz.andel@ovo.id>
+ * Created by Franz Andel
  * on 09 July 2022.
  */
 
@@ -20,9 +20,6 @@ interface HomeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(home: List<StoryEntity>)
-
-    @Delete
-    fun delete(home: StoryEntity)
 
     @Query("DELETE FROM story")
     fun deleteAll()

@@ -3,6 +3,11 @@ package com.franzandel.dicodingintermediatesubmission.di.widget
 import android.content.Context
 import androidx.datastore.core.DataStore
 import com.example.application.AuthenticationSession
+import com.example.application.HomeSession
+import com.franzandel.dicodingintermediatesubmission.data.dao.HomeDao
+import com.franzandel.dicodingintermediatesubmission.data.dao.RemoteKeysDao
+import com.franzandel.dicodingintermediatesubmission.data.database.StoriesDatabase
+import com.franzandel.dicodingintermediatesubmission.data.local.serializer.homeDataStore
 import com.franzandel.dicodingintermediatesubmission.data.local.serializer.settingsDataStore
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 import com.franzandel.dicodingintermediatesubmission.data.service.LoginService
@@ -30,6 +35,11 @@ object StoriesWidgetModule {
 
     @Provides
     @ServiceScoped
+    fun provideHomeDataStore(@ApplicationContext context: Context): DataStore<HomeSession> =
+        context.homeDataStore
+
+    @Provides
+    @ServiceScoped
     fun provideLoginService(retrofit: Retrofit): LoginService =
         retrofit.create(LoginService::class.java)
 
@@ -37,4 +47,14 @@ object StoriesWidgetModule {
     @ServiceScoped
     fun provideHomeService(retrofit: Retrofit): HomeService =
         retrofit.create(HomeService::class.java)
+
+    @Provides
+    @ServiceScoped
+    fun provideHomeDao(storiesDatabase: StoriesDatabase): HomeDao =
+        storiesDatabase.homeDao()
+
+    @Provides
+    @ServiceScoped
+    fun provideRemoteKeysDao(storiesDatabase: StoriesDatabase): RemoteKeysDao =
+        storiesDatabase.remoteKeysDao()
 }

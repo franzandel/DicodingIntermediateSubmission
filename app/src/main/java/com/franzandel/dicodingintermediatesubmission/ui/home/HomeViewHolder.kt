@@ -5,6 +5,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ItemHomeBinding
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.utils.geolocation.GeolocationUtils
@@ -45,6 +46,7 @@ class HomeViewHolder(private val itemHomeBinding: ItemHomeBinding) :
 
                     withContext(Dispatchers.Main) {
                         tvLocation.text = location.await()
+                            ?: root.context.getString(R.string.failed_load_location)
                     }
                 }
                 withContext(Dispatchers.Main) {

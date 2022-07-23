@@ -11,4 +11,8 @@
         android:id="@+id/menu_logout"
         android:title="@string/menu_home_logout"
         app:showAsAction="always" />
+
+    <item android:id="@+id/menu_location_preference"
+        android:title="@string/menu_location_preference"
+        android:checkable="true" />
 </menu>

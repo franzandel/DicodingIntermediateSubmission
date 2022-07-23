@@ -28,6 +28,7 @@
     <string name="home_logout_confirmation_title">Apakah anda yakin untuk keluar?</string>
     <string name="menu_home_logout">Keluar</string>
     <string name="menu_home_settings">Pengaturan</string>
+    <string name="menu_location_preference">Tampilkan lokasi saja</string>
     <string name="add_story_from_camera">Dari Kamera</string>
     <string name="add_story_from_gallery">Dari Gallery</string>
     <string name="add_story_description">Deskripsi</string>
@@ -54,4 +55,6 @@
     <string name="satellite_type">Satelit</string>
     <string name="terrain_type">Terrain</string>
     <string name="hybrid_type">Campuran</string>
+
+    <string name="failed_load_location">Gagal memuat Lokasi</string>
 </resources>
