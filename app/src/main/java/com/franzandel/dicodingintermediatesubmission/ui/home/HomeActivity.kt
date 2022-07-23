@@ -29,15 +29,18 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var coroutineThread: CoroutineThread
 
     private lateinit var binding: ActivityHomeBinding
 
     private val adapter by lazy { HomeAdapter(viewModel, this) }
     private val viewModel: HomeViewModel by viewModels()
-    private val coroutineThread: CoroutineThread = CoroutineThreadImpl()
     private var isStoryAdded = false
 
     private val uploadImageActivityResultLauncher =
