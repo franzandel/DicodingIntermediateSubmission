@@ -19,7 +19,9 @@ ext.versions = [
         okhttp: '4.9.3',
         compressor: '3.0.1',
         hilt: '2.42',
-        room: '2.4.2'
+        room: '2.4.2',
+        location: '18.0.0',
+        maps: '18.0.0'
 ]
 
 ext.testVersions = [

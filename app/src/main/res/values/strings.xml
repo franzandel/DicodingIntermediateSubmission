@@ -40,6 +40,7 @@
     <string name="add_story_from_camera">From Camera</string>
     <string name="add_story_from_gallery">From Gallery</string>
     <string name="add_story_description">Description</string>
+    <string name="add_story_with_current_location">With current location</string>
     <string name="add_story_upload">Upload</string>
     <string name="add_story_success_upload">Success upload</string>
     <string name="add_story_select_image">Please select image first</string>
@@ -66,4 +67,5 @@
     <string name="hybrid_type">Hybrid</string>
 
     <string name="failed_load_location">Failed to load location</string>
+    <string name="current_location_not_found">Current location not found. Probably you haven\'t turned on location</string>
 </resources>

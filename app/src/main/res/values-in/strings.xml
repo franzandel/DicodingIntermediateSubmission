@@ -32,6 +32,7 @@
     <string name="add_story_from_camera">Dari Kamera</string>
     <string name="add_story_from_gallery">Dari Gallery</string>
     <string name="add_story_description">Deskripsi</string>
+    <string name="add_story_with_current_location">Dengan lokasi sekarang</string>
     <string name="add_story_upload">Unggah</string>
     <string name="add_story_success_upload">Berhasil unggah</string>
     <string name="add_story_select_image">Pilih gambar terlebih dahulu</string>
@@ -57,4 +58,5 @@
     <string name="hybrid_type">Campuran</string>
 
     <string name="failed_load_location">Gagal memuat Lokasi</string>
+    <string name="current_location_not_found">Lokasi sekarang tidak ditemukan. Mungkin kamu belum menaktifkan lokasi</string>
 </resources>

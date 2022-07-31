@@ -1,5 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.ui.addstory
 
+import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
@@ -40,21 +42,30 @@ class AddStoryViewModel @Inject constructor(
     private val _descriptionValidation = MutableLiveData<Int>()
     val descriptionValidation: LiveData<Int> = _descriptionValidation
 
-    suspend fun uploadImage(compressedFile: File, description: String) {
+    suspend fun uploadImage(compressedFile: File, description: String, currentLocation: Location?) {
         withContext(coroutineThread.main) {
             if (validateDescription(description)) {
                 _loading.value = true
-                val descriptionRequestBody = description.toRequestBody("text/plain".toMediaType())
+                val descriptionRequestBody = description.toRequestBody(TEXT_PLAIN.toMediaType())
                 val requestImageFile =
-                    compressedFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                    compressedFile.asRequestBody(IMAGE_JPEG.toMediaTypeOrNull())
                 val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                    "photo",
+                    PHOTO,
                     compressedFile.name,
                     requestImageFile
                 )
+                var latitudeRequestBody: RequestBody? = null
+                var longitudeRequestBody: RequestBody? = null
+                currentLocation?.let {
+                    latitudeRequestBody = it.latitude.toString().toRequestBody(TEXT_PLAIN.toMediaType())
+                    longitudeRequestBody = it.longitude.toString().toRequestBody(TEXT_PLAIN.toMediaType())
+                }
+
                 val addStoryRequest = AddStoryRequest(
                     file = imageMultipart,
-                    description = descriptionRequestBody
+                    description = descriptionRequestBody,
+                    latitude = latitudeRequestBody,
+                    longitude = longitudeRequestBody
                 )
                 when (uploadImageUseCase(addStoryRequest)) {
                     is Result.Success -> {
@@ -83,5 +94,11 @@ class AddStoryViewModel @Inject constructor(
             _descriptionValidation.value = ValidationConst.FORM_VALID
             true
         }
+    }
+
+    companion object {
+        private const val TEXT_PLAIN = "text/plain"
+        private const val IMAGE_JPEG = "image/jpeg"
+        private const val PHOTO = "photo"
     }
 }

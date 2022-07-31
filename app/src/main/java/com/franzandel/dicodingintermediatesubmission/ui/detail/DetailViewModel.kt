@@ -1,5 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.ui.detail
 
+import android.content.Context
 import android.location.Geocoder
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -28,10 +29,10 @@ class DetailViewModel @Inject constructor(private val coroutineThread: Coroutine
         it != null
     }
 
-    fun getLocation(geocoder: Geocoder, latitude: Double?, longitude: Double?) {
+    fun getLocation(context: Context, latitude: Double?, longitude: Double?) {
         if (latitude == null || longitude == null) return
         viewModelScope.launch(coroutineThread.default) {
-            _location.postValue(GeolocationUtils.getCountryState(geocoder, latitude, longitude))
+            _location.postValue(GeolocationUtils.getCountryState(context, latitude, longitude))
         }
     }
 }

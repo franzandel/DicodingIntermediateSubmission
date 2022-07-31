@@ -1,8 +1,10 @@
 package com.franzandel.dicodingintermediatesubmission.utils.geolocation
 
+import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import java.lang.Exception
+import java.util.Locale
 
 /**
  * Created by Franz Andel
@@ -11,13 +13,13 @@ import java.lang.Exception
 
 object GeolocationUtils {
 
-    @Suppress("BlockingMethodInNonBlockingContext")
-    suspend fun getCountryState(
-        geocoder: Geocoder,
+    fun getCountryState(
+        context: Context,
         latitude: Double,
         longitude: Double
     ): String? {
         return try {
+            val geocoder = Geocoder(context, Locale.getDefault())
             val addresses: List<Address> = geocoder.getFromLocation(latitude, longitude, 1)
 
             if (addresses.isNotEmpty()) {

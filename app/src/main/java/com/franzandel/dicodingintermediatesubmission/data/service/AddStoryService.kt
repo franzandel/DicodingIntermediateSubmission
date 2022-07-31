@@ -21,5 +21,7 @@ interface AddStoryService {
         @Header("Authorization") header: String,
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody,
+        @Part("lat") latitude: RequestBody?,
+        @Part("lon") longitude: RequestBody?
     ): Call<BaseResponse>
 }
