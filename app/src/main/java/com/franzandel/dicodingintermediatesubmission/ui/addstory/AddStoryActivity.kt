@@ -10,6 +10,7 @@ import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -29,6 +30,7 @@ import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefault
 import com.franzandel.dicodingintermediatesubmission.utils.geolocation.GeolocationUtils
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor
@@ -64,8 +66,28 @@ class AddStoryActivity : AppCompatActivity() {
         setContentView(binding.root)
         title = getString(R.string.toolbar_add_story)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        initToolbar()
         initObservers()
         initListeners()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
+    private fun initToolbar() {
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
     }
 
     private fun initObservers() {

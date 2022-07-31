@@ -29,6 +29,7 @@
     <string name="menu_home_logout">Keluar</string>
     <string name="menu_home_settings">Pengaturan</string>
     <string name="menu_location_preference">Tampilkan lokasi saja</string>
+    <string name="menu_detail_map">Buka lokasi peta</string>
     <string name="add_story_from_camera">Dari Kamera</string>
     <string name="add_story_from_gallery">Dari Gallery</string>
     <string name="add_story_description">Deskripsi</string>
