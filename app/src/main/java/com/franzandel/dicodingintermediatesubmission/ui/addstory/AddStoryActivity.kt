@@ -26,6 +26,8 @@ import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThr
 import com.franzandel.dicodingintermediatesubmission.data.consts.ValidationConst
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityAddStoryBinding
 import com.franzandel.dicodingintermediatesubmission.ui.camerax.CameraXActivity
+import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
+import com.franzandel.dicodingintermediatesubmission.ui.detail.StoryDetail
 import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefaultSnackbar
 import com.franzandel.dicodingintermediatesubmission.utils.geolocation.GeolocationUtils
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -289,5 +291,9 @@ class AddStoryActivity : AppCompatActivity() {
     companion object {
         const val CAMERA_X_RESULT = 200
         private const val ALL_IMAGES = "image/*"
+
+        fun newIntent(context: Context): Intent {
+            return Intent(context, AddStoryActivity::class.java)
+        }
     }
 }

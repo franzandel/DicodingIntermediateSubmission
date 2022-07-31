@@ -53,7 +53,7 @@
     <string name="toolbar_detail">Detail</string>
     <string name="toolbar_add_story">Add Story</string>
 
-    <string name="app_widget_description">This is an app widget description</string>
+    <string name="app_widget_description">Story widget to help you keep up to date</string>
     <string name="widget_empty_message">No story yet, go add some stories!</string>
     <string name="widget_empty_btn_message">Go</string>
 

@@ -1,6 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.ui.home
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
@@ -20,6 +21,7 @@ import com.franzandel.dicodingintermediatesubmission.data.consts.IntentActionCon
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityHomeBinding
 import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
 import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
+import com.franzandel.dicodingintermediatesubmission.ui.detail.StoryDetail
 import com.franzandel.dicodingintermediatesubmission.ui.login.LoginActivity
 import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefaultSnackbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -125,9 +127,9 @@ class HomeActivity : AppCompatActivity() {
             binding.srlHome.isRefreshing = false
         }
 
-        viewModel.navigateTo.observe(this) {
+        viewModel.navigateToDetail.observe(this) {
             startActivity(
-                Intent(this, it.destination).putExtras(it.bundle),
+                DetailActivity.newIntent(this, it),
                 ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle()
             )
         }
@@ -135,7 +137,7 @@ class HomeActivity : AppCompatActivity() {
         viewModel.clearStorageResult.observe(this) {
             if (it) {
                 startActivity(
-                    Intent(this, LoginActivity::class.java),
+                    LoginActivity.newIntent(this),
                     ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle()
                 )
                 finishAffinity()
@@ -234,19 +236,17 @@ class HomeActivity : AppCompatActivity() {
 
     private fun handleIntentAction() {
         intent.action?.let { action ->
-            val clazz = when (action) {
-                IntentActionConst.NAVIGATE_TO_DETAIL -> DetailActivity::class.java
-                IntentActionConst.NAVIGATE_TO_ADD_STORY -> AddStoryActivity::class.java
+            val intent = when (action) {
+                IntentActionConst.NAVIGATE_TO_DETAIL -> {
+                    val storyDetail =
+                        intent.extras?.getParcelable<StoryDetail?>(DetailActivity.EXTRA_STORY_DETAIL)
+                    DetailActivity.newIntent(this, storyDetail)
+                }
+                IntentActionConst.NAVIGATE_TO_ADD_STORY -> AddStoryActivity.newIntent(this)
                 else -> null
             }
-            clazz?.let {
-                startActivity(
-                    Intent(this, it).apply {
-                        intent.extras?.let { bundle ->
-                            putExtras(bundle)
-                        }
-                    }
-                )
+            intent?.let {
+                startActivity(it)
             }
         }
     }
@@ -254,5 +254,9 @@ class HomeActivity : AppCompatActivity() {
     companion object {
         const val ALL_STORIES = 0
         private const val ONLY_WITH_LOCATION_STORIES = 1
+
+        fun newIntent(context: Context): Intent {
+            return Intent(context, HomeActivity::class.java)
+        }
     }
 }
