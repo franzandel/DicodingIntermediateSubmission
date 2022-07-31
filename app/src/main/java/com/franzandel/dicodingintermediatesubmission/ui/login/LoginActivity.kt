@@ -1,5 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.ui.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -10,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityLoginBinding
+import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
 import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
 import com.franzandel.dicodingintermediatesubmission.ui.register.presentation.RegisterActivity
@@ -55,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
                     showLoginFailed(loginResult.error)
                 }
                 if (loginResult.success != null) {
-                    startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                    startActivity(HomeActivity.newIntent(this@LoginActivity))
                     finishAffinity()
                 }
             })
@@ -78,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
 
             tvNoAccountYet.setOnClickListener {
                 startActivity(
-                    Intent(this@LoginActivity, RegisterActivity::class.java),
+                    RegisterActivity.newIntent(this@LoginActivity),
                     ActivityOptionsCompat.makeSceneTransitionAnimation(this@LoginActivity)
                         .toBundle()
                 )
@@ -88,5 +90,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showLoginFailed(@StringRes errorString: Int) {
         showDefaultSnackbar(getString(errorString), Snackbar.LENGTH_SHORT)
+    }
+
+    companion object {
+        fun newIntent(context: Context): Intent {
+            return Intent(context, LoginActivity::class.java)
+        }
     }
 }

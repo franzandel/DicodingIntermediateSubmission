@@ -44,7 +44,7 @@
     <string name="toolbar_detail">Detil</string>
     <string name="toolbar_add_story">Tambah Cerita</string>
 
-    <string name="app_widget_description">Ini adalah deskripsi widget</string>
+    <string name="app_widget_description">Widget cerita untuk membantumu terus kekinian</string>
     <string name="widget_empty_message">Belum ada cerita, ayo tambah cerita</string>
     <string name="widget_empty_btn_message">Gas</string>
 

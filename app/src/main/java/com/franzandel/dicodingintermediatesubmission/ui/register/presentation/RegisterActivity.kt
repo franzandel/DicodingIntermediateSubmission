@@ -1,5 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.ui.register.presentation
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
@@ -9,6 +10,7 @@ import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.data.consts.ValidationConst
 import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityRegisterBinding
+import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
 import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
 import com.franzandel.dicodingintermediatesubmission.utils.extension.hideKeyboard
@@ -53,7 +55,7 @@ class RegisterActivity : AppCompatActivity() {
 
         viewModel.registerResult.observe(this) {
             if (it.error == null) {
-                startActivity(Intent(this, HomeActivity::class.java))
+                startActivity(HomeActivity.newIntent(this))
                 finishAffinity()
             } else {
                 showDefaultSnackbar(getString(it.error), Snackbar.LENGTH_LONG)
@@ -100,6 +102,12 @@ class RegisterActivity : AppCompatActivity() {
                     binding.etConfirmationPassword.text.toString()
                 )
             }
+        }
+    }
+
+    companion object {
+        fun newIntent(context: Context): Intent {
+            return Intent(context, RegisterActivity::class.java)
         }
     }
 }

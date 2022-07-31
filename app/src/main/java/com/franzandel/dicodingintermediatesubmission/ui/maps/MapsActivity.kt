@@ -154,11 +154,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         private const val EXTRA_LATITUDE = "extra_latitude"
         private const val EXTRA_LONGITUDE = "extra_longitude"
 
-        fun navigate(context: Context, latitude: Double, longitude: Double) {
-            Intent(context, MapsActivity::class.java).run {
+        fun newIntent(context: Context, latitude: Double, longitude: Double): Intent {
+            return Intent(context, MapsActivity::class.java).run {
                 putExtra(EXTRA_LATITUDE, latitude)
                 putExtra(EXTRA_LONGITUDE, longitude)
-                context.startActivity(this)
             }
         }
     }
