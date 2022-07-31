@@ -36,6 +36,7 @@
     <string name="menu_home_logout">Logout</string>
     <string name="menu_home_settings">Settings</string>
     <string name="menu_location_preference">Show location only</string>
+    <string name="menu_detail_map">Open map location</string>
 
     <string name="add_story_from_camera">From Camera</string>
     <string name="add_story_from_gallery">From Gallery</string>

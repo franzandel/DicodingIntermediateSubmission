@@ -1,5 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.ui.maps
 
+import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.location.Address
 import android.location.Geocoder
@@ -22,14 +24,22 @@ import java.util.Locale
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var mMap: GoogleMap
+    private lateinit var googleMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+
+    private val latitude by lazy {
+        intent.getDoubleExtra(EXTRA_LATITUDE, 0.0)
+    }
+
+    private val longitude by lazy {
+        intent.getDoubleExtra(EXTRA_LONGITUDE, 0.0)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initToolbar()
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -44,20 +54,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
             R.id.normal_type -> {
-                mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+                googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
                 true
             }
             R.id.satellite_type -> {
-                mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+                googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
                 true
             }
             R.id.terrain_type -> {
-                mMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
+                googleMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
                 true
             }
             R.id.hybrid_type -> {
-                mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
+                googleMap.mapType = GoogleMap.MAP_TYPE_HYBRID
                 true
             }
             else -> {
@@ -76,23 +90,32 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+        this.googleMap = googleMap
         setMapStyle()
 
-        mMap.uiSettings.isZoomControlsEnabled = true
-        mMap.uiSettings.isIndoorLevelPickerEnabled = true
-        mMap.uiSettings.isCompassEnabled = true
-        mMap.uiSettings.isMapToolbarEnabled = true
+        this.googleMap.uiSettings.apply {
+            isZoomControlsEnabled = true
+            isIndoorLevelPickerEnabled = true
+            isCompassEnabled = true
+            isMapToolbarEnabled = true
+        }
 
-        val sydney = LatLng(-34.0, 151.0)
+        val mapPosition = LatLng(latitude, longitude)
 
-        mMap.addMarker(
+        this.googleMap.addMarker(
             MarkerOptions()
-                .position(sydney)
-                .title(getAddressName(sydney))
-                .snippet(getAdminArea(sydney))
+                .position(mapPosition)
+                .title(getAddressName(mapPosition))
+                .snippet(getAdminArea(mapPosition))
         )
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15f))
+        this.googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mapPosition, 15f))
+    }
+
+    private fun initToolbar() {
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
     }
 
     private fun getAddressName(latLng: LatLng): String? {
@@ -118,12 +141,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun setMapStyle() {
         try {
             val success =
-                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_aubergine_style))
+                googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_aubergine_style))
             if (!success) {
                 Log.e("TAG", "Style parsing failed.")
             }
         } catch (exception: Resources.NotFoundException) {
             Log.e("TAG", "Can't find style. Error: ", exception)
+        }
+    }
+
+    companion object {
+        private const val EXTRA_LATITUDE = "extra_latitude"
+        private const val EXTRA_LONGITUDE = "extra_longitude"
+
+        fun navigate(context: Context, latitude: Double, longitude: Double) {
+            Intent(context, MapsActivity::class.java).run {
+                putExtra(EXTRA_LATITUDE, latitude)
+                putExtra(EXTRA_LONGITUDE, longitude)
+                context.startActivity(this)
+            }
         }
     }
 }
