@@ -10,5 +10,7 @@ import okhttp3.RequestBody
 
 data class AddStoryRequest(
     val file: MultipartBody.Part,
-    val description: RequestBody
+    val description: RequestBody,
+    val latitude: RequestBody?,
+    val longitude: RequestBody?
 )

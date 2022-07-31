@@ -11,8 +11,10 @@ import javax.inject.Inject
 class AddStoryRemoteSourceImpl @Inject constructor(private val service: AddStoryService) : AddStoryRemoteSource {
 
     override suspend fun uploadImage(token: String, addStoryRequest: AddStoryRequest): Result<BaseResponse> {
-        return service.uploadImage(
-            NetworkObject.wrapBearer(token), addStoryRequest.file, addStoryRequest.description
-        ).awaitResponse()
+        return with(addStoryRequest) {
+            service.uploadImage(
+                NetworkObject.wrapBearer(token), file, description, latitude, longitude
+            ).awaitResponse()
+        }
     }
 }

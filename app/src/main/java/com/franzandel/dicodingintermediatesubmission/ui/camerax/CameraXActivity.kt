@@ -82,7 +82,7 @@ class CameraXActivity : AppCompatActivity() {
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val intent = Intent()
-                    intent.putExtra("picture", photoFile)
+                    intent.putExtra(EXTRA_PHOTO_FILE, photoFile)
                     setResult(AddStoryActivity.CAMERA_X_RESULT, intent)
                     finish()
                     loadingDialog.hide()
@@ -148,5 +148,9 @@ class CameraXActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+    }
+
+    companion object {
+        const val EXTRA_PHOTO_FILE = "extra_photo_file"
     }
 }

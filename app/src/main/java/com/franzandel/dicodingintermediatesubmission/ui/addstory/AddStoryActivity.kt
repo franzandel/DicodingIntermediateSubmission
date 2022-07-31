@@ -5,15 +5,19 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Geocoder
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.franzandel.dicodingintermediatesubmission.R
@@ -22,10 +26,16 @@ import com.franzandel.dicodingintermediatesubmission.data.consts.ValidationConst
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityAddStoryBinding
 import com.franzandel.dicodingintermediatesubmission.ui.camerax.CameraXActivity
 import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefaultSnackbar
+import com.franzandel.dicodingintermediatesubmission.utils.geolocation.GeolocationUtils
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -42,15 +52,18 @@ class AddStoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddStoryBinding
     private lateinit var galleryActivityResultLauncher: ActivityResultLauncher<String>
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private val viewModel: AddStoryViewModel by viewModels()
     private var file: File? = null
+    private var currentLocation: Location? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
         title = getString(R.string.toolbar_add_story)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         initObservers()
         initListeners()
     }
@@ -88,7 +101,7 @@ class AddStoryActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == CAMERA_X_RESULT) {
-            val myFile = it.data?.getSerializableExtra("picture") as File
+            val myFile = it.data?.getSerializableExtra(CameraXActivity.EXTRA_PHOTO_FILE) as File
             file = myFile
             Glide.with(this).load(myFile).into(binding.ivAddStory)
         }
@@ -97,27 +110,45 @@ class AddStoryActivity : AppCompatActivity() {
     private fun initListeners() {
         binding.apply {
             btnFromCamera.setOnClickListener {
-                if (!allPermissionsGranted()) {
-                    ActivityCompat.requestPermissions(
-                        this@AddStoryActivity,
-                        REQUIRED_PERMISSIONS,
-                        REQUEST_CODE_PERMISSIONS
-                    )
+                if (checkPermission(Manifest.permission.CAMERA)) {
+                    Intent(this@AddStoryActivity, CameraXActivity::class.java).run {
+                        launcherIntentCameraX.launch(this)
+                    }
                 } else {
-                    val intent = Intent(this@AddStoryActivity, CameraXActivity::class.java)
-                    launcherIntentCameraX.launch(intent)
+                    requestPermissionLauncher.launch(
+                        arrayOf(Manifest.permission.CAMERA)
+                    )
                 }
             }
 
             btnFromGallery.setOnClickListener {
-                galleryActivityResultLauncher.launch("image/*")
+                galleryActivityResultLauncher.launch(ALL_IMAGES)
+            }
+
+            cbCurrentLocation.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
+                        checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+                    ){
+                        loadLastLocation()
+                    } else {
+                        requestPermissionLauncher.launch(
+                            arrayOf(
+                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION
+                            )
+                        )
+                    }
+                } else {
+                    tvCurrentLocation.isVisible = false
+                }
             }
 
             btnUpload.setOnClickListener {
                 file?.let {
                     lifecycleScope.launch(coroutineThread.background) {
                         val compressedImageFile = Compressor.compress(this@AddStoryActivity, it)
-                        viewModel.uploadImage(compressedImageFile, etDescription.text.toString())
+                        viewModel.uploadImage(compressedImageFile, etDescription.text.toString(), currentLocation)
                     }
                 } ?: run {
                     showDefaultSnackbar(
@@ -160,31 +191,81 @@ class AddStoryActivity : AppCompatActivity() {
         return File.createTempFile(timeStamp, ".jpg", storageDir)
     }
 
-    companion object {
-        const val CAMERA_X_RESULT = 200
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
-        private const val REQUEST_CODE_PERMISSIONS = 10
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            when {
+                permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
+                    // Precise location access granted.
+                    getMyLastLocation()
+                }
+                permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false -> {
+                    // Only approximate location access granted.
+                    getMyLastLocation()
+                }
+                permissions[Manifest.permission.CAMERA] ?: false -> {
+                    Intent(this@AddStoryActivity, CameraXActivity::class.java).run {
+                        launcherIntentCameraX.launch(this)
+                    }
+                }
+                else -> {
+                    showDefaultSnackbar(getString(R.string.permission_denied), Snackbar.LENGTH_SHORT)
+                }
+            }
+        }
+
+    private fun checkPermission(permission: String): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            permission
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (!allPermissionsGranted()) {
-                showDefaultSnackbar(getString(R.string.permission_denied), Snackbar.LENGTH_SHORT)
-                finish()
-            } else {
-                launcherIntentCameraX.launch(
-                    Intent(this@AddStoryActivity, CameraXActivity::class.java)
+    private fun getMyLastLocation() {
+        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
+            checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+        ){
+            loadLastLocation()
+        } else {
+            requestPermissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
                 )
+            )
+        }
+    }
+
+    private fun loadLastLocation() {
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            if (location != null) {
+                lifecycleScope.launch(Dispatchers.Default) {
+                    currentLocation = location
+                    val currentLocation = async {
+                        GeolocationUtils.getCountryState(
+                            this@AddStoryActivity,
+                            location.latitude,
+                            location.longitude
+                        )
+                    }
+                    withContext(Dispatchers.Main) {
+                        binding.tvCurrentLocation.text = currentLocation.await()
+                            ?: getString(R.string.failed_load_location)
+                        binding.tvCurrentLocation.isVisible = true
+                    }
+                }
+            } else {
+                showDefaultSnackbar(
+                    getString(R.string.current_location_not_found), Snackbar.LENGTH_SHORT
+                )
+                binding.cbCurrentLocation.isChecked = false
             }
         }
     }
 
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
+    companion object {
+        const val CAMERA_X_RESULT = 200
+        private const val ALL_IMAGES = "image/*"
     }
 }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "275387328893",
+    "project_id": "carbon-hulling-356608",
+    "storage_bucket": "carbon-hulling-356608.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275387328893:android:d60afaa05a642c91734414",
+        "android_client_info": {
+          "package_name": "com.franzandel.dicodingintermediatesubmission"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "275387328893-jtrmaq1euovghavshl4341u2fe8dbsi7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANXpJjmagpY2tf_Is1RvW41B40QssY8h4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "275387328893-jtrmaq1euovghavshl4341u2fe8dbsi7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

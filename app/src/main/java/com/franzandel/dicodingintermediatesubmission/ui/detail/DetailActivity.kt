@@ -39,8 +39,7 @@ class DetailActivity : AppCompatActivity() {
     private fun initLocationUI() {
         storyDetail?.latitude?.let { latitude ->
             storyDetail?.longitude?.let { longitude ->
-                val geocoder = Geocoder(this, Locale.getDefault())
-                viewModel.getLocation(geocoder, latitude, longitude)
+                viewModel.getLocation(this, latitude, longitude)
             }
         }
     }

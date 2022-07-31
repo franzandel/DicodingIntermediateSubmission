@@ -50,18 +50,36 @@
             app:layout_constraintStart_toEndOf="@+id/btn_from_camera"
             app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_current_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_story_with_current_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_from_camera" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_current_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:text="Indonesia, Banten"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_current_location" />
+
         <com.franzandel.dicodingintermediatesubmission.ui.customview.CustomEditText
             android:id="@+id/et_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space_16"
-            android:layout_marginTop="@dimen/space_16"
             android:hint="@string/add_story_description"
             android:inputType="textMultiLine"
             android:lines="3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_from_camera" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_current_location" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_upload"

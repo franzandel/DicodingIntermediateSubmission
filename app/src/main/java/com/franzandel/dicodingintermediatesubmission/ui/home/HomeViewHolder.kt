@@ -34,11 +34,9 @@ class HomeViewHolder(private val itemHomeBinding: ItemHomeBinding) :
         with(itemHomeBinding) {
             lifecycleOwner?.lifecycleScope?.launch(Dispatchers.Default) {
                 if (story.latitude != null && story.longitude != null) {
-                    val geocoder = Geocoder(root.context, Locale.getDefault())
-
                     val location = async {
                         GeolocationUtils.getCountryState(
-                            geocoder,
+                            root.context,
                             story.latitude,
                             story.longitude
                         )
