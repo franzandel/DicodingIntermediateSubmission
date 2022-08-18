@@ -58,7 +58,8 @@ class LoginUseCaseTest {
 
     @Test
     fun `when Login return failed`() = runTest {
-        val expectedLogin = Result.Error(400, Login(error = true, message = "login failed"))
+        val fakeErrorMessage = "login failed"
+        val expectedLogin = Result.Error(400, Login(error = true, message = fakeErrorMessage))
         val loginRequest = LoginRequest(
             email = "asdf@gmail.com",
             password = "12345"
@@ -70,11 +71,13 @@ class LoginUseCaseTest {
         Mockito.verify(loginRepository).login(loginRequest)
         Assert.assertNotNull(actualLogin)
         Assert.assertTrue(actualLogin is Result.Error)
+        Assert.assertEquals(fakeErrorMessage, (actualLogin as Result.Error).errorData?.message)
     }
 
     @Test
     fun `when Login return exception`() = runTest {
-        val expectedLogin = Result.Exception(Exception("unexpected error"))
+        val fakeExceptionMessage = "unexpected error"
+        val expectedLogin = Result.Exception(Exception(fakeExceptionMessage))
         val loginRequest = LoginRequest(
             email = "asdf@gmail.com",
             password = "12345"
@@ -86,5 +89,6 @@ class LoginUseCaseTest {
         Mockito.verify(loginRepository).login(loginRequest)
         Assert.assertNotNull(actualLogin)
         Assert.assertTrue(actualLogin is Result.Exception)
+        Assert.assertEquals(fakeExceptionMessage, (actualLogin as Result.Exception).throwable.message)
     }
 }
