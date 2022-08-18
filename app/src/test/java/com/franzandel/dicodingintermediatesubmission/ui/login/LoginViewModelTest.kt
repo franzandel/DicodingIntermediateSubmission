@@ -78,7 +78,7 @@ class LoginViewModelTest {
         val actualLogin = loginViewModel.loginResult.getOrAwaitValue()
         Mockito.verify(loginUseCase).invoke(loginRequest)
         Assert.assertNotNull(actualLogin)
-        Assert.assertNull(actualLogin.success)
+        Assert.assertNotNull(actualLogin.error)
         Assert.assertEquals(R.string.login_failed, actualLogin.error)
     }
 
@@ -96,7 +96,7 @@ class LoginViewModelTest {
         val actualLogin = loginViewModel.loginResult.getOrAwaitValue()
         Mockito.verify(loginUseCase).invoke(loginRequest)
         Assert.assertNotNull(actualLogin)
-        Assert.assertNull(actualLogin.success)
+        Assert.assertNotNull(actualLogin.error)
         Assert.assertEquals(R.string.system_error, actualLogin.error)
     }
 }
