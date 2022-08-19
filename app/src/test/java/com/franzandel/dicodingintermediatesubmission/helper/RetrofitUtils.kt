@@ -1,5 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.helper
 
+import com.franzandel.dicodingintermediatesubmission.base.model.BaseResponse
 import com.franzandel.dicodingintermediatesubmission.data.model.LoginResponse
 import com.franzandel.dicodingintermediatesubmission.utils.GsonUtils
 import java.io.BufferedReader
@@ -12,9 +13,14 @@ import java.io.StringWriter
  */
 
 object RetrofitUtils {
-    fun getLoginResponseFromJson(): LoginResponse {
-        val jsonString = getJsonString("login_response.json")
+    fun getLoginResponseFromJson(fileName: String): LoginResponse {
+        val jsonString = getJsonString(fileName)
         return GsonUtils.fromJsonString(jsonString, LoginResponse::class.java)
+    }
+
+    fun getRegisterResponseFromJson(fileName: String): BaseResponse {
+        val jsonString = getJsonString(fileName)
+        return GsonUtils.fromJsonString(jsonString, BaseResponse::class.java)
     }
 
     private fun getJsonString(filePath: String): String {
