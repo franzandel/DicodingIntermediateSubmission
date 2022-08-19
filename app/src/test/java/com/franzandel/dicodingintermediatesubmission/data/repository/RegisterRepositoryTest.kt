@@ -24,7 +24,7 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
-class RegisterRepositoryImplTest {
+class RegisterRepositoryTest {
 
     @Mock
     private lateinit var registerRemoteSource: RegisterRemoteSource

@@ -1,8 +1,8 @@
 package com.franzandel.dicodingintermediatesubmission.data.remote
 
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
-import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
-import com.franzandel.dicodingintermediatesubmission.data.service.LoginService
+import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
+import com.franzandel.dicodingintermediatesubmission.data.service.RegisterService
 import com.franzandel.dicodingintermediatesubmission.helper.MainDispatcherRule
 import com.franzandel.dicodingintermediatesubmission.helper.RetrofitUtils
 import com.franzandel.dicodingintermediatesubmission.helper.enqueueResponse
@@ -20,67 +20,70 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * Created by Franz Andel
- * on 02 August 2022.
+ * on 19 August 2022.
  */
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
-class LoginRemoteSourceTest {
+class RegisterRemoteSourceTest {
 
-    private lateinit var loginRemoteSource: LoginRemoteSource
+    private lateinit var registerRemoteSource: RegisterRemoteSource
 
     private val mockWebServer = MockWebServer()
     private val service = Retrofit.Builder()
         .baseUrl(mockWebServer.url(""))
         .addConverterFactory(GsonConverterFactory.create())
-        .build().create(LoginService::class.java)
+        .build().create(RegisterService::class.java)
 
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
     @Before
     fun setUp() {
-        loginRemoteSource = LoginRemoteSourceImpl(service)
+        registerRemoteSource = RegisterRemoteSourceImpl(service)
     }
 
     @Test
-    fun `login response success`() {
+    fun `register response success`() {
         runBlocking {
-            val fileName = "login_response.json"
+            val fileName = "register_response.json"
             mockWebServer.enqueueResponse(fileName)
-            val fakeLoginRes = RetrofitUtils.getLoginResponseFromJson(fileName)
-            val loginRequest = LoginRequest(
+            val fakeRegisterRes = RetrofitUtils.getRegisterResponseFromJson(fileName)
+            val registerRequest = RegisterRequest(
                 email = "asdf@gmail.com",
-                password = "asdfasdf"
+                password = "asdfasdf",
+                name = "asdf"
             )
 
-            val loginRes = loginRemoteSource.login(loginRequest)
-            Assert.assertNotNull(loginRes)
-            Assert.assertTrue(loginRes is Result.Success)
+            val registerResponse = registerRemoteSource.register(registerRequest)
+            Assert.assertNotNull(registerResponse)
+            Assert.assertTrue(registerResponse is Result.Success)
             Assert.assertEquals(
-                fakeLoginRes.loginResult?.name,
-                (loginRes as Result.Success).data.loginResult?.name
+                fakeRegisterRes.message,
+                (registerResponse as Result.Success).data.message
             )
         }
     }
 
     @Test
-    fun `login response failed`() {
+    fun `register response failed`() {
         runBlocking {
             val fakeErrorCode = 404
             mockWebServer.enqueueResponse(
-                fileName = "login_error_response.json",
+                fileName = "register_error_response.json",
                 responseCode = fakeErrorCode
             )
-            val loginRequest = LoginRequest(
+            val registerRequest = RegisterRequest(
                 email = "asdf@gmail.com",
-                password = "1234"
+                password = "asdfasdf",
+                name = "asdf"
             )
 
-            val loginRes = loginRemoteSource.login(loginRequest)
-            Assert.assertNotNull(loginRes)
-            Assert.assertTrue(loginRes is Result.Error)
-            Assert.assertEquals(fakeErrorCode, (loginRes as Result.Error).responseCode)
+            val registerRes = registerRemoteSource.register(registerRequest)
+            Assert.assertNotNull(registerRes)
+            Assert.assertTrue(registerRes is Result.Error)
+            Assert.assertEquals(fakeErrorCode, (registerRes as Result.Error).responseCode)
         }
     }
 }
+
