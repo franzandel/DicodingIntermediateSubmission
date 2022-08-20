@@ -31,7 +31,7 @@ class GetPagingStoriesUseCase @Inject constructor(
                     is Result.Exception -> pagingStoriesResult
                 }
             }
-            is Result.Error -> Result.Error()
+            is Result.Error -> Result.Error(tokenResult.responseCode)
             is Result.Exception -> tokenResult
         }
     }
