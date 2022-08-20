@@ -130,7 +130,7 @@ class HomeViewModelTest {
     fun `when getStories return exception`() {
         runTest {
             val fakeLocation = 0
-            val expectedHome = Result.Exception(Exception(""))
+            val expectedHome = Result.Exception(Exception("getStories exception"))
 
             Mockito.`when`(getPagingStoriesUseCase(fakeLocation)).thenReturn(expectedHome)
 
