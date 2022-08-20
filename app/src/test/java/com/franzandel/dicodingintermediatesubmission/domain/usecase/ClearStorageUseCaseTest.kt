@@ -1,15 +1,11 @@
 package com.franzandel.dicodingintermediatesubmission.domain.usecase
 
-import androidx.paging.PagingData
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.domain.repository.HomeRepository
 import com.franzandel.dicodingintermediatesubmission.helper.MainDispatcherRule
-import com.franzandel.dicodingintermediatesubmission.helper.RoomUtils
-import com.franzandel.dicodingintermediatesubmission.helper.collectDataForTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -50,11 +46,11 @@ class ClearStorageUseCaseTest {
 
         Mockito.`when`(homeRepository.clearStorage()).thenReturn(expectedClearStorage)
 
-        val actualPagingStories = clearStorageUseCase()
+        val actualClearStorage = clearStorageUseCase()
         Mockito.verify(homeRepository).clearStorage()
-        Assert.assertNotNull(actualPagingStories)
-        Assert.assertTrue(actualPagingStories is Result.Success)
-        Assert.assertEquals((actualPagingStories as Result.Success).data, fakeResponse)
+        Assert.assertNotNull(actualClearStorage)
+        Assert.assertTrue(actualClearStorage is Result.Success)
+        Assert.assertEquals((actualClearStorage as Result.Success).data, fakeResponse)
     }
 
     @Test
@@ -65,11 +61,11 @@ class ClearStorageUseCaseTest {
 
         Mockito.`when`(homeRepository.clearStorage()).thenReturn(expectedClearStorage)
 
-        val actualPagingStories = clearStorageUseCase()
+        val actualClearStorage = clearStorageUseCase()
         Mockito.verify(homeRepository).clearStorage()
-        Assert.assertNotNull(actualPagingStories)
-        Assert.assertTrue(actualPagingStories is Result.Error)
-        Assert.assertEquals((actualPagingStories as Result.Error).responseCode, fakeResponseCode)
+        Assert.assertNotNull(actualClearStorage)
+        Assert.assertTrue(actualClearStorage is Result.Error)
+        Assert.assertEquals((actualClearStorage as Result.Error).responseCode, fakeResponseCode)
     }
 
     @Test
@@ -79,10 +75,13 @@ class ClearStorageUseCaseTest {
 
         Mockito.`when`(homeRepository.clearStorage()).thenReturn(expectedClearStorage)
 
-        val actualPagingStories = clearStorageUseCase()
+        val actualClearStorage = clearStorageUseCase()
         Mockito.verify(homeRepository).clearStorage()
-        Assert.assertNotNull(actualPagingStories)
-        Assert.assertTrue(actualPagingStories is Result.Exception)
-        Assert.assertEquals((actualPagingStories as Result.Exception).throwable.message, fakeExceptionMessage)
+        Assert.assertNotNull(actualClearStorage)
+        Assert.assertTrue(actualClearStorage is Result.Exception)
+        Assert.assertEquals(
+            (actualClearStorage as Result.Exception).throwable.message,
+            fakeExceptionMessage
+        )
     }
 }
