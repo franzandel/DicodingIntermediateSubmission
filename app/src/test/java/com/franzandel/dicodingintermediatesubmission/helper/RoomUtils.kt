@@ -1,5 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.helper
 
+import com.franzandel.dicodingintermediatesubmission.data.model.HomeResponse
+import com.franzandel.dicodingintermediatesubmission.data.model.StoryResponse
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 
 /**
@@ -36,4 +38,21 @@ object RoomUtils {
                 photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1660858350751_Valb0Cqa.jpg"
             )
         )
+
+    fun getHomeResponse(): HomeResponse =
+        HomeResponse(
+            listOf(
+                StoryResponse(
+                    createdAt = "2022-08-18T21:32:30.752Z",
+                    description = "2",
+                    id = "story-tVyHngkIXympcInp",
+                    lat = null,
+                    lon = null,
+                    name = "Dstory",
+                    photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1660858350751_Valb0Cqa.jpg"
+                )
+            )
+        )
+
+    fun getEmptyHomeResponse(): HomeResponse = HomeResponse(listOf())
 }

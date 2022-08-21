@@ -180,6 +180,80 @@ class HomeRepositoryTest {
     }
 
     @Test
+    fun `when getStories return success`() = runTest {
+        val fakeToken = Result.Success(flowOf("asdf"))
+        val expectedStories = Result.Success(RoomUtils.getHomeResponse())
+
+        Mockito.`when`(homeRemoteSource.getStories(fakeToken.data.first()))
+            .thenReturn(expectedStories)
+
+        val actualPagingStories = homeRepository.getStories(fakeToken.data.first())
+        Mockito.verify(homeRemoteSource).getStories(fakeToken.data.first())
+        Assert.assertNotNull(actualPagingStories)
+        Assert.assertTrue(actualPagingStories is Result.Success)
+        Assert.assertEquals(
+            (actualPagingStories as Result.Success).data.size,
+            expectedStories.data.listStory.size
+        )
+    }
+
+    @Test
+    fun `when getStories return empty success`() = runTest {
+        val fakeToken = Result.Success(flowOf("asdf"))
+        val expectedStories = Result.Success(RoomUtils.getEmptyHomeResponse())
+
+        Mockito.`when`(homeRemoteSource.getStories(fakeToken.data.first()))
+            .thenReturn(expectedStories)
+
+        val actualPagingStories = homeRepository.getStories(fakeToken.data.first())
+        Mockito.verify(homeRemoteSource).getStories(fakeToken.data.first())
+        Assert.assertNotNull(actualPagingStories)
+        Assert.assertTrue(actualPagingStories is Result.Success)
+        Assert.assertEquals(
+            (actualPagingStories as Result.Success).data.size,
+            expectedStories.data.listStory.size
+        )
+    }
+
+    @Test
+    fun `when getStories return failed`() = runTest {
+        val fakeToken = Result.Success(flowOf("asdf"))
+        val fakeResponseCode = 400
+        val expectedStories = Result.Error(fakeResponseCode, RoomUtils.getHomeResponse())
+
+        Mockito.`when`(homeRemoteSource.getStories(fakeToken.data.first()))
+            .thenReturn(expectedStories)
+
+        val actualPagingStories = homeRepository.getStories(fakeToken.data.first())
+        Mockito.verify(homeRemoteSource).getStories(fakeToken.data.first())
+        Assert.assertNotNull(actualPagingStories)
+        Assert.assertTrue(actualPagingStories is Result.Error)
+        Assert.assertEquals(
+            (actualPagingStories as Result.Error).responseCode,
+            expectedStories.responseCode
+        )
+    }
+
+    @Test
+    fun `when getStories return exception`() = runTest {
+        val fakeToken = Result.Success(flowOf("asdf"))
+        val fakeExceptionMessage = "getStories exception"
+        val expectedStories = Result.Exception(Exception(fakeExceptionMessage))
+
+        Mockito.`when`(homeRemoteSource.getStories(fakeToken.data.first()))
+            .thenReturn(expectedStories)
+
+        val actualPagingStories = homeRepository.getStories(fakeToken.data.first())
+        Mockito.verify(homeRemoteSource).getStories(fakeToken.data.first())
+        Assert.assertNotNull(actualPagingStories)
+        Assert.assertTrue(actualPagingStories is Result.Exception)
+        Assert.assertEquals(
+            (actualPagingStories as Result.Exception).throwable.message,
+            fakeExceptionMessage
+        )
+    }
+
+    @Test
     fun `when setLocation return success`() = runTest {
         val fakeLocation = 0
         val fakeResponse = Unit
