@@ -28,7 +28,7 @@ class GetStoriesUseCase @Inject constructor(
                     is Result.Exception -> storiesResult
                 }
             }
-            is Result.Error -> Result.Error()
+            is Result.Error -> Result.Error(tokenResult.responseCode)
             is Result.Exception -> Result.Exception(tokenResult.throwable)
         }
     }
