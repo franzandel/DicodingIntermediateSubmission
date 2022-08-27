@@ -5,18 +5,15 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Geocoder
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
@@ -26,13 +23,10 @@ import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThr
 import com.franzandel.dicodingintermediatesubmission.data.consts.ValidationConst
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityAddStoryBinding
 import com.franzandel.dicodingintermediatesubmission.ui.camerax.CameraXActivity
-import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
-import com.franzandel.dicodingintermediatesubmission.ui.detail.StoryDetail
 import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefaultSnackbar
 import com.franzandel.dicodingintermediatesubmission.utils.geolocation.GeolocationUtils
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor
@@ -153,7 +147,7 @@ class AddStoryActivity : AppCompatActivity() {
                 if (isChecked) {
                     if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
                         checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
-                    ){
+                    ) {
                         loadLastLocation()
                     } else {
                         requestPermissionLauncher.launch(
@@ -170,9 +164,18 @@ class AddStoryActivity : AppCompatActivity() {
 
             btnUpload.setOnClickListener {
                 file?.let {
-                    lifecycleScope.launch(coroutineThread.background) {
-                        val compressedImageFile = Compressor.compress(this@AddStoryActivity, it)
-                        viewModel.uploadImage(compressedImageFile, etDescription.text.toString(), currentLocation)
+                    val description = etDescription.text.toString()
+                    if (viewModel.validateDescription(description)) {
+                        lifecycleScope.launch(coroutineThread.background) {
+                            val compressedImageFile = Compressor.compress(this@AddStoryActivity, it)
+
+                            val addStoryRequest = viewModel.generateAddStoryRequest(
+                                compressedImageFile,
+                                description,
+                                currentLocation
+                            )
+                            viewModel.uploadImage(addStoryRequest)
+                        }
                     }
                 } ?: run {
                     showDefaultSnackbar(
@@ -234,7 +237,10 @@ class AddStoryActivity : AppCompatActivity() {
                     }
                 }
                 else -> {
-                    showDefaultSnackbar(getString(R.string.permission_denied), Snackbar.LENGTH_SHORT)
+                    showDefaultSnackbar(
+                        getString(R.string.permission_denied),
+                        Snackbar.LENGTH_SHORT
+                    )
                 }
             }
         }
@@ -249,7 +255,7 @@ class AddStoryActivity : AppCompatActivity() {
     private fun getMyLastLocation() {
         if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
             checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
-        ){
+        ) {
             loadLastLocation()
         } else {
             requestPermissionLauncher.launch(
