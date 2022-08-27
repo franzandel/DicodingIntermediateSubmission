@@ -16,6 +16,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -66,8 +67,8 @@ class HomeRemoteMediatorTest {
             10
         )
         val result = remoteMediator.load(LoadType.REFRESH, pagingState)
-        assert(result is RemoteMediator.MediatorResult.Success)
-        assert(!(result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
+        Assert.assertTrue(result is RemoteMediator.MediatorResult.Success)
+        Assert.assertFalse((result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
     }
 
     @Test
@@ -83,8 +84,8 @@ class HomeRemoteMediatorTest {
             10
         )
         val result = remoteMediator.load(LoadType.REFRESH, pagingState)
-        assert(result is RemoteMediator.MediatorResult.Success)
-        assert((result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
+        Assert.assertTrue(result is RemoteMediator.MediatorResult.Success)
+        Assert.assertTrue((result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
     }
 
     @Test
@@ -100,6 +101,6 @@ class HomeRemoteMediatorTest {
             10
         )
         val result = remoteMediator.load(LoadType.REFRESH, pagingState)
-        assert(result is RemoteMediator.MediatorResult.Error)
+        Assert.assertTrue(result is RemoteMediator.MediatorResult.Error)
     }
 }
