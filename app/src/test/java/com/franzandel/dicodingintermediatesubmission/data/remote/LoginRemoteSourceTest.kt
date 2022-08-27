@@ -5,7 +5,7 @@ import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
 import com.franzandel.dicodingintermediatesubmission.data.service.LoginService
 import com.franzandel.dicodingintermediatesubmission.helper.MainDispatcherRule
 import com.franzandel.dicodingintermediatesubmission.helper.RetrofitUtils
-import com.franzandel.dicodingintermediatesubmission.helper.enqueueResponse
+import com.franzandel.dicodingintermediatesubmission.test.enqueueResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockWebServer

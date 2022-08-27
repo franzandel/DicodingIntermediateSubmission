@@ -1,14 +1,12 @@
 package com.franzandel.dicodingintermediatesubmission.domain.usecase
 
-import androidx.paging.PagingData
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.repository.HomeRepository
 import com.franzandel.dicodingintermediatesubmission.helper.MainDispatcherRule
-import com.franzandel.dicodingintermediatesubmission.helper.RoomUtils
-import com.franzandel.dicodingintermediatesubmission.helper.collectDataForTest
+import com.franzandel.dicodingintermediatesubmission.test.RoomUtils
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
@@ -55,7 +53,8 @@ class GetStoriesUseCaseTest {
         val expectedStories = Result.Success(RoomUtils.getStories())
 
         Mockito.`when`(getTokenUseCase()).thenReturn(fakeToken)
-        Mockito.`when`(homeRepository.getStories(fakeToken.data.first())).thenReturn(expectedStories)
+        Mockito.`when`(homeRepository.getStories(fakeToken.data.first()))
+            .thenReturn(expectedStories)
 
         val actualPagingStories = getStoriesUseCase()
         Mockito.verify(homeRepository).getStories(fakeToken.data.first())

@@ -1,6 +1,7 @@
-package com.franzandel.dicodingintermediatesubmission.helper
+package com.franzandel.dicodingintermediatesubmission.test
 
 import com.franzandel.dicodingintermediatesubmission.data.model.HomeResponse
+import com.franzandel.dicodingintermediatesubmission.data.model.StoryEntity
 import com.franzandel.dicodingintermediatesubmission.data.model.StoryResponse
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 
@@ -55,4 +56,17 @@ object RoomUtils {
         )
 
     fun getEmptyHomeResponse(): HomeResponse = HomeResponse(listOf())
+
+    fun getStoryEntities(): List<StoryEntity> =
+        listOf(
+            StoryEntity(
+                createdAt = "2022-08-18T21:32:30.752Z",
+                description = "2",
+                id = "story-tVyHngkIXympcInp",
+                lat = null,
+                lon = null,
+                name = "Dstory",
+                photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1660858350751_Valb0Cqa.jpg"
+            )
+        )
 }

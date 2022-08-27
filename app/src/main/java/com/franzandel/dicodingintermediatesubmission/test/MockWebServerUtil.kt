@@ -1,4 +1,4 @@
-package com.franzandel.dicodingintermediatesubmission.helper
+package com.franzandel.dicodingintermediatesubmission.test
 
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer

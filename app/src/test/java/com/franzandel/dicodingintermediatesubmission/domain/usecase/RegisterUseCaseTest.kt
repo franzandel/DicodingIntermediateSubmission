@@ -32,6 +32,7 @@ class RegisterUseCaseTest {
 
     @Mock
     private lateinit var registerRepository: RegisterRepository
+
     @Mock
     private lateinit var loginUseCase: LoginUseCase
     private lateinit var registerUseCase: RegisterUseCase
@@ -115,6 +116,9 @@ class RegisterUseCaseTest {
         Mockito.verify(registerRepository).register(registerRequest)
         Assert.assertNotNull(actualRegister)
         Assert.assertTrue(actualRegister is Result.Exception)
-        Assert.assertEquals(fakeExceptionMessage, (actualRegister as Result.Exception).throwable.message)
+        Assert.assertEquals(
+            fakeExceptionMessage,
+            (actualRegister as Result.Exception).throwable.message
+        )
     }
 }
