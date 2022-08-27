@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
+import com.franzandel.dicodingintermediatesubmission.data.consts.FileConst
 import com.franzandel.dicodingintermediatesubmission.data.consts.ValidationConst
 import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryRequest
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.UploadImageUseCase
-import com.franzandel.dicodingintermediatesubmission.ui.login.LoginViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
@@ -42,48 +42,100 @@ class AddStoryViewModel @Inject constructor(
     private val _descriptionValidation = MutableLiveData<Int>()
     val descriptionValidation: LiveData<Int> = _descriptionValidation
 
-    suspend fun uploadImage(compressedFile: File, description: String, currentLocation: Location?) {
+    suspend fun uploadImage(addStoryRequest: AddStoryRequest) {
         withContext(coroutineThread.main) {
-            if (validateDescription(description)) {
-                _loading.value = true
-                val descriptionRequestBody = description.toRequestBody(TEXT_PLAIN.toMediaType())
-                val requestImageFile =
-                    compressedFile.asRequestBody(IMAGE_JPEG.toMediaTypeOrNull())
-                val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                    PHOTO,
-                    compressedFile.name,
-                    requestImageFile
-                )
-                var latitudeRequestBody: RequestBody? = null
-                var longitudeRequestBody: RequestBody? = null
-                currentLocation?.let {
-                    latitudeRequestBody = it.latitude.toString().toRequestBody(TEXT_PLAIN.toMediaType())
-                    longitudeRequestBody = it.longitude.toString().toRequestBody(TEXT_PLAIN.toMediaType())
+            _loading.value = true
+            when (uploadImageUseCase(addStoryRequest)) {
+                is Result.Success -> {
+                    _loading.value = false
+                    _uploadImageResult.value = AddStoryResult(success = R.string.add_story_success_upload)
                 }
-
-                val addStoryRequest = AddStoryRequest(
-                    file = imageMultipart,
-                    description = descriptionRequestBody,
-                    latitude = latitudeRequestBody,
-                    longitude = longitudeRequestBody
-                )
-                when (uploadImageUseCase(addStoryRequest)) {
-                    is Result.Success -> {
-                        _loading.value = false
-                        _uploadImageResult.value =
-                            AddStoryResult(success = R.string.add_story_success_upload)
-                    }
-                    is Result.Error -> {
-                        _loading.value = false
-                        _uploadImageResult.value = AddStoryResult(error = R.string.system_error)
-                    }
-                    is Result.Exception -> {
-                        _loading.value = false
-                        _uploadImageResult.value = AddStoryResult(error = R.string.system_error)
-                    }
+                is Result.Error -> {
+                    _loading.value = false
+                    _uploadImageResult.value = AddStoryResult(error = R.string.system_error)
+                }
+                is Result.Exception -> {
+                    _loading.value = false
+                    _uploadImageResult.value = AddStoryResult(error = R.string.system_error)
                 }
             }
         }
+    }
+
+//    suspend fun uploadImage(compressedFile: File, description: String, currentLocation: Location?) {
+//        withContext(coroutineThread.main) {
+//            if (validateDescription(description)) {
+//                _loading.value = true
+//                val descriptionRequestBody = description.toRequestBody(FileConst.TEXT_PLAIN.toMediaType())
+//                val requestImageFile =
+//                    compressedFile.asRequestBody(FileConst.IMAGE_JPEG.toMediaTypeOrNull())
+//                val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+//                    FileConst.PHOTO,
+//                    compressedFile.name,
+//                    requestImageFile
+//                )
+//                var latitudeRequestBody: RequestBody? = null
+//                var longitudeRequestBody: RequestBody? = null
+//                currentLocation?.let {
+//                    latitudeRequestBody =
+//                        it.latitude.toString().toRequestBody(FileConst.TEXT_PLAIN.toMediaType())
+//                    longitudeRequestBody =
+//                        it.longitude.toString().toRequestBody(FileConst.TEXT_PLAIN.toMediaType())
+//                }
+//
+//                val addStoryRequest = AddStoryRequest(
+//                    file = imageMultipart,
+//                    description = descriptionRequestBody,
+//                    latitude = latitudeRequestBody,
+//                    longitude = longitudeRequestBody
+//                )
+//                when (uploadImageUseCase(addStoryRequest)) {
+//                    is Result.Success -> {
+//                        _loading.value = false
+//                        _uploadImageResult.value =
+//                            AddStoryResult(success = R.string.add_story_success_upload)
+//                    }
+//                    is Result.Error -> {
+//                        _loading.value = false
+//                        _uploadImageResult.value = AddStoryResult(error = R.string.system_error)
+//                    }
+//                    is Result.Exception -> {
+//                        _loading.value = false
+//                        _uploadImageResult.value = AddStoryResult(error = R.string.system_error)
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+    fun generateAddStoryRequest(
+        compressedFile: File,
+        description: String,
+        currentLocation: Location?
+    ): AddStoryRequest {
+        val descriptionRequestBody = description.toRequestBody(FileConst.TEXT_PLAIN.toMediaType())
+        val requestImageFile =
+            compressedFile.asRequestBody(FileConst.IMAGE_JPEG.toMediaTypeOrNull())
+        val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+            FileConst.PHOTO,
+            compressedFile.name,
+            requestImageFile
+        )
+        var latitudeRequestBody: RequestBody? = null
+        var longitudeRequestBody: RequestBody? = null
+        currentLocation?.let {
+            latitudeRequestBody =
+                it.latitude.toString().toRequestBody(FileConst.TEXT_PLAIN.toMediaType())
+            longitudeRequestBody =
+                it.longitude.toString().toRequestBody(FileConst.TEXT_PLAIN.toMediaType())
+        }
+
+        return AddStoryRequest(
+            file = imageMultipart,
+            description = descriptionRequestBody,
+            latitude = latitudeRequestBody,
+            longitude = longitudeRequestBody
+        )
     }
 
     fun validateDescription(description: String): Boolean {
@@ -94,11 +146,5 @@ class AddStoryViewModel @Inject constructor(
             _descriptionValidation.value = ValidationConst.FORM_VALID
             true
         }
-    }
-
-    companion object {
-        private const val TEXT_PLAIN = "text/plain"
-        private const val IMAGE_JPEG = "image/jpeg"
-        private const val PHOTO = "photo"
     }
 }
