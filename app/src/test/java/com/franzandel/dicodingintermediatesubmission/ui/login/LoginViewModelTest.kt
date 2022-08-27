@@ -1,7 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.ui.login
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.franzandel.dicodingintermediatesubmission.helper.MainDispatcherRule
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThreadImpl
@@ -9,6 +8,7 @@ import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
 import com.franzandel.dicodingintermediatesubmission.domain.model.Login
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.LoginUseCase
+import com.franzandel.dicodingintermediatesubmission.helper.MainDispatcherRule
 import com.franzandel.dicodingintermediatesubmission.helper.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest

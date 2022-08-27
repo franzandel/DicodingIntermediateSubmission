@@ -25,7 +25,11 @@ ext.versions = [
 ]
 
 ext.testVersions = [
-        junit: '4.13.2'
+        junit: '4.13.2',
+        mockWebServer: '4.9.3',
+        mockito: '4.6.1',
+        coreTesting: '2.1.0',
+        kotlinCoroutineTest: '1.6.4'
 ]
 
 ext.androidTestVersions = [

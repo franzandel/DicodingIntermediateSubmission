@@ -89,6 +89,9 @@ class LoginUseCaseTest {
         Mockito.verify(loginRepository).login(loginRequest)
         Assert.assertNotNull(actualLogin)
         Assert.assertTrue(actualLogin is Result.Exception)
-        Assert.assertEquals(fakeExceptionMessage, (actualLogin as Result.Exception).throwable.message)
+        Assert.assertEquals(
+            fakeExceptionMessage,
+            (actualLogin as Result.Exception).throwable.message
+        )
     }
 }

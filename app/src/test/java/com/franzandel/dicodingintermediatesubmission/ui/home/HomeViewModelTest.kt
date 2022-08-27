@@ -12,9 +12,9 @@ import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetLocationP
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetPagingStoriesUseCase
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.SetLocationPreferenceUseCase
 import com.franzandel.dicodingintermediatesubmission.helper.MainDispatcherRule
-import com.franzandel.dicodingintermediatesubmission.helper.RoomUtils
 import com.franzandel.dicodingintermediatesubmission.helper.collectDataForTest
 import com.franzandel.dicodingintermediatesubmission.helper.getOrAwaitValue
+import com.franzandel.dicodingintermediatesubmission.test.RoomUtils
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest

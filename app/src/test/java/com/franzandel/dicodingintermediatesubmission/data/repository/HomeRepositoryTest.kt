@@ -7,8 +7,8 @@ import com.franzandel.dicodingintermediatesubmission.data.remote.HomeRemoteSourc
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.repository.HomeRepository
 import com.franzandel.dicodingintermediatesubmission.helper.MainDispatcherRule
-import com.franzandel.dicodingintermediatesubmission.helper.RoomUtils
 import com.franzandel.dicodingintermediatesubmission.helper.collectDataForTest
+import com.franzandel.dicodingintermediatesubmission.test.RoomUtils
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
