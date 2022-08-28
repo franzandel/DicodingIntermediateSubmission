@@ -3,8 +3,8 @@ package com.franzandel.dicodingintermediatesubmission.ui.addstory
 import android.location.Location
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.franzandel.dicodingintermediatesubmission.R
-import com.franzandel.dicodingintermediatesubmission.core.FakeCoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
+import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.domain.model.AddStory
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.UploadImageUseCase
@@ -37,7 +37,7 @@ class AddStoryViewModelTest {
     @Mock
     private lateinit var fakeCurrentLocation: Location
     private lateinit var addStoryViewModel: AddStoryViewModel
-    private val coroutineThread: CoroutineThread = FakeCoroutineThreadImpl()
+    private val coroutineThread: CoroutineThread = CoroutineThreadImpl()
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
