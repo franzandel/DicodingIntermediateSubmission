@@ -8,6 +8,7 @@ import androidx.paging.RemoteMediator
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.MediumTest
 import com.franzandel.dicodingintermediatesubmission.data.database.StoriesDatabase
 import com.franzandel.dicodingintermediatesubmission.data.model.StoryEntity
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
@@ -31,6 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 @OptIn(ExperimentalPagingApi::class)
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
+@MediumTest
 class HomeRemoteMediatorTest {
 
     private lateinit var storiesDatabase: StoriesDatabase

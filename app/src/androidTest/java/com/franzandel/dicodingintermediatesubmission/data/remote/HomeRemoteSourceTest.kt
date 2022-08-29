@@ -3,6 +3,7 @@ package com.franzandel.dicodingintermediatesubmission.data.remote
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.MediumTest
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.database.StoriesDatabase
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
@@ -26,6 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
+@MediumTest
 class HomeRemoteSourceTest {
 
     private lateinit var storiesDatabase: StoriesDatabase

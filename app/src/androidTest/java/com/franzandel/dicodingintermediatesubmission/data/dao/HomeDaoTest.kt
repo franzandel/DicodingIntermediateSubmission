@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.MediumTest
 import com.franzandel.dicodingintermediatesubmission.data.database.StoriesDatabase
 import com.franzandel.dicodingintermediatesubmission.test.RoomUtils
 import kotlinx.coroutines.runBlocking
@@ -19,6 +20,7 @@ import org.junit.runner.RunWith
  */
 
 @RunWith(AndroidJUnit4::class)
+@MediumTest
 class HomeDaoTest {
 
     private lateinit var database: StoriesDatabase
