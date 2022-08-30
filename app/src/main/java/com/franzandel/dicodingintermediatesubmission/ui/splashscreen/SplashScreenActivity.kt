@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.franzandel.dicodingintermediatesubmission.R
+import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
+import com.franzandel.dicodingintermediatesubmission.test.wrapEspressoIdlingResource
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
 import com.franzandel.dicodingintermediatesubmission.ui.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
