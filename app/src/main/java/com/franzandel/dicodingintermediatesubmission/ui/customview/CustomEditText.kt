@@ -166,7 +166,7 @@ class CustomEditText @JvmOverloads constructor(
 
     override fun afterTextChanged(s: Editable) = Unit
 
-    private fun validateUsername(username: String) {
+    fun validateUsername(username: String) {
         val errorMessage = if (isUsernameEmpty(username)) {
             R.string.empty_username
         } else if (!isUsernameValid(username)) {
@@ -180,7 +180,7 @@ class CustomEditText @JvmOverloads constructor(
         }
     }
 
-    private fun validatePassword(password: String) {
+    fun validatePassword(password: String) {
         val errorMessage = if (!isPasswordValid(password)) {
             R.string.invalid_password
         } else {

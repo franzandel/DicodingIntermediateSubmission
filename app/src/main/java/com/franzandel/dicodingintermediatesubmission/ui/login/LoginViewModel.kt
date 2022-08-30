@@ -27,22 +27,20 @@ class LoginViewModel @Inject constructor(
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun login(loginRequest: LoginRequest, isUsernameValid: Boolean, isPasswordValid: Boolean) {
-        if (isUsernameValid && isPasswordValid) {
-            viewModelScope.launch(coroutineThread.main) {
-                _loading.value = true
-                loginUseCase(loginRequest)
-                    .onSuccess {
-                        _loading.value = false
-                        _loginResult.value = LoginResult(success = Unit)
-                    }.onError { _, _ ->
-                        _loading.value = false
-                        _loginResult.value = LoginResult(error = R.string.login_failed)
-                    }.onException {
-                        _loading.value = false
-                        _loginResult.value = LoginResult(error = R.string.system_error)
-                    }
-            }
+    fun login(loginRequest: LoginRequest) {
+        viewModelScope.launch(coroutineThread.main) {
+            _loading.value = true
+            loginUseCase(loginRequest)
+                .onSuccess {
+                    _loading.value = false
+                    _loginResult.value = LoginResult(success = Unit)
+                }.onError { _, _ ->
+                    _loading.value = false
+                    _loginResult.value = LoginResult(error = R.string.login_failed)
+                }.onException {
+                    _loading.value = false
+                    _loginResult.value = LoginResult(error = R.string.system_error)
+                }
         }
     }
 }

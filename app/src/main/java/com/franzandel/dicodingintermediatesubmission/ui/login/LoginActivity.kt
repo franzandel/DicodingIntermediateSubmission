@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityLoginBinding
+import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
 import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
 import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
@@ -60,6 +61,7 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(HomeActivity.newIntent(this@LoginActivity))
                     finishAffinity()
                 }
+                EspressoIdlingResource.decrement()
             })
         }
     }
@@ -67,15 +69,18 @@ class LoginActivity : AppCompatActivity() {
     private fun initListener() {
         binding.apply {
             btnLogin.setOnClickListener {
-                val loginRequest = LoginRequest(
-                    email = etUsername.text.toString(),
-                    password = etPassword.text.toString()
-                )
-                loginViewModel.login(
-                    loginRequest,
-                    etUsername.error == null,
-                    etPassword.error == null
-                )
+                val username = etUsername.text.toString()
+                val password = etPassword.text.toString()
+                etUsername.validateUsername(username)
+                etPassword.validatePassword(password)
+                if (etUsername.error == null && etUsername.error == null) {
+                    EspressoIdlingResource.increment()
+                    val loginRequest = LoginRequest(
+                        email = username,
+                        password = password
+                    )
+                    loginViewModel.login(loginRequest)
+                }
             }
 
             tvNoAccountYet.setOnClickListener {
