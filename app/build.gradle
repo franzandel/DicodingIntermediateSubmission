@@ -76,6 +76,9 @@ android {
         jvmTarget = '1.8'
         freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
+    testOptions {
+        animationsDisabled = true
+    }
 }
 
 dependencies {
@@ -132,10 +135,12 @@ dependencies {
     implementation "org.mockito:mockito-inline:${testVersions.mockito}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${testVersions.kotlinCoroutineTest}" // TestDispatcher
     implementation "com.squareup.okhttp3:mockwebserver:${testVersions.mockWebServer}"
+    implementation "androidx.test.espresso:espresso-idling-resource:${androidTestVersions.espresso}"
 
     testImplementation "junit:junit:${testVersions.junit}"
     testImplementation "androidx.arch.core:core-testing:${testVersions.coreTesting}" // InstantTaskExecutorRule
 
     androidTestImplementation "androidx.test.ext:junit:${androidTestVersions.junitExt}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${androidTestVersions.espressoCore}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${androidTestVersions.espresso}"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:${androidTestVersions.espresso}"
 }
