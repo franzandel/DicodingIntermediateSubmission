@@ -22,8 +22,6 @@ import com.google.android.material.snackbar.Snackbar
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 
 class CameraXActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraXactivityBinding
