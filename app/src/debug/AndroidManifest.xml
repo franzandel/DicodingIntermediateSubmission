@@ -5,5 +5,4 @@
     <application
         android:usesCleartextTraffic="true"
         tools:targetApi="m" />
-
 </manifest>
