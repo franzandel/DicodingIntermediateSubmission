@@ -41,7 +41,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.franzandel.dicodingintermediatesubmission.CustomTestRunner"
     }
 
     buildTypes {
@@ -143,4 +143,6 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:${androidTestVersions.junitExt}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${androidTestVersions.espresso}"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:${androidTestVersions.espresso}"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:${versions.hilt}"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:${versions.hilt}"
 }

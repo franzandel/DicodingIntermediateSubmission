@@ -1,7 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.data.consts
 
 /**
- * Created by Franz Andel <franz.andel@ovo.id>
+ * Created by Franz Andel
  * on 27 August 2022.
  */
 
