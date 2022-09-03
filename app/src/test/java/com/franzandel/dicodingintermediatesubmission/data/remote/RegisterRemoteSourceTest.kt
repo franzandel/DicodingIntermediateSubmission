@@ -70,7 +70,7 @@ class RegisterRemoteSourceTest {
         runBlocking {
             val fakeErrorCode = 404
             mockWebServer.enqueueResponse(
-                fileName = "register_error_response.json",
+                fileName = "register_email_validation_response.json",
                 responseCode = fakeErrorCode
             )
             val registerRequest = RegisterRequest(

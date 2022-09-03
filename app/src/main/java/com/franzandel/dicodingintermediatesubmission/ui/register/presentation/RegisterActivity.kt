@@ -10,7 +10,7 @@ import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.data.consts.ValidationConst
 import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityRegisterBinding
-import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
+import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
 import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
 import com.franzandel.dicodingintermediatesubmission.utils.extension.hideKeyboard
@@ -60,6 +60,7 @@ class RegisterActivity : AppCompatActivity() {
             } else {
                 showDefaultSnackbar(getString(it.error), Snackbar.LENGTH_LONG)
             }
+            EspressoIdlingResource.decrement()
         }
     }
 
@@ -89,18 +90,24 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             btnRegister.setOnClickListener {
-                val registerRequest = RegisterRequest(
-                    name = binding.etName.text.toString(),
-                    email = binding.etUsername.text.toString(),
-                    password = binding.etPassword.text.toString()
-                )
-                viewModel.register(
-                    registerRequest,
-                    binding.etName.error == null,
-                    binding.etUsername.error == null,
-                    binding.etPassword.error == null,
-                    binding.etConfirmationPassword.text.toString()
-                )
+                val name = etName.text.toString()
+                val username = etUsername.text.toString()
+                val password = etPassword.text.toString()
+                etName.validateName(name)
+                etUsername.validateUsername(username)
+                etPassword.validatePassword(password)
+                if (etName.error == null && etUsername.error == null && etPassword.error == null) {
+                    EspressoIdlingResource.increment()
+                    val registerRequest = RegisterRequest(
+                        name = name,
+                        email = username,
+                        password = password
+                    )
+                    viewModel.register(
+                        registerRequest,
+                        binding.etConfirmationPassword.text.toString()
+                    )
+                }
             }
         }
     }

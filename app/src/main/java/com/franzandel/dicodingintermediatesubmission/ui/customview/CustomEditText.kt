@@ -192,7 +192,7 @@ class CustomEditText @JvmOverloads constructor(
         }
     }
 
-    private fun validateName(name: String) {
+    fun validateName(name: String) {
         val errorMessage = if (isNameEmpty(name)) {
             R.string.empty_name
         } else {
