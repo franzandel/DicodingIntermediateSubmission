@@ -10,6 +10,7 @@ import com.franzandel.dicodingintermediatesubmission.data.consts.ValidationConst
 import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.domain.model.Register
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.RegisterUseCase
+import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
 import com.franzandel.dicodingintermediatesubmission.utils.onError
 import com.franzandel.dicodingintermediatesubmission.utils.onException
 import com.franzandel.dicodingintermediatesubmission.utils.onSuccess
@@ -37,18 +38,8 @@ class RegisterViewModel @Inject constructor(
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
 
-    fun register(
-        registerRequest: RegisterRequest,
-        isNameValid: Boolean,
-        isUsernameValid: Boolean,
-        isPasswordValid: Boolean,
-        confirmationPassword: String
-    ) {
-        if (isNameValid &&
-            isUsernameValid &&
-            isPasswordValid &&
-            validateConfirmationPassword(registerRequest.password, confirmationPassword)
-        ) {
+    fun register(registerRequest: RegisterRequest, confirmationPassword: String) {
+        if (validateConfirmationPassword(registerRequest.password, confirmationPassword)) {
             viewModelScope.launch(coroutineThread.main) {
                 _loading.value = true
                 useCase(registerRequest)
@@ -68,6 +59,8 @@ class RegisterViewModel @Inject constructor(
                         _registerResult.value = RegisterResult(error = R.string.system_error)
                     }
             }
+        } else {
+            EspressoIdlingResource.decrement()
         }
     }
 
