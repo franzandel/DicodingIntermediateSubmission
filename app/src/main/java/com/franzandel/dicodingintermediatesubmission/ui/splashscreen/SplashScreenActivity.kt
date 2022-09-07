@@ -41,6 +41,7 @@ class SplashScreenActivity : AppCompatActivity() {
         }
         initObservers()
         viewModel.getToken()
+        EspressoIdlingResource.increment()
     }
 
     private fun setStatusAndNavigationBarOverlap() {
@@ -76,6 +77,7 @@ class SplashScreenActivity : AppCompatActivity() {
                     }
                 )
                 finish()
+                EspressoIdlingResource.decrement()
             }
         }, DELAY_ONE_SECOND)
     }
