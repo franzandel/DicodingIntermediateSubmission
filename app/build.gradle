@@ -41,7 +41,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "com.franzandel.dicodingintermediatesubmission.CustomTestRunner"
+        testInstrumentationRunner "com.franzandel.dicodingintermediatesubmission.di.CustomTestRunner"
     }
 
     buildTypes {
