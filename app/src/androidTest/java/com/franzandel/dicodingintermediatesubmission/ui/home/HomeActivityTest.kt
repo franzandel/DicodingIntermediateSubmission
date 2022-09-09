@@ -117,7 +117,7 @@ class HomeActivityTest {
                 }.first()
 
             if (locationPreference == 0) {
-                openActionBarOverflowOrOptionsMenu(getInstrumentation().targetContext)
+                openActionBarOverflowOrOptionsMenu(context)
                 onView(
                     withText(
                         getInstrumentation().targetContext.getString(R.string.menu_location_preference)
@@ -144,7 +144,7 @@ class HomeActivityTest {
                 }.first()
 
             if (locationPreference == 1) {
-                openActionBarOverflowOrOptionsMenu(getInstrumentation().targetContext)
+                openActionBarOverflowOrOptionsMenu(context)
                 onView(
                     withText(
                         getInstrumentation().targetContext.getString(R.string.menu_location_preference)
