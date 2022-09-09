@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityDetailBinding
+import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
 import com.franzandel.dicodingintermediatesubmission.ui.maps.MapsActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,6 +33,7 @@ class DetailActivity : AppCompatActivity() {
         initDataBinding()
         initToolbar()
         initLocationUI()
+        EspressoIdlingResource.increment()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -85,6 +87,7 @@ class DetailActivity : AppCompatActivity() {
                 viewModel.getLocation(this, latitude, longitude)
             }
         }
+        EspressoIdlingResource.decrement()
     }
 
     companion object {
