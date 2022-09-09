@@ -19,6 +19,7 @@ import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.data.consts.IntentActionConst
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityHomeBinding
+import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
 import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
 import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
 import com.franzandel.dicodingintermediatesubmission.ui.detail.StoryDetail
@@ -27,7 +28,6 @@ import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefault
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -65,6 +65,7 @@ class HomeActivity : AppCompatActivity() {
         initPaging3AdapterListener()
         viewModel.getLocationPreference()
         handleIntentAction()
+        EspressoIdlingResource.increment()
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -211,6 +212,7 @@ class HomeActivity : AppCompatActivity() {
                 errorState?.let {
                     showDefaultSnackbar("\uD83D\uDE28 Wooops ${it.error}", Snackbar.LENGTH_LONG)
                 }
+                EspressoIdlingResource.decrement()
             }
         }
     }

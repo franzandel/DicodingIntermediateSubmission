@@ -30,8 +30,8 @@ class HomeLocalSourceImpl @Inject constructor(
 
     override suspend fun saveLocationPreference(locationPreference: Int): Result<Unit> =
         suspendTryCatch {
-            homeDataStore.updateData { settings ->
-                settings.toBuilder()
+            homeDataStore.updateData { homeSession ->
+                homeSession.toBuilder()
                     .setLocationPreference(locationPreference)
                     .build()
             }
@@ -42,8 +42,8 @@ class HomeLocalSourceImpl @Inject constructor(
         suspendTryCatch {
             Result.Success(
                 homeDataStore.data
-                    .map { settings ->
-                        settings.locationPreference
+                    .map { homeSession ->
+                        homeSession.locationPreference
                     }
             )
         }

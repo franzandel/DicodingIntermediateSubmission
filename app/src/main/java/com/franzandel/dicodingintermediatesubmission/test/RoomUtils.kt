@@ -67,6 +67,91 @@ object RoomUtils {
                 lon = null,
                 name = "Dstory",
                 photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1660858350751_Valb0Cqa.jpg"
+            ),
+            StoryEntity(
+                createdAt = "2022-08-18T21:32:30.752Z",
+                description = "2",
+                id = "story-tVyHngkIXympcInp1",
+                lat = null,
+                lon = null,
+                name = "Dstory",
+                photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1660858350751_Valb0Cqa.jpg"
+            ),
+            StoryEntity(
+                createdAt = "2022-08-18T21:32:30.752Z",
+                description = "2",
+                id = "story-tVyHngkIXympcInp2",
+                lat = null,
+                lon = null,
+                name = "Dstory",
+                photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1660858350751_Valb0Cqa.jpg"
+            ),
+            StoryEntity(
+                createdAt = "2022-08-18T21:32:30.752Z",
+                description = "2",
+                id = "story-tVyHngkIXympcInp3",
+                lat = null,
+                lon = null,
+                name = "Dstory",
+                photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1660858350751_Valb0Cqa.jpg"
+            ),
+            StoryEntity(
+                createdAt = "2022-08-18T21:32:30.752Z",
+                description = "2",
+                id = "story-tVyHngkIXympcInp4",
+                lat = null,
+                lon = null,
+                name = "Dstory",
+                photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1660858350751_Valb0Cqa.jpg"
+            )
+        )
+
+    fun getStoryEntitiesWithLocation(): List<StoryEntity> =
+        listOf(
+            StoryEntity(
+                createdAt = "2022-08-18T21:32:30.752Z",
+                description = "2",
+                id = "story-tVyHngkIXympcInp",
+                lat = -6.4517064,
+                lon = 107.9145669,
+                name = "Dstory",
+                photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1660858350751_Valb0Cqa.jpg"
+            ),
+            StoryEntity(
+                createdAt = "2022-08-18T21:32:30.752Z",
+                description = "2",
+                id = "story-tVyHngkIXympcInp1",
+                lat = -6.4517064,
+                lon = 107.9145669,
+                name = "Dstory",
+                photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1660858350751_Valb0Cqa.jpg"
+            ),
+            StoryEntity(
+                createdAt = "2022-08-18T21:32:30.752Z",
+                description = "2",
+                id = "story-tVyHngkIXympcInp2",
+                lat = -6.4517064,
+                lon = 107.9145669,
+                name = "Dstory",
+                photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1660858350751_Valb0Cqa.jpg"
+            ),
+            StoryEntity(
+                createdAt = "2022-08-18T21:32:30.752Z",
+                description = "2",
+                id = "story-tVyHngkIXympcInp3",
+                lat = -6.4517064,
+                lon = 107.9145669,
+                name = "Dstory",
+                photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1660858350751_Valb0Cqa.jpg"
+            ),
+            StoryEntity(
+                createdAt = "2022-08-18T21:32:30.752Z",
+                description = "2",
+                id = "story-tVyHngkIXympcInp4",
+                lat = -6.4517064,
+                lon = 107.9145669,
+                name = "Dstory",
+                photoUrl = "https://story-api.dicoding.dev/images/stories/photos-1660858350751_Valb0Cqa.jpg"
             )
         )
 }
