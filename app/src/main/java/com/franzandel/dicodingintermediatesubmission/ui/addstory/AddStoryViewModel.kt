@@ -62,52 +62,6 @@ class AddStoryViewModel @Inject constructor(
         }
     }
 
-//    suspend fun uploadImage(compressedFile: File, description: String, currentLocation: Location?) {
-//        withContext(coroutineThread.main) {
-//            if (validateDescription(description)) {
-//                _loading.value = true
-//                val descriptionRequestBody = description.toRequestBody(FileConst.TEXT_PLAIN.toMediaType())
-//                val requestImageFile =
-//                    compressedFile.asRequestBody(FileConst.IMAGE_JPEG.toMediaTypeOrNull())
-//                val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-//                    FileConst.PHOTO,
-//                    compressedFile.name,
-//                    requestImageFile
-//                )
-//                var latitudeRequestBody: RequestBody? = null
-//                var longitudeRequestBody: RequestBody? = null
-//                currentLocation?.let {
-//                    latitudeRequestBody =
-//                        it.latitude.toString().toRequestBody(FileConst.TEXT_PLAIN.toMediaType())
-//                    longitudeRequestBody =
-//                        it.longitude.toString().toRequestBody(FileConst.TEXT_PLAIN.toMediaType())
-//                }
-//
-//                val addStoryRequest = AddStoryRequest(
-//                    file = imageMultipart,
-//                    description = descriptionRequestBody,
-//                    latitude = latitudeRequestBody,
-//                    longitude = longitudeRequestBody
-//                )
-//                when (uploadImageUseCase(addStoryRequest)) {
-//                    is Result.Success -> {
-//                        _loading.value = false
-//                        _uploadImageResult.value =
-//                            AddStoryResult(success = R.string.add_story_success_upload)
-//                    }
-//                    is Result.Error -> {
-//                        _loading.value = false
-//                        _uploadImageResult.value = AddStoryResult(error = R.string.system_error)
-//                    }
-//                    is Result.Exception -> {
-//                        _loading.value = false
-//                        _uploadImageResult.value = AddStoryResult(error = R.string.system_error)
-//                    }
-//                }
-//            }
-//        }
-//    }
-
     fun generateAddStoryRequest(
         compressedFile: File,
         description: String,

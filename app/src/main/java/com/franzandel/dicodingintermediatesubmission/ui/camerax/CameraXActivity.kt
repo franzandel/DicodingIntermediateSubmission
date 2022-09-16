@@ -17,6 +17,7 @@ import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityCameraXactivityBinding
 import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
 import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
+import com.franzandel.dicodingintermediatesubmission.utils.FileUtils
 import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefaultSnackbar
 import com.google.android.material.snackbar.Snackbar
 import java.io.File
@@ -66,7 +67,7 @@ class CameraXActivity : AppCompatActivity() {
         val imageCapture = imageCapture ?: return
         loadingDialog.show(supportFragmentManager)
 
-        val photoFile = createFile(application)
+        val photoFile = FileUtils.createFile(application)
 
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
         imageCapture.takePicture(
@@ -93,19 +94,6 @@ class CameraXActivity : AppCompatActivity() {
         "dd_MM_yyyy",
         Locale.US
     ).format(System.currentTimeMillis())
-
-    // Untuk kasus CameraX
-    private fun createFile(application: Application): File {
-        val mediaDir = application.externalMediaDirs.firstOrNull()?.let {
-            File(it, application.resources.getString(R.string.app_name)).apply { mkdirs() }
-        }
-
-        val outputDirectory = if (
-            mediaDir != null && mediaDir.exists()
-        ) mediaDir else application.filesDir
-
-        return File(outputDirectory, "$timeStamp.jpg")
-    }
 
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
