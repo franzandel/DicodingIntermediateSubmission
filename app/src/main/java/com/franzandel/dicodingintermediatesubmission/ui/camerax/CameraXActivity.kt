@@ -1,6 +1,5 @@
 package com.franzandel.dicodingintermediatesubmission.ui.camerax
 
-import android.app.Application
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -20,7 +19,6 @@ import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
 import com.franzandel.dicodingintermediatesubmission.utils.FileUtils
 import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefaultSnackbar
 import com.google.android.material.snackbar.Snackbar
-import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -89,11 +87,6 @@ class CameraXActivity : AppCompatActivity() {
             }
         )
     }
-
-    private val timeStamp: String = SimpleDateFormat(
-        "dd_MM_yyyy",
-        Locale.US
-    ).format(System.currentTimeMillis())
 
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)

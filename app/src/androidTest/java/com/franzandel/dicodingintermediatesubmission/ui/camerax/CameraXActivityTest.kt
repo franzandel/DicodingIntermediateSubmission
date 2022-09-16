@@ -3,7 +3,9 @@ package com.franzandel.dicodingintermediatesubmission.ui.camerax
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.LargeTest
@@ -25,17 +27,17 @@ class CameraXActivityTest {
     }
 
     @Test
-    fun check_if_cameraX_displayed_correctly() {
-        onView(withId(R.id.layout_camera_x)).check(ViewAssertions.matches(isDisplayed()))
-
-        onView(withId(R.id.iv_capture_image)).perform(ViewActions.click())
-        onView(withId(R.id.layout_loading)).check(ViewAssertions.matches(isDisplayed()))
+    fun check_if_back_camera_works_correctly() {
+        onView(withId(R.id.layout_camera_x)).check(matches(isDisplayed()))
+        onView(withId(R.id.iv_capture_image)).perform(click())
+        onView(withId(R.id.layout_loading)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun check_if_switch_camera_works_correctly() {
-        onView(withId(R.id.layout_camera_x)).check(ViewAssertions.matches(isDisplayed()))
-
-        onView(withId(R.id.iv_switch_camera)).perform(ViewActions.click())
+    fun check_if_front_camera_works_correctly() {
+        onView(withId(R.id.layout_camera_x)).check(matches(isDisplayed()))
+        onView(withId(R.id.iv_switch_camera)).perform(click())
+        onView(withId(R.id.iv_capture_image)).perform(click())
+        onView(withId(R.id.layout_loading)).check(matches(isDisplayed()))
     }
 }
