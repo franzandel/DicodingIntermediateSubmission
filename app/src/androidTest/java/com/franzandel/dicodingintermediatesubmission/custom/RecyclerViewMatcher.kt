@@ -66,7 +66,7 @@ class RecyclerViewMatcher(private val recyclerViewId: Int) {
                 }
             }
 
-            public override fun matchesSafely(view: View): Boolean {
+            override fun matchesSafely(view: View): Boolean {
                 resources = view.resources
                 recycler = view.rootView.findViewById(recyclerViewId)
                 if (recycler == null) return false

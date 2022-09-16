@@ -2,6 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.franzandel.dicodingintermediatesubmission">
 
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"
+        tools:ignore="ProtectedPermissions" />
+
     <application
         android:usesCleartextTraffic="true"
         tools:targetApi="m" />

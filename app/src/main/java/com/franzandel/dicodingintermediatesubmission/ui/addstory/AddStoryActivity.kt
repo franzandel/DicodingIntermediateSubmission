@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -22,11 +23,13 @@ import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.data.consts.ValidationConst
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityAddStoryBinding
+import com.franzandel.dicodingintermediatesubmission.di.addstory.CameraResultRegistry
+import com.franzandel.dicodingintermediatesubmission.di.addstory.GalleryResultRegistry
+import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
 import com.franzandel.dicodingintermediatesubmission.ui.camerax.CameraXActivity
+import com.franzandel.dicodingintermediatesubmission.utils.LocationUtils
 import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefaultSnackbar
 import com.franzandel.dicodingintermediatesubmission.utils.geolocation.GeolocationUtils
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor
@@ -48,9 +51,21 @@ class AddStoryActivity : AppCompatActivity() {
     @Inject
     lateinit var coroutineThread: CoroutineThread
 
+    @Inject
+    @CameraResultRegistry
+    lateinit var cameraResultRegistry: ActivityResultRegistry
+
+    @Inject
+    @GalleryResultRegistry
+    lateinit var galleryResultRegistry: ActivityResultRegistry
+
+    @Inject
+    lateinit var locationUtils: LocationUtils
+
     private lateinit var binding: ActivityAddStoryBinding
     private lateinit var galleryActivityResultLauncher: ActivityResultLauncher<String>
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var launcherIntentCameraX: ActivityResultLauncher<Intent>
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>>
 
     private val viewModel: AddStoryViewModel by viewModels()
     private var file: File? = null
@@ -61,7 +76,6 @@ class AddStoryActivity : AppCompatActivity() {
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
         title = getString(R.string.toolbar_add_story)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         initToolbar()
         initObservers()
         initListeners()
@@ -87,14 +101,55 @@ class AddStoryActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
+        launcherIntentCameraX = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult(),
+            cameraResultRegistry
+        ) {
+            if (it.resultCode == CAMERA_X_RESULT) {
+                val photoFile =
+                    it.data?.getSerializableExtra(CameraXActivity.EXTRA_PHOTO_FILE) as File
+                file = photoFile
+                Glide.with(this).load(photoFile).into(binding.ivAddStory)
+            }
+        }
+
         galleryActivityResultLauncher =
-            registerForActivityResult(ActivityResultContracts.GetContent()) {
+            registerForActivityResult(
+                ActivityResultContracts.GetContent(),
+                galleryResultRegistry
+            ) {
                 it?.let {
                     val file = uriToFile(it, this)
                     this.file = file
                     binding.ivAddStory.setImageURI(it)
                 }
             }
+
+        requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            when {
+                permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
+                    // Precise location access granted.
+                    getMyLastLocation()
+                }
+                permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false -> {
+                    // Only approximate location access granted.
+                    getMyLastLocation()
+                }
+                permissions[Manifest.permission.CAMERA] ?: false -> {
+                    Intent(this@AddStoryActivity, CameraXActivity::class.java).run {
+                        launcherIntentCameraX.launch(this)
+                    }
+                }
+                else -> {
+                    showDefaultSnackbar(
+                        getString(R.string.permission_denied),
+                        Snackbar.LENGTH_SHORT
+                    )
+                }
+            }
+        }
 
         viewModel.uploadImageResult.observe(this) {
             if (it.success != null) {
@@ -106,6 +161,7 @@ class AddStoryActivity : AppCompatActivity() {
             if (it.error != null) {
                 showDefaultSnackbar(getString(it.error), Snackbar.LENGTH_LONG)
             }
+            EspressoIdlingResource.decrement()
         }
 
         viewModel.descriptionValidation.observe(this) {
@@ -113,15 +169,31 @@ class AddStoryActivity : AppCompatActivity() {
                 binding.etDescription.error = getString(it)
             }
         }
-    }
 
-    private val launcherIntentCameraX = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) {
-        if (it.resultCode == CAMERA_X_RESULT) {
-            val myFile = it.data?.getSerializableExtra(CameraXActivity.EXTRA_PHOTO_FILE) as File
-            file = myFile
-            Glide.with(this).load(myFile).into(binding.ivAddStory)
+        locationUtils.onLocationSuccess.observe(this) { location ->
+            lifecycleScope.launch(Dispatchers.Default) {
+                currentLocation = location
+                val currentLocation = async {
+                    GeolocationUtils.getCountryState(
+                        this@AddStoryActivity,
+                        location.latitude,
+                        location.longitude
+                    )
+                }
+                withContext(Dispatchers.Main) {
+                    binding.tvCurrentLocation.apply {
+                        text = currentLocation.await() ?: getString(R.string.failed_load_location)
+                        isVisible = true
+                    }
+                }
+            }
+        }
+
+        locationUtils.onLocationFailed.observe(this) {
+            showDefaultSnackbar(
+                getString(R.string.current_location_not_found), Snackbar.LENGTH_SHORT
+            )
+            binding.cbCurrentLocation.isChecked = false
         }
     }
 
@@ -148,7 +220,7 @@ class AddStoryActivity : AppCompatActivity() {
                     if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
                         checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
                     ) {
-                        loadLastLocation()
+                        locationUtils.getLocation()
                     } else {
                         requestPermissionLauncher.launch(
                             arrayOf(
@@ -167,7 +239,11 @@ class AddStoryActivity : AppCompatActivity() {
                     val description = etDescription.text.toString()
                     if (viewModel.validateDescription(description)) {
                         lifecycleScope.launch(coroutineThread.background) {
-                            val compressedImageFile = Compressor.compress(this@AddStoryActivity, it)
+                            val compressedImageFile = try {
+                                Compressor.compress(this@AddStoryActivity, it)
+                            } catch (e: IllegalStateException) {
+                                it
+                            }
 
                             val addStoryRequest = viewModel.generateAddStoryRequest(
                                 compressedImageFile,
@@ -176,6 +252,7 @@ class AddStoryActivity : AppCompatActivity() {
                             )
                             viewModel.uploadImage(addStoryRequest)
                         }
+                        EspressoIdlingResource.increment()
                     }
                 } ?: run {
                     showDefaultSnackbar(
@@ -192,6 +269,33 @@ class AddStoryActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkPermission(permission: String): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            permission
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun getMyLastLocation() {
+        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
+            checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+        ) {
+            locationUtils.getLocation()
+        } else {
+            requestPermissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
+        }
+    }
+
+    private val timeStamp: String = SimpleDateFormat(
+        "dd_MM_yyyy",
+        Locale.US
+    ).format(System.currentTimeMillis())
+
     private fun uriToFile(selectedImg: Uri, context: Context): File {
         val contentResolver: ContentResolver = context.contentResolver
         val myFile = createCustomTempFile(context)
@@ -207,91 +311,9 @@ class AddStoryActivity : AppCompatActivity() {
         return myFile
     }
 
-    private val timeStamp: String = SimpleDateFormat(
-        "dd_MM_yyyy",
-        Locale.US
-    ).format(System.currentTimeMillis())
-
-    // Untuk kasus Intent Camera
     private fun createCustomTempFile(context: Context): File {
         val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(timeStamp, ".jpg", storageDir)
-    }
-
-    private val requestPermissionLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) { permissions ->
-            when {
-                permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
-                    // Precise location access granted.
-                    getMyLastLocation()
-                }
-                permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false -> {
-                    // Only approximate location access granted.
-                    getMyLastLocation()
-                }
-                permissions[Manifest.permission.CAMERA] ?: false -> {
-                    Intent(this@AddStoryActivity, CameraXActivity::class.java).run {
-                        launcherIntentCameraX.launch(this)
-                    }
-                }
-                else -> {
-                    showDefaultSnackbar(
-                        getString(R.string.permission_denied),
-                        Snackbar.LENGTH_SHORT
-                    )
-                }
-            }
-        }
-
-    private fun checkPermission(permission: String): Boolean {
-        return ContextCompat.checkSelfPermission(
-            this,
-            permission
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun getMyLastLocation() {
-        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
-            checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
-        ) {
-            loadLastLocation()
-        } else {
-            requestPermissionLauncher.launch(
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                )
-            )
-        }
-    }
-
-    private fun loadLastLocation() {
-        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-            if (location != null) {
-                lifecycleScope.launch(Dispatchers.Default) {
-                    currentLocation = location
-                    val currentLocation = async {
-                        GeolocationUtils.getCountryState(
-                            this@AddStoryActivity,
-                            location.latitude,
-                            location.longitude
-                        )
-                    }
-                    withContext(Dispatchers.Main) {
-                        binding.tvCurrentLocation.text = currentLocation.await()
-                            ?: getString(R.string.failed_load_location)
-                        binding.tvCurrentLocation.isVisible = true
-                    }
-                }
-            } else {
-                showDefaultSnackbar(
-                    getString(R.string.current_location_not_found), Snackbar.LENGTH_SHORT
-                )
-                binding.cbCurrentLocation.isChecked = false
-            }
-        }
     }
 
     companion object {
