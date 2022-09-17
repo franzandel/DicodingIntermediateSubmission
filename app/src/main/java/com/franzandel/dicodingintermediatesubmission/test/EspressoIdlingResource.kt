@@ -22,12 +22,3 @@ object EspressoIdlingResource {
         }
     }
 }
-
-inline fun <T> wrapEspressoIdlingResource(function: () -> T): T {
-    EspressoIdlingResource.increment() // Set app as busy.
-    return try {
-        function()
-    } finally {
-        EspressoIdlingResource.decrement() // Set app as idle.
-    }
-}

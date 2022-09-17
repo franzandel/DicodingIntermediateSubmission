@@ -212,7 +212,12 @@ class HomeActivity : AppCompatActivity() {
                 errorState?.let {
                     showDefaultSnackbar("\uD83D\uDE28 Wooops ${it.error}", Snackbar.LENGTH_LONG)
                 }
-                EspressoIdlingResource.decrement()
+
+                if (loadState.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached) {
+                    EspressoIdlingResource.decrement()
+                } else if (!isListEmpty && loadState.source.refresh !is LoadState.Error && adapter.itemCount != 0) {
+                    EspressoIdlingResource.decrement()
+                }
             }
         }
     }

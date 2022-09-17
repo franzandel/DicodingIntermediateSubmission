@@ -66,6 +66,24 @@ class HomeRemoteSourceTest {
     }
 
     @Test
+    fun `empty getStories response success`() {
+        runBlocking {
+            val fileName = "stories_empty_response.json"
+            mockWebServer.enqueueResponse(fileName)
+            val fakeStoriesRes = RetrofitUtils.getHomeResponseFromJson(fileName)
+            val fakeToken = "asdf"
+
+            val pagingStoriesRes = homeRemoteSource.getStories(fakeToken)
+            Assert.assertNotNull(pagingStoriesRes)
+            Assert.assertTrue(pagingStoriesRes is Result.Success)
+            Assert.assertEquals(
+                fakeStoriesRes.listStory.size,
+                (pagingStoriesRes as Result.Success).data.listStory.size
+            )
+        }
+    }
+
+    @Test
     fun `getStories response error`() {
         runBlocking {
             val fakeErrorCode = 404

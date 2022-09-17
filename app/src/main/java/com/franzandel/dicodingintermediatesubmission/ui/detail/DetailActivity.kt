@@ -29,11 +29,11 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        EspressoIdlingResource.increment()
         title = getString(R.string.toolbar_detail)
         initDataBinding()
         initToolbar()
         initLocationUI()
-        EspressoIdlingResource.increment()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

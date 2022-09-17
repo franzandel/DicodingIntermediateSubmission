@@ -21,6 +21,7 @@ import com.franzandel.dicodingintermediatesubmission.data.database.StoriesDataba
 import com.franzandel.dicodingintermediatesubmission.data.local.serializer.homeDataStore
 import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
 import com.franzandel.dicodingintermediatesubmission.test.RoomUtils
+import com.franzandel.dicodingintermediatesubmission.test.enqueueResponse
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.first
@@ -80,6 +81,14 @@ class HomeActivityTest {
     }
 
     @Test
+    fun check_if_empty_stories_shown_successfully() {
+        mockWebServer.enqueueResponse("stories_empty_response.json")
+        database.homeDao().insertAll(listOf())
+        onView(withId(R.id.tv_empty_message)).check(matches(isDisplayed()))
+        onView(withId(R.id.btn_empty_message)).check(matches(isDisplayed()))
+    }
+
+    @Test
     fun check_if_navigate_to_detail_successfully() {
         val storyEntities = RoomUtils.getStoryEntities()
         database.homeDao().insertAll(storyEntities)
@@ -94,11 +103,13 @@ class HomeActivityTest {
 
     @Test
     fun check_if_navigate_to_settings_language_successfully() {
+        EspressoIdlingResource.decrement()
         onView(withId(R.id.menu_settings)).perform(click())
     }
 
     @Test
     fun check_if_logout_success() {
+        EspressoIdlingResource.decrement()
         onView(withId(R.id.menu_logout)).perform(click())
         onView(withId(android.R.id.button1)).perform(click())
         onView(withId(R.id.layout_login)).check(matches(isDisplayed()))
@@ -133,6 +144,7 @@ class HomeActivityTest {
 
     @Test
     fun check_if_show_all_stories_overflow_success() {
+        EspressoIdlingResource.decrement()
         runBlocking {
             val storyEntities = RoomUtils.getStoryEntities()
             database.homeDao().insertAll(storyEntities)
@@ -157,5 +169,12 @@ class HomeActivityTest {
                     .atPositionOnView(0, R.id.tv_location)
             ).check(matches(not(isDisplayed())))
         }
+    }
+
+    @Test
+    fun check_if_navigate_to_add_story_successfully() {
+        EspressoIdlingResource.decrement()
+        onView(withId(R.id.fab_add_story)).perform(click())
+        onView(withId(R.id.layout_add_story)).check(matches(isDisplayed()))
     }
 }

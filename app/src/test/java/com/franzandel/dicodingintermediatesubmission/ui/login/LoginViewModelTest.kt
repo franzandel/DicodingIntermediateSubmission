@@ -57,7 +57,7 @@ class LoginViewModelTest {
 
         `when`(loginUseCase(loginRequest)).thenReturn(expectedLogin)
 
-        loginViewModel.login(loginRequest, isUsernameValid = true, isPasswordValid = true)
+        loginViewModel.login(loginRequest)
         val actualLogin = loginViewModel.loginResult.getOrAwaitValue()
         Mockito.verify(loginUseCase).invoke(loginRequest)
         Assert.assertNotNull(actualLogin)
@@ -74,7 +74,7 @@ class LoginViewModelTest {
 
         `when`(loginUseCase(loginRequest)).thenReturn(expectedLogin)
 
-        loginViewModel.login(loginRequest, isUsernameValid = true, isPasswordValid = true)
+        loginViewModel.login(loginRequest)
         val actualLogin = loginViewModel.loginResult.getOrAwaitValue()
         Mockito.verify(loginUseCase).invoke(loginRequest)
         Assert.assertNotNull(actualLogin)
@@ -92,7 +92,7 @@ class LoginViewModelTest {
 
         `when`(loginUseCase(loginRequest)).thenReturn(expectedLogin)
 
-        loginViewModel.login(loginRequest, isUsernameValid = true, isPasswordValid = true)
+        loginViewModel.login(loginRequest)
         val actualLogin = loginViewModel.loginResult.getOrAwaitValue()
         Mockito.verify(loginUseCase).invoke(loginRequest)
         Assert.assertNotNull(actualLogin)
