@@ -60,9 +60,6 @@ class RegisterViewModelTest {
 
         registerViewModel.register(
             registerRequest,
-            isUsernameValid = true,
-            isPasswordValid = true,
-            isNameValid = true,
             confirmationPassword = "asdfasdf"
         )
         val actualRegister = registerViewModel.registerResult.getOrAwaitValue()
@@ -85,9 +82,6 @@ class RegisterViewModelTest {
 
         registerViewModel.register(
             registerRequest,
-            isUsernameValid = true,
-            isPasswordValid = true,
-            isNameValid = true,
             confirmationPassword = "asdfasdf"
         )
         val actualRegister = registerViewModel.registerResult.getOrAwaitValue()
@@ -111,9 +105,6 @@ class RegisterViewModelTest {
 
         registerViewModel.register(
             registerRequest,
-            isUsernameValid = true,
-            isPasswordValid = true,
-            isNameValid = true,
             confirmationPassword = "asdfasdf"
         )
         val actualRegister = registerViewModel.registerResult.getOrAwaitValue()
@@ -137,9 +128,6 @@ class RegisterViewModelTest {
 
         registerViewModel.register(
             registerRequest,
-            isUsernameValid = true,
-            isPasswordValid = true,
-            isNameValid = true,
             confirmationPassword = "asdfasdf"
         )
         val actualRegister = registerViewModel.registerResult.getOrAwaitValue()

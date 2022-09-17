@@ -6,6 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.database.StoriesDatabase
+import com.franzandel.dicodingintermediatesubmission.data.model.StoryEntity
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 import com.franzandel.dicodingintermediatesubmission.test.RoomUtils
 import com.franzandel.dicodingintermediatesubmission.test.enqueueResponse
@@ -59,6 +60,21 @@ class HomeRemoteSourceTest {
         val fakeToken = "asdf"
         val fakeLocation = 0
         val fakeStoryEntities = RoomUtils.getStoryEntities()
+
+        storiesDatabase.homeDao().deleteAll()
+        storiesDatabase.homeDao().insertAll(fakeStoryEntities)
+
+        val resultPagingStories = homeRemoteSource.getPagingStories(fakeToken, fakeLocation)
+
+        Assert.assertTrue(resultPagingStories is Result.Success)
+    }
+
+    @Test
+    fun get_empty_pagingStories_response_success() = runBlocking {
+        mockWebServer.enqueueResponse("stories_empty_response.json")
+        val fakeToken = "asdf"
+        val fakeLocation = 0
+        val fakeStoryEntities = listOf<StoryEntity>()
 
         storiesDatabase.homeDao().deleteAll()
         storiesDatabase.homeDao().insertAll(fakeStoryEntities)
