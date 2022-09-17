@@ -12,6 +12,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityMapsBinding
+import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -45,6 +46,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        EspressoIdlingResource.increment()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -58,19 +60,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 finish()
                 true
             }
-            R.id.normal_type -> {
+            R.id.menu_normal_type -> {
                 googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
                 true
             }
-            R.id.satellite_type -> {
+            R.id.menu_satellite_type -> {
                 googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
                 true
             }
-            R.id.terrain_type -> {
+            R.id.menu_terrain_type -> {
                 googleMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
                 true
             }
-            R.id.hybrid_type -> {
+            R.id.menu_hybrid_type -> {
                 googleMap.mapType = GoogleMap.MAP_TYPE_HYBRID
                 true
             }
@@ -93,22 +95,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         this.googleMap = googleMap
         setMapStyle()
 
-        this.googleMap.uiSettings.apply {
-            isZoomControlsEnabled = true
-            isIndoorLevelPickerEnabled = true
-            isCompassEnabled = true
-            isMapToolbarEnabled = true
+        googleMap.apply {
+            uiSettings.apply {
+                isZoomControlsEnabled = true
+                isIndoorLevelPickerEnabled = true
+                isCompassEnabled = true
+                isMapToolbarEnabled = true
+            }
+
+            val mapPosition = LatLng(latitude, longitude)
+
+            addMarker(
+                MarkerOptions()
+                    .position(mapPosition)
+                    .title(getAddressName(mapPosition))
+                    .snippet(getAdminArea(mapPosition))
+            )
+            animateCamera(CameraUpdateFactory.newLatLngZoom(mapPosition, 15f))
         }
 
-        val mapPosition = LatLng(latitude, longitude)
-
-        this.googleMap.addMarker(
-            MarkerOptions()
-                .position(mapPosition)
-                .title(getAddressName(mapPosition))
-                .snippet(getAdminArea(mapPosition))
-        )
-        this.googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mapPosition, 15f))
+        EspressoIdlingResource.decrement()
     }
 
     private fun initToolbar() {
@@ -141,7 +147,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun setMapStyle() {
         try {
             val success =
-                googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_aubergine_style))
+                googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                        this,
+                        R.raw.map_aubergine_style
+                    )
+                )
             if (!success) {
                 Log.e("TAG", "Style parsing failed.")
             }
