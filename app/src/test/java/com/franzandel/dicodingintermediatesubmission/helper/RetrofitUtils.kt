@@ -19,7 +19,7 @@ object RetrofitUtils {
         return GsonUtils.fromJsonString(jsonString, LoginResponse::class.java)
     }
 
-    fun getRegisterResponseFromJson(fileName: String): BaseResponse {
+    fun getBaseResponseFromJson(fileName: String): BaseResponse {
         val jsonString = getJsonString(fileName)
         return GsonUtils.fromJsonString(jsonString, BaseResponse::class.java)
     }

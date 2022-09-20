@@ -48,7 +48,7 @@ class RegisterRemoteSourceTest {
         runBlocking {
             val fileName = "register_response.json"
             mockWebServer.enqueueResponse(fileName)
-            val fakeRegisterRes = RetrofitUtils.getRegisterResponseFromJson(fileName)
+            val fakeRegisterRes = RetrofitUtils.getBaseResponseFromJson(fileName)
             val registerRequest = RegisterRequest(
                 email = "asdf@gmail.com",
                 password = "asdfasdf",
@@ -86,4 +86,3 @@ class RegisterRemoteSourceTest {
         }
     }
 }
-
