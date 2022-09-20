@@ -107,7 +107,7 @@ class RegisterActivityTest {
     }
 
     @Test
-    fun check_if_register_got_name_validation() {
+    fun check_if_register_got_name_empty_validation() {
         onView(withId(R.id.layout_register)).check(matches(isDisplayed()))
         onView(withId(R.id.btn_register)).perform(click())
         onView(withId(R.id.et_name)).check(matches(CustomEditText.checkValidation(R.string.empty_name)))

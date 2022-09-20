@@ -1,9 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.utils.geolocation
 
 import android.content.Context
-import android.location.Address
 import android.location.Geocoder
-import java.lang.Exception
 import java.util.Locale
 
 /**
@@ -13,6 +11,7 @@ import java.util.Locale
 
 object GeolocationUtils {
 
+    @Suppress("DEPRECATION")
     fun getCountryState(
         context: Context,
         latitude: Double,
@@ -20,9 +19,9 @@ object GeolocationUtils {
     ): String? {
         return try {
             val geocoder = Geocoder(context, Locale.getDefault())
-            val addresses: List<Address> = geocoder.getFromLocation(latitude, longitude, 1)
+            val addresses = geocoder.getFromLocation(latitude, longitude, 1)
 
-            if (addresses.isNotEmpty()) {
+            if (addresses?.isNotEmpty() == true) {
                 val address = addresses[0]
                 val state = address.adminArea
                 val country = address.countryName

@@ -32,12 +32,12 @@ protobuf {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.franzandel.dicodingintermediatesubmission"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -87,14 +87,15 @@ dependencies {
     implementation "com.google.android.material:material:${versions.material}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
     implementation "androidx.annotation:annotation:${versions.annotation}"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${versions.livedataKtx}"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.viewmodelKtx}"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${versions.lifecycleKtx}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycleKtx}"
 
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
     implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
 
     implementation "androidx.datastore:datastore:${versions.datastore}"
-    implementation "com.google.protobuf:protobuf-javalite:${versions.protobuf}" // for DataStore Generator
+    implementation "com.google.protobuf:protobuf-javalite:${versions.protobuf}"
+    // for DataStore Generator
 
     implementation "androidx.core:core-splashscreen:${versions.splashscreen}"
 
@@ -128,22 +129,29 @@ dependencies {
     implementation("androidx.room:room-paging:${versions.room}")
 
     implementation("com.google.android.gms:play-services-location:${versions.location}")
+    // version should be the same otherwise would cause error
     implementation("com.google.android.gms:play-services-maps:${versions.maps}")
+    // version should be the same otherwise would cause error
 
     // Testing
     implementation "org.mockito:mockito-core:${testVersions.mockito}"
     implementation "org.mockito:mockito-inline:${testVersions.mockito}"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${testVersions.kotlinCoroutineTest}" // TestDispatcher
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${testVersions.kotlinCoroutineTest}"
+    // TestDispatcher
     implementation "com.squareup.okhttp3:mockwebserver:${testVersions.mockWebServer}"
     implementation "androidx.test.espresso:espresso-idling-resource:${androidTestVersions.espresso}"
+    // 3.4.0 is still causing issue https://stackoverflow.com/q/70622183/9188214
 
     testImplementation "junit:junit:${testVersions.junit}"
-    testImplementation "androidx.arch.core:core-testing:${testVersions.coreTesting}" // InstantTaskExecutorRule
+    testImplementation "androidx.arch.core:core-testing:${testVersions.coreTesting}"
+    // InstantTaskExecutorRule
 
     androidTestImplementation "androidx.test.ext:junit:${androidTestVersions.junitExt}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${androidTestVersions.espresso}"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:${androidTestVersions.espresso}"
+    // 3.4.0 is still causing issue https://stackoverflow.com/q/70622183/9188214
     androidTestImplementation "com.google.dagger:hilt-android-testing:${versions.hilt}"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:${versions.hilt}"
-    androidTestImplementation "androidx.test.espresso:espresso-intents:3.4.0" // Need 3.4.0 for BoundedDiagnosingMatcher
+    androidTestImplementation "androidx.test.espresso:espresso-intents:3.4.0"
+    // Need 3.4.0 for BoundedDiagnosingMatcher
 }

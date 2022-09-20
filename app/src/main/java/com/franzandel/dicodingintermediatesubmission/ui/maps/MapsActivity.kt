@@ -134,10 +134,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         return address?.adminArea
     }
 
+    @Suppress("DEPRECATION")
     private fun getAddress(latLng: LatLng): Address? {
         val geocoder = Geocoder(this@MapsActivity, Locale.getDefault())
         try {
-            return geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1).firstOrNull()
+            return geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)?.firstOrNull()
         } catch (e: IOException) {
             e.printStackTrace()
         }

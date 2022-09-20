@@ -26,6 +26,7 @@ import com.franzandel.dicodingintermediatesubmission.ui.detail.model.StoryDetail
 import com.franzandel.dicodingintermediatesubmission.ui.home.recyclerview.HomeAdapter
 import com.franzandel.dicodingintermediatesubmission.ui.home.recyclerview.HomeLoadStateFooterAdapter
 import com.franzandel.dicodingintermediatesubmission.ui.login.LoginActivity
+import com.franzandel.dicodingintermediatesubmission.utils.extension.getParcelable
 import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefaultSnackbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -246,8 +247,8 @@ class HomeActivity : AppCompatActivity() {
         intent.action?.let { action ->
             val intent = when (action) {
                 IntentActionConst.NAVIGATE_TO_DETAIL -> {
-                    val storyDetail =
-                        intent.extras?.getParcelable<StoryDetail?>(DetailActivity.EXTRA_STORY_DETAIL)
+                    val storyDetail: StoryDetail? =
+                        intent.getParcelable(DetailActivity.EXTRA_STORY_DETAIL)
                     DetailActivity.newIntent(this, storyDetail)
                 }
                 IntentActionConst.NAVIGATE_TO_ADD_STORY -> AddStoryActivity.newIntent(this)

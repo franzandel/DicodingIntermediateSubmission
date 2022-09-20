@@ -26,10 +26,10 @@ object HomeResponseMapper {
         }
     }
 
-    fun transform(storyResponses: List<StoryResponse>): List<Story> {
-        return storyResponses.map {
+    fun transform(storyResponses: List<StoryResponse>?): List<Story> {
+        return storyResponses?.map {
             transform(it)
-        }
+        } ?: listOf()
     }
 
     fun transform(storyEntity: StoryEntity): Story {
