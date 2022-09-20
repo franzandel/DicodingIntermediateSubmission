@@ -3,6 +3,8 @@ package com.franzandel.dicodingintermediatesubmission.di.addstory
 import android.content.Context
 import androidx.activity.result.ActivityResultRegistry
 import androidx.appcompat.app.AppCompatActivity
+import com.franzandel.dicodingintermediatesubmission.di.addstory.annotation.CameraResultRegistry
+import com.franzandel.dicodingintermediatesubmission.di.addstory.annotation.GalleryResultRegistry
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

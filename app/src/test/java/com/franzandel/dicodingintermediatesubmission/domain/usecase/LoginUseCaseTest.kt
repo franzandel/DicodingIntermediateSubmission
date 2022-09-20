@@ -3,7 +3,7 @@ package com.franzandel.dicodingintermediatesubmission.domain.usecase
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
-import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.request.LoginRequest
 import com.franzandel.dicodingintermediatesubmission.domain.model.Login
 import com.franzandel.dicodingintermediatesubmission.domain.repository.LoginRepository
 import com.franzandel.dicodingintermediatesubmission.helper.MainDispatcherRule

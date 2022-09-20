@@ -10,7 +10,6 @@ import com.franzandel.dicodingintermediatesubmission.utils.onError
 import com.franzandel.dicodingintermediatesubmission.utils.onException
 import com.franzandel.dicodingintermediatesubmission.utils.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

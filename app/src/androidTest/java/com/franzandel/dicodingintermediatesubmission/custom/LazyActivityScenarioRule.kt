@@ -11,11 +11,6 @@ import org.junit.rules.ExternalResource
 
 class LazyActivityScenarioRule<A : Activity> : ExternalResource {
 
-    constructor(launchActivity: Boolean, startActivityIntentSupplier: () -> Intent) {
-        this.launchActivity = launchActivity
-        scenarioSupplier = { ActivityScenario.launch(startActivityIntentSupplier()) }
-    }
-
     constructor(launchActivity: Boolean, startActivityIntent: Intent) {
         this.launchActivity = launchActivity
         scenarioSupplier = { ActivityScenario.launch(startActivityIntent) }
@@ -47,7 +42,7 @@ class LazyActivityScenarioRule<A : Activity> : ExternalResource {
     fun launch(newIntent: Intent? = null) {
         if (scenarioLaunched) throw IllegalStateException("Scenario has already been launched!")
 
-        newIntent?.let { scenarioSupplier = { ActivityScenario.launch<A>(it) } }
+        newIntent?.let { scenarioSupplier = { ActivityScenario.launch(it) } }
 
         scenario = scenarioSupplier()
         scenarioLaunched = true
@@ -56,10 +51,10 @@ class LazyActivityScenarioRule<A : Activity> : ExternalResource {
     fun getScenario(): ActivityScenario<A> = checkNotNull(scenario)
 }
 
-inline fun <reified A : Activity> lazyActivityScenarioRule(launchActivity: Boolean = true, noinline intentSupplier: () -> Intent): LazyActivityScenarioRule<A> =
-    LazyActivityScenarioRule(launchActivity, intentSupplier)
-
-inline fun <reified A : Activity> lazyActivityScenarioRule(launchActivity: Boolean = true, intent: Intent? = null): LazyActivityScenarioRule<A> = if (intent == null) {
+inline fun <reified A : Activity> lazyActivityScenarioRule(
+    launchActivity: Boolean = true,
+    intent: Intent? = null
+): LazyActivityScenarioRule<A> = if (intent == null) {
     LazyActivityScenarioRule(launchActivity, A::class.java)
 } else {
     LazyActivityScenarioRule(launchActivity, intent)

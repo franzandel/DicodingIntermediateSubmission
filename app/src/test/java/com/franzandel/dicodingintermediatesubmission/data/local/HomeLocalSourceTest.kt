@@ -57,7 +57,6 @@ class HomeLocalSourceTest {
     @Test
     fun `when clearStorage return success`() = runTest {
         val fakeResponse = Unit
-        Mockito.`when`(homeDatastore.data).thenReturn(flowOf(homeSession))
 
         val actualResponse = homeLocalSource.clearStorage()
         Assert.assertNotNull(actualResponse)
@@ -69,7 +68,6 @@ class HomeLocalSourceTest {
     fun `when saveLocationPreference return success`() = runTest {
         val fakeLocation = 0
         val fakeResponse = Unit
-        Mockito.`when`(homeDatastore.data).thenReturn(flowOf(homeSession))
 
         val actualResponse = homeLocalSource.saveLocationPreference(fakeLocation)
         Assert.assertNotNull(actualResponse)

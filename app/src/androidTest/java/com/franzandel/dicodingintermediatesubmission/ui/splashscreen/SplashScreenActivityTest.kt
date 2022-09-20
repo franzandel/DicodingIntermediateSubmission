@@ -10,7 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.LargeTest
 import com.franzandel.dicodingintermediatesubmission.R
-import com.franzandel.dicodingintermediatesubmission.data.local.serializer.settingsDataStore
+import com.franzandel.dicodingintermediatesubmission.data.local.serializer.authenticationDataStore
 import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -47,7 +47,7 @@ class SplashScreenActivityTest {
     fun check_if_navigated_to_home() {
         val context: Context = ApplicationProvider.getApplicationContext()
         runBlocking {
-            context.settingsDataStore.updateData { settings ->
+            context.authenticationDataStore.updateData { settings ->
                 settings.toBuilder()
                     .setToken("fakeToken")
                     .build()
@@ -60,7 +60,7 @@ class SplashScreenActivityTest {
     fun check_if_navigated_to_login() {
         val context: Context = ApplicationProvider.getApplicationContext()
         runBlocking {
-            context.settingsDataStore.updateData { settings ->
+            context.authenticationDataStore.updateData { settings ->
                 settings.toBuilder()
                     .setToken("")
                     .build()

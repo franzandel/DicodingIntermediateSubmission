@@ -4,8 +4,8 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.franzandel.dicodingintermediatesubmission.data.dao.HomeDao
 import com.franzandel.dicodingintermediatesubmission.data.dao.RemoteKeysDao
-import com.franzandel.dicodingintermediatesubmission.data.model.RemoteKeysEntity
-import com.franzandel.dicodingintermediatesubmission.data.model.StoryEntity
+import com.franzandel.dicodingintermediatesubmission.data.model.entity.RemoteKeysEntity
+import com.franzandel.dicodingintermediatesubmission.data.model.entity.StoryEntity
 
 /**
  * Created by Franz Andel

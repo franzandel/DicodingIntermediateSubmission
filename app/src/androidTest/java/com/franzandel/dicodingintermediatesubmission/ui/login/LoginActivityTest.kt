@@ -3,11 +3,11 @@ package com.franzandel.dicodingintermediatesubmission.ui.login
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
-import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.filters.LargeTest
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.custom.CustomEditText
@@ -56,7 +56,7 @@ class LoginActivityTest {
         onView(withId(R.id.layout_login)).check(matches(isDisplayed()))
         onView(withId(R.id.et_username)).perform(CustomEditText.setText("asdf@gmail.com"))
         onView(withId(R.id.et_password)).perform(CustomEditText.setText("asdfasdf"))
-        onView(withId(R.id.btn_login)).perform(ViewActions.click())
+        onView(withId(R.id.btn_login)).perform(click())
         onView(withId(R.id.srl_home)).check(matches(isDisplayed()))
     }
 
@@ -67,9 +67,9 @@ class LoginActivityTest {
         onView(withId(R.id.layout_login)).check(matches(isDisplayed()))
         onView(withId(R.id.et_username)).perform(CustomEditText.setText("asdf@gmail.com"))
         onView(withId(R.id.et_password)).perform(CustomEditText.setText("asdfasdf"))
-        onView(withId(R.id.btn_login)).perform(ViewActions.click())
+        onView(withId(R.id.btn_login)).perform(click())
         onView(withId(com.google.android.material.R.id.snackbar_text))
-            .check(matches(ViewMatchers.withText(R.string.login_failed)))
+            .check(matches(withText(R.string.login_failed)))
     }
 
     @Test
@@ -79,15 +79,15 @@ class LoginActivityTest {
         onView(withId(R.id.layout_login)).check(matches(isDisplayed()))
         onView(withId(R.id.et_username)).perform(CustomEditText.setText("asdf@gmail.com"))
         onView(withId(R.id.et_password)).perform(CustomEditText.setText("asdfasdf"))
-        onView(withId(R.id.btn_login)).perform(ViewActions.click())
+        onView(withId(R.id.btn_login)).perform(click())
         onView(withId(com.google.android.material.R.id.snackbar_text))
-            .check(matches(ViewMatchers.withText(R.string.system_error)))
+            .check(matches(withText(R.string.system_error)))
     }
 
     @Test
     fun check_if_login_got_username_empty_validation() {
         onView(withId(R.id.layout_login)).check(matches(isDisplayed()))
-        onView(withId(R.id.btn_login)).perform(ViewActions.click())
+        onView(withId(R.id.btn_login)).perform(click())
         onView(withId(R.id.et_username)).check(matches(CustomEditText.checkValidation(R.string.empty_username)))
     }
 
@@ -95,22 +95,24 @@ class LoginActivityTest {
     fun check_if_login_got_username_invalid_format_validation() {
         onView(withId(R.id.layout_login)).check(matches(isDisplayed()))
         onView(withId(R.id.et_username)).perform(CustomEditText.setText("asdf"))
-        onView(withId(R.id.btn_login)).perform(ViewActions.click())
+        onView(withId(R.id.btn_login)).perform(click())
         onView(withId(R.id.et_username)).check(matches(CustomEditText.checkValidation(R.string.invalid_username)))
     }
 
     @Test
     fun check_if_login_got_password_validation() {
+        mockWebServer.enqueueResponse("login_error_response.json", responseCode = 400)
+
         onView(withId(R.id.layout_login)).check(matches(isDisplayed()))
         onView(withId(R.id.et_username)).perform(CustomEditText.setText("asdf@gmail.com"))
-        onView(withId(R.id.btn_login)).perform(ViewActions.click())
+        onView(withId(R.id.btn_login)).perform(click())
         onView(withId(R.id.et_password)).check(matches(CustomEditText.checkValidation(R.string.invalid_password)))
     }
 
     @Test
     fun check_if_login_navigate_to_register_successfully() {
         onView(withId(R.id.layout_login)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_no_account_yet)).perform(ViewActions.click())
+        onView(withId(R.id.tv_no_account_yet)).perform(click())
         onView(withId(R.id.layout_register)).check(matches(isDisplayed()))
     }
 }

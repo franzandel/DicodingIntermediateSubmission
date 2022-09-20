@@ -4,7 +4,7 @@ import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThr
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.consts.FileConst
-import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.request.AddStoryRequest
 import com.franzandel.dicodingintermediatesubmission.domain.model.AddStory
 import com.franzandel.dicodingintermediatesubmission.domain.repository.AddStoryRepository
 import com.franzandel.dicodingintermediatesubmission.helper.MainDispatcherRule

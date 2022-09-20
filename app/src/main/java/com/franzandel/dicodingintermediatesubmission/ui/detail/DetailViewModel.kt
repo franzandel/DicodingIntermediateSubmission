@@ -1,7 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.ui.detail
 
 import android.content.Context
-import android.location.Geocoder
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations

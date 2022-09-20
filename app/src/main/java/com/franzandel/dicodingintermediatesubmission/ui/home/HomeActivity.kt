@@ -22,7 +22,9 @@ import com.franzandel.dicodingintermediatesubmission.databinding.ActivityHomeBin
 import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
 import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
 import com.franzandel.dicodingintermediatesubmission.ui.detail.DetailActivity
-import com.franzandel.dicodingintermediatesubmission.ui.detail.StoryDetail
+import com.franzandel.dicodingintermediatesubmission.ui.detail.model.StoryDetail
+import com.franzandel.dicodingintermediatesubmission.ui.home.recyclerview.HomeAdapter
+import com.franzandel.dicodingintermediatesubmission.ui.home.recyclerview.HomeLoadStateFooterAdapter
 import com.franzandel.dicodingintermediatesubmission.ui.login.LoginActivity
 import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefaultSnackbar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -65,7 +67,6 @@ class HomeActivity : AppCompatActivity() {
         initPaging3AdapterListener()
         viewModel.getLocationPreference()
         handleIntentAction()
-        EspressoIdlingResource.increment()
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -210,7 +211,7 @@ class HomeActivity : AppCompatActivity() {
                     ?: loadState.append as? LoadState.Error
                     ?: loadState.prepend as? LoadState.Error
                 errorState?.let {
-                    showDefaultSnackbar("\uD83D\uDE28 Wooops ${it.error}", Snackbar.LENGTH_LONG)
+                    showDefaultSnackbar(it.error.toString(), Snackbar.LENGTH_LONG)
                 }
 
                 if (loadState.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached) {

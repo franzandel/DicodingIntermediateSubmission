@@ -9,8 +9,9 @@ import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThr
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.consts.FileConst
 import com.franzandel.dicodingintermediatesubmission.data.consts.ValidationConst
-import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.request.AddStoryRequest
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.UploadImageUseCase
+import com.franzandel.dicodingintermediatesubmission.ui.addstory.model.AddStoryResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType

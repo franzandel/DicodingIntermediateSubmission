@@ -15,6 +15,7 @@ import java.io.OutputStream
  * on 23 July 2022.
  */
 
+@Suppress("BlockingMethodInNonBlockingContext")
 object HomeSerializer : Serializer<HomeSession> {
 
     override val defaultValue: HomeSession = HomeSession.getDefaultInstance()

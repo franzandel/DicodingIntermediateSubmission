@@ -11,7 +11,7 @@ import androidx.core.net.toUri
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.data.consts.IntentActionConst
 import com.franzandel.dicodingintermediatesubmission.data.consts.IntentConst
-import com.franzandel.dicodingintermediatesubmission.ui.detail.StoryDetail
+import com.franzandel.dicodingintermediatesubmission.ui.detail.model.StoryDetail
 import com.franzandel.dicodingintermediatesubmission.ui.splashscreen.SplashScreenActivity
 import com.franzandel.dicodingintermediatesubmission.utils.GsonUtils
 

@@ -1,8 +1,8 @@
 package com.franzandel.dicodingintermediatesubmission.di
 
 import com.franzandel.dicodingintermediatesubmission.di.addstory.AddStoryActivityAbstractModule
-import com.franzandel.dicodingintermediatesubmission.utils.LocationUtils
 import com.franzandel.dicodingintermediatesubmission.utils.TestLocationUtilsImpl
+import com.franzandel.dicodingintermediatesubmission.utils.location.LocationUtils
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.android.components.ActivityComponent

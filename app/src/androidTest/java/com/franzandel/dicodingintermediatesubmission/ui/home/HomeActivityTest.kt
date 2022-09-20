@@ -59,6 +59,7 @@ class HomeActivityTest {
         mockWebServer.start(8080)
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
         ActivityScenario.launch(HomeActivity::class.java)
+        EspressoIdlingResource.increment()
     }
 
     @After

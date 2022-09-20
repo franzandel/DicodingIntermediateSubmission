@@ -10,7 +10,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.franzandel.dicodingintermediatesubmission.data.database.StoriesDatabase
-import com.franzandel.dicodingintermediatesubmission.data.model.StoryEntity
+import com.franzandel.dicodingintermediatesubmission.data.model.entity.StoryEntity
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 import com.franzandel.dicodingintermediatesubmission.test.enqueueResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi

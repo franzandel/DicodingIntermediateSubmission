@@ -1,6 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.data.mapper
 
-import com.franzandel.dicodingintermediatesubmission.data.model.LoginResponse
+import com.franzandel.dicodingintermediatesubmission.data.model.response.LoginResponse
 import com.franzandel.dicodingintermediatesubmission.domain.model.Login
 import com.franzandel.dicodingintermediatesubmission.domain.model.LoginResult
 

@@ -13,6 +13,7 @@ import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.custom.CustomEditText
 import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
 import com.franzandel.dicodingintermediatesubmission.test.enqueueResponse
+import com.franzandel.dicodingintermediatesubmission.ui.register.RegisterActivity
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import okhttp3.mockwebserver.MockWebServer

@@ -7,8 +7,8 @@ import com.example.application.HomeSession
 import com.franzandel.dicodingintermediatesubmission.data.dao.HomeDao
 import com.franzandel.dicodingintermediatesubmission.data.dao.RemoteKeysDao
 import com.franzandel.dicodingintermediatesubmission.data.database.StoriesDatabase
+import com.franzandel.dicodingintermediatesubmission.data.local.serializer.authenticationDataStore
 import com.franzandel.dicodingintermediatesubmission.data.local.serializer.homeDataStore
-import com.franzandel.dicodingintermediatesubmission.data.local.serializer.settingsDataStore
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 import com.franzandel.dicodingintermediatesubmission.data.service.LoginService
 import dagger.Module
@@ -31,7 +31,7 @@ object StoriesWidgetModule {
     @Provides
     @ServiceScoped
     fun provideSettingsDataStore(@ApplicationContext context: Context): DataStore<AuthenticationSession> =
-        context.settingsDataStore
+        context.authenticationDataStore
 
     @Provides
     @ServiceScoped

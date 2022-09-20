@@ -2,7 +2,7 @@ package com.franzandel.dicodingintermediatesubmission.data.repository
 
 import com.franzandel.dicodingintermediatesubmission.base.model.BaseResponse
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
-import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.request.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.data.remote.RegisterRemoteSource
 import com.franzandel.dicodingintermediatesubmission.domain.repository.RegisterRepository
 import com.franzandel.dicodingintermediatesubmission.helper.MainDispatcherRule

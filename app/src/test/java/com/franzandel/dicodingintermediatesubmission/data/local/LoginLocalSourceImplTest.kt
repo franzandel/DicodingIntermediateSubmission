@@ -46,7 +46,6 @@ class LoginLocalSourceImplTest {
     fun `when saveToken return success`() = runTest {
         val fakeToken = "asdf"
         val fakeResponse = Unit
-        Mockito.`when`(datastore.data).thenReturn(flowOf(authenticationSession))
 
         val actualToken = loginLocalSource.saveToken(fakeToken)
         Assert.assertNotNull(actualToken)

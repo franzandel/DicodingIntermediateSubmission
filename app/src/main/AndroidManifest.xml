@@ -58,7 +58,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.register.presentation.RegisterActivity"
+            android:name=".ui.register.RegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

@@ -16,10 +16,6 @@ import org.hamcrest.TypeSafeMatcher
 
 class RecyclerViewMatcher(private val recyclerViewId: Int) {
 
-    fun atPosition(position: Int): Matcher<View> {
-        return atPositionOnView(position, UNSPECIFIED)
-    }
-
     fun atPositionOnView(position: Int, targetViewId: Int): Matcher<View> {
         return object : TypeSafeMatcher<View>() {
             var resources: Resources? = null

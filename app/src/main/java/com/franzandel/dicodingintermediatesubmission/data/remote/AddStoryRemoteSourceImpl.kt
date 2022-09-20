@@ -3,7 +3,7 @@ package com.franzandel.dicodingintermediatesubmission.data.remote
 import com.franzandel.dicodingintermediatesubmission.base.data.NetworkObject
 import com.franzandel.dicodingintermediatesubmission.base.model.BaseResponse
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
-import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.request.AddStoryRequest
 import com.franzandel.dicodingintermediatesubmission.data.service.AddStoryService
 import com.franzandel.dicodingintermediatesubmission.utils.awaitResponse
 import javax.inject.Inject

@@ -6,7 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.database.StoriesDatabase
-import com.franzandel.dicodingintermediatesubmission.data.model.StoryEntity
+import com.franzandel.dicodingintermediatesubmission.data.model.entity.StoryEntity
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 import com.franzandel.dicodingintermediatesubmission.test.RoomUtils
 import com.franzandel.dicodingintermediatesubmission.test.enqueueResponse

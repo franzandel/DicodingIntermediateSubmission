@@ -9,6 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.LargeTest
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.custom.lazyActivityScenarioRule
+import com.franzandel.dicodingintermediatesubmission.ui.detail.model.StoryDetail
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.hamcrest.CoreMatchers.not

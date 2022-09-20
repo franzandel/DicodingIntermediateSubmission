@@ -2,7 +2,7 @@ package com.franzandel.dicodingintermediatesubmission.data.remote
 
 import androidx.paging.PagingData
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
-import com.franzandel.dicodingintermediatesubmission.data.model.HomeResponse
+import com.franzandel.dicodingintermediatesubmission.data.model.response.HomeResponse
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import kotlinx.coroutines.flow.Flow
 

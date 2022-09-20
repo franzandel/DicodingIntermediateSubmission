@@ -1,8 +1,8 @@
 package com.franzandel.dicodingintermediatesubmission.helper
 
 import com.franzandel.dicodingintermediatesubmission.base.model.BaseResponse
-import com.franzandel.dicodingintermediatesubmission.data.model.HomeResponse
-import com.franzandel.dicodingintermediatesubmission.data.model.LoginResponse
+import com.franzandel.dicodingintermediatesubmission.data.model.response.HomeResponse
+import com.franzandel.dicodingintermediatesubmission.data.model.response.LoginResponse
 import com.franzandel.dicodingintermediatesubmission.utils.GsonUtils
 import java.io.BufferedReader
 import java.io.InputStreamReader

@@ -3,6 +3,7 @@ package com.franzandel.dicodingintermediatesubmission.utils
 import android.content.Context
 import android.location.Location
 import com.franzandel.dicodingintermediatesubmission.BuildConfig
+import com.franzandel.dicodingintermediatesubmission.utils.location.LocationUtils
 import dagger.hilt.android.qualifiers.ActivityContext
 import javax.inject.Inject
 
@@ -23,10 +24,10 @@ class TestLocationUtilsImpl @Inject constructor(@ActivityContext context: Contex
 
         fusedLocationProviderClient.setMockLocation(mockLocation)
             .addOnSuccessListener {
-                _onLocationSuccess.value = mockLocation
+                mutableLocationSuccess.value = mockLocation
             }
             .addOnFailureListener {
-                _onLocationFailed.value = Unit
+                mutableOnLocationFailed.value = Unit
             }
     }
 }

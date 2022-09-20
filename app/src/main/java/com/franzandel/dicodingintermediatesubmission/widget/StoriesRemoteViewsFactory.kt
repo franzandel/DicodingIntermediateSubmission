@@ -13,7 +13,7 @@ import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.consts.IntentConst
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetStoriesUseCase
-import com.franzandel.dicodingintermediatesubmission.ui.home.HomeDetailMapper
+import com.franzandel.dicodingintermediatesubmission.ui.home.mapper.HomeDetailMapper
 import com.franzandel.dicodingintermediatesubmission.utils.GsonUtils
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope

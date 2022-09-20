@@ -15,8 +15,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.di.addstory.AddStoryActivityModule
-import com.franzandel.dicodingintermediatesubmission.di.addstory.CameraResultRegistry
-import com.franzandel.dicodingintermediatesubmission.di.addstory.GalleryResultRegistry
+import com.franzandel.dicodingintermediatesubmission.di.addstory.annotation.CameraResultRegistry
+import com.franzandel.dicodingintermediatesubmission.di.addstory.annotation.GalleryResultRegistry
 import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
 import com.franzandel.dicodingintermediatesubmission.ui.camerax.CameraXActivity
 import com.franzandel.dicodingintermediatesubmission.utils.FileUtils

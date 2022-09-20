@@ -9,7 +9,7 @@
 
         <variable
             name="storyDetail"
-            type="com.franzandel.dicodingintermediatesubmission.ui.detail.StoryDetail" />
+            type="com.franzandel.dicodingintermediatesubmission.ui.detail.model.StoryDetail" />
 
         <variable
             name="vm"

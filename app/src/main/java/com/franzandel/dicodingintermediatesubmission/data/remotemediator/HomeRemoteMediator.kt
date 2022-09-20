@@ -8,8 +8,8 @@ import androidx.room.withTransaction
 import com.franzandel.dicodingintermediatesubmission.base.data.NetworkObject
 import com.franzandel.dicodingintermediatesubmission.data.database.StoriesDatabase
 import com.franzandel.dicodingintermediatesubmission.data.mapper.HomeResponseMapper
-import com.franzandel.dicodingintermediatesubmission.data.model.RemoteKeysEntity
-import com.franzandel.dicodingintermediatesubmission.data.model.StoryEntity
+import com.franzandel.dicodingintermediatesubmission.data.model.entity.RemoteKeysEntity
+import com.franzandel.dicodingintermediatesubmission.data.model.entity.StoryEntity
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 
 /**

@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.franzandel.dicodingintermediatesubmission.data.model.RemoteKeysEntity
+import com.franzandel.dicodingintermediatesubmission.data.model.entity.RemoteKeysEntity
 
 /**
  * Created by Franz Andel
