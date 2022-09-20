@@ -1,0 +1,217 @@
+Instrumentation Test / UI Test
+------------------------------
+
+SplashScreenActivityTest
+- Memastikan navigasi ke HomeActivity berhasil
+- Memastikan navigasi ke LoginActivity berhasil
+
+LoginActivityTest
+- Memastikan login dan navigasi ke HomeActivity berhasil
+- Memastikan response login gagal, akan menampilkan pesan error yang sesuai
+- Memastikan response login exception, akan menampilkan pesan error yang sesuai
+- Memastikan validasi username kosong, akan menampilkan pesan error yang sesuai
+- Memastikan validasi username format tidak sesuai, akan menampilkan pesan error yang sesuai
+- Memastikan validasi password harus lebih dari 5 karakter, akan menampilkan pesan error yang sesuai
+- Memastikan navigasi ke RegisterActivity berhasil
+
+RegisterActivityTest
+- Memastikan register dan navigasi ke HomeActivity berhasil
+- Memastikan validasi email sudah ada berhasil
+- Memastikan response register gagal, akan menampilkan pesan error yang sesuai
+- Memastikan response register exception, akan menampilkan pesan error yang sesuai
+- Memastikan validasi name kosong, akan menampilkan pesan error yang sesuai
+- Memastikan validasi username kosong, akan menampilkan pesan error yang sesuai
+- Memastikan validasi username format tidak sesuai, akan menampilkan pesan error yang sesuai
+- Memastikan validasi password harus lebih dari 5 karakter, akan menampilkan pesan error yang sesuai
+- Memastikan validasi konfirmasi password kosong, akan menampilkan pesan error yang sesuai
+- Memastikan validasi konfirmasi password tidak sama dengan password, akan menampilkan pesan error yang sesuai
+
+HomeActivityTest
+- Memastikan menampilkan stories berhasil
+- Memastikan menampilkan stories kosong berhasil
+- Memastikan navigasi ke DetailActivity berhasil
+- Memastikan navigasi ke Language Settings berhasil
+- Memastikan logout berhasil
+- Memastikan menampilkan stories dengan lokasi saja berhasil
+- Memastikan menampilkan semua stories berhasil
+- Memastikan navigasi ke AddStoryActivity berhasil
+
+DetailActivityTest
+- Memastikan menampilkan detail tanpa lokasi berhasil
+- Memastikan menampilkan detail dengan lokasi berhasil
+
+MapsActivityTest
+- Memastikan menampilkan normal map berhasil
+- Memastikan menampilkan satellite map berhasil
+- Memastikan menampilkan terrain map berhasil
+- Memastikan menampilkan hybrid map berhasil
+
+AddStoryActivityTest
+- Memastikan tambah Story melalui kamera berhasil
+- Memastikan tambah Story dengan lokasi melalui kamera berhasil
+- Memastikan tambah Story melalui gallery berhasil
+- Memastikan tambah Story dengan lokasi melalui gallery berhasil
+- Memastikan validasi gambar belum terpilih, akan menampilkan pesan error yang sesuai
+- Memastikan validasi deskripsi kosong, akan menampilkan pesan error yang sesuai
+
+CameraXActivityTest
+- Memastikan foto dengan kamera belakang berhasil
+- Memastikan foto dengan kamera depan berhasil
+
+
+Unit Test
+---------
+
+SplashScreenViewModelTest
+- Memastikan getToken mengembalikan sukses
+- Memastikan getToken mengembalikan gagal
+- Memastikan getToken mengembalikan exception
+
+LoginViewModelTest
+- Memastikan login mengembalikan sukses
+- Memastikan login mengembalikan gagal
+- Memastikan login mengembalikan exception
+
+RegisterViewModelTest
+- Memastikan register mengembalikan sukses
+- Memastikan register mengembalikan gagal
+- Memastikan register mengembalikan email sudah terdaftar
+- Memastikan register mengembalikan exception
+
+HomeViewModelTest
+- Memastikan getStories mengembalikan sukses
+- Memastikan getStories mengembalikan sukses kosong
+- Memastikan getStories mengembalikan gagal
+- Memastikan getStories mengembalikan exception
+
+DetailViewModelTest
+- Memastikan getLocation tidak mengembalikan apa-apa
+- Memastikan getLocation mengembalikan tidak ditemukan
+
+AddStoryViewModelTest
+- Memastikan uploadImage mengembalikan validasi yang sesuai
+- Memastikan uploadImage mengembalikan sukses
+- Memastikan uploadImage mengembalikan gagal
+- Memastikan uploadImage mengembalikan exception
+
+GetTokenUseCaseTest
+- Memastikan getToken mengembalikan sukses
+- Memastikan getToken mengembalikan gagal
+- Memastikan getToken mengembalikan exception
+
+ClearStorageUseCaseTest
+- Memastikan clearStorage mengembalikan sukses
+- Memastikan clearStorage mengembalikan gagal
+- Memastikan clearStorage mengembalikan exception
+
+GetStoriesUseCaseTest
+- Memastikan getStories mengembalikan sukses
+- Memastikan getStories mengembalikan sukses kosong
+- Memastikan getStories mengembalikan gagal
+- Memastikan getStories mengembalikan exception
+- Memastikan getStories ketika get token mengembalikan gagal
+- Memastikan getStories ketika get token mengembalikan exception
+
+GetPagingStoriesUseCaseTest
+- Memastikan getPagingStories mengembalikan sukses
+- Memastikan getPagingStories mengembalikan sukses kosong
+- Memastikan getPagingStories mengembalikan gagal
+- Memastikan getPagingStories mengembalikan exception
+- Memastikan getPagingStories ketika get token mengembalikan gagal
+- Memastikan getPagingStories ketika get token mengembalikan exception
+
+GetLocationPreferenceUseCaseTest
+- Memastikan getLocation mengembalikan sukses
+- Memastikan getLocation mengembalikan gagal
+- Memastikan getLocation mengembalikan exception
+
+GetLocationPreferenceUseCaseTest
+- Memastikan setLocation mengembalikan sukses
+- Memastikan setLocation mengembalikan gagal
+- Memastikan setLocation mengembalikan exception
+
+LoginUseCaseTest
+- Memastikan login mengembalikan sukses
+- Memastikan login mengembalikan gagal
+- Memastikan login mengembalikan exception
+
+RegisterUseCaseTest
+- Memastikan register mengembalikan sukses
+- Memastikan register mengembalikan gagal
+- Memastikan register mengembalikan exception
+
+UploadImageUseCaseTest
+- Memastikan uploadImage mengembalikan sukses
+- Memastikan uploadImage mengembalikan gagal
+- Memastikan uploadImage mengembalikan exception
+
+LoginRepositoryTest
+- Memastikan login mengembalikan sukses
+- Memastikan login mengembalikan gagal
+- Memastikan login mengembalikan exception
+
+RegisterRepositoryTest
+- Memastikan register mengembalikan sukses
+- Memastikan register mengembalikan gagal
+- Memastikan register mengembalikan exception
+
+HomeRepositoryTest
+- Memastikan getPagingStories mengembalikan sukses
+- Memastikan getPagingStories mengembalikan sukses kosong
+- Memastikan getPagingStories mengembalikan gagal
+- Memastikan getPagingStories mengembalikan exception
+- Memastikan clearStorage mengembalikan sukses
+- Memastikan clearStorage mengembalikan gagal
+- Memastikan clearStorage mengembalikan exception
+- Memastikan getStories mengembalikan sukses
+- Memastikan getStories mengembalikan sukses kosong
+- Memastikan getStories mengembalikan gagal
+- Memastikan getStories mengembalikan exception
+- Memastikan setLocation mengembalikan sukses
+- Memastikan setLocation mengembalikan gagal
+- Memastikan setLocation mengembalikan exception
+- Memastikan getLocation mengembalikan sukses
+- Memastikan getLocation mengembalikan gagal
+- Memastikan getLocation mengembalikan exception
+
+AddStoryRepositoryTest
+- Memastikan uploadImage mengembalikan sukses
+- Memastikan uploadImage mengembalikan gagal
+- Memastikan uploadImage mengembalikan exception
+
+HomeLocalSourceTest
+- Memastikan clearStorage mengembalikan sukses
+- Memastikan saveLocationPreference mengembalikan sukses
+- Memastikan getLocationPreference mengembalikan sukses
+
+LoginLocalSourceImplTest
+- Memastikan saveToken mengembalikan sukses
+- Memastikan getToken mengembalikan sukses
+
+HomeRemoteSourceTest
+- Memastikan getStories mengembalikan sukses
+- Memastikan getStories mengembalikan sukses kosong
+- Memastikan getStories mengembalikan gagal
+- Memastikan getPagingStories mengembalikan sukses
+- Memastikan getPagingStories mengembalikan sukses kosong
+
+LoginRemoteSourceTest
+- Memastikan login mengembalikan sukses
+- Memastikan login mengembalikan gagal
+
+RegisterRemoteSourceTest
+- Memastikan register mengembalikan sukses
+- Memastikan register mengembalikan gagal
+
+AddStoryRemoteSourceTest
+- Memastikan uploadImage mengembalikan sukses
+- Memastikan uploadImage mengembalikan gagal
+
+HomeRemoteMediatorTest
+- Memastikan getPagingStories mengembalikan sukses
+- Memastikan getPagingStories mengembalikan sukses kosong
+- Memastikan getPagingStories mengembalikan gagal
+
+HomeDaoTest
+- Memastikan saveStoryEntities mengembalikan sukses
+- Memastikan deleteStoryEntities mengembalikan sukses
