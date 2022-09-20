@@ -9,13 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.Observer
 import com.franzandel.dicodingintermediatesubmission.R
-import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.request.LoginRequest
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityLoginBinding
 import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
-import com.franzandel.dicodingintermediatesubmission.ui.addstory.AddStoryActivity
 import com.franzandel.dicodingintermediatesubmission.ui.home.HomeActivity
 import com.franzandel.dicodingintermediatesubmission.ui.loading.LoadingDialog
-import com.franzandel.dicodingintermediatesubmission.ui.register.presentation.RegisterActivity
+import com.franzandel.dicodingintermediatesubmission.ui.register.RegisterActivity
 import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefaultSnackbar
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint

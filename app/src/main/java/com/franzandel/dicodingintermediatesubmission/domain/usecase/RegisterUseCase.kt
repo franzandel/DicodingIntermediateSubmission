@@ -4,7 +4,7 @@ import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThr
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.core.usecase.BaseRequestUseCase
 import com.franzandel.dicodingintermediatesubmission.data.mapper.RegisterLoginMapper
-import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.request.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.domain.model.Register
 import com.franzandel.dicodingintermediatesubmission.domain.repository.RegisterRepository
 import javax.inject.Inject

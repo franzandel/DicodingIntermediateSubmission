@@ -1,6 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.data.service
 
-import com.franzandel.dicodingintermediatesubmission.data.model.HomeResponse
+import com.franzandel.dicodingintermediatesubmission.data.model.response.HomeResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header

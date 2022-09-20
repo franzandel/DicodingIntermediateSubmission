@@ -23,13 +23,13 @@ import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.data.consts.ValidationConst
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityAddStoryBinding
-import com.franzandel.dicodingintermediatesubmission.di.addstory.CameraResultRegistry
-import com.franzandel.dicodingintermediatesubmission.di.addstory.GalleryResultRegistry
+import com.franzandel.dicodingintermediatesubmission.di.addstory.annotation.CameraResultRegistry
+import com.franzandel.dicodingintermediatesubmission.di.addstory.annotation.GalleryResultRegistry
 import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
 import com.franzandel.dicodingintermediatesubmission.ui.camerax.CameraXActivity
-import com.franzandel.dicodingintermediatesubmission.utils.LocationUtils
 import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefaultSnackbar
 import com.franzandel.dicodingintermediatesubmission.utils.geolocation.GeolocationUtils
+import com.franzandel.dicodingintermediatesubmission.utils.location.LocationUtils
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import id.zelory.compressor.Compressor

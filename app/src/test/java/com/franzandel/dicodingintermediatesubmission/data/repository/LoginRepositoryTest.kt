@@ -2,9 +2,9 @@ package com.franzandel.dicodingintermediatesubmission.data.repository
 
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.local.LoginLocalSource
-import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
-import com.franzandel.dicodingintermediatesubmission.data.model.LoginResponse
-import com.franzandel.dicodingintermediatesubmission.data.model.LoginResultResponse
+import com.franzandel.dicodingintermediatesubmission.data.model.request.LoginRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.response.LoginResponse
+import com.franzandel.dicodingintermediatesubmission.data.model.response.LoginResultResponse
 import com.franzandel.dicodingintermediatesubmission.data.remote.LoginRemoteSource
 import com.franzandel.dicodingintermediatesubmission.domain.repository.LoginRepository
 import com.franzandel.dicodingintermediatesubmission.helper.MainDispatcherRule

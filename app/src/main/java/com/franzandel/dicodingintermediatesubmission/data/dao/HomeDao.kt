@@ -2,11 +2,10 @@ package com.franzandel.dicodingintermediatesubmission.data.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.franzandel.dicodingintermediatesubmission.data.model.StoryEntity
+import com.franzandel.dicodingintermediatesubmission.data.model.entity.StoryEntity
 
 /**
  * Created by Franz Andel

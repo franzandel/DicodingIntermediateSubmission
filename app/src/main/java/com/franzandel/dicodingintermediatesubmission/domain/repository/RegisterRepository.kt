@@ -1,7 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.domain.repository
 
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
-import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.request.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.domain.model.Register
 
 /**

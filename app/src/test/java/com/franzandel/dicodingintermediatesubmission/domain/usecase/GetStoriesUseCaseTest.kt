@@ -130,11 +130,8 @@ class GetStoriesUseCaseTest {
         val fakeResponseCode = 400
         val fakeTokenErrorMessage = "token error"
         val fakeToken = Result.Error(fakeResponseCode, flowOf(fakeTokenErrorMessage))
-        val expectedStories = Result.Success(RoomUtils.getStories())
 
         Mockito.`when`(getTokenUseCase()).thenReturn(fakeToken)
-        Mockito.`when`(homeRepository.getStories(fakeTokenErrorMessage))
-            .thenReturn(expectedStories)
 
         val actualPagingStories = getStoriesUseCase()
         Assert.assertNotNull(actualPagingStories)
@@ -149,11 +146,8 @@ class GetStoriesUseCaseTest {
     fun `when getStories get token return exception`() = runTest {
         val fakeExceptionMessage = "token exception"
         val fakeToken = Result.Exception(Exception(fakeExceptionMessage))
-        val expectedStories = Result.Success(RoomUtils.getStories())
 
         Mockito.`when`(getTokenUseCase()).thenReturn(fakeToken)
-        Mockito.`when`(homeRepository.getStories(fakeExceptionMessage))
-            .thenReturn(expectedStories)
 
         val actualPagingStories = getStoriesUseCase()
         Assert.assertNotNull(actualPagingStories)

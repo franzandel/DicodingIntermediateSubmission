@@ -3,8 +3,8 @@ package com.franzandel.dicodingintermediatesubmission.domain.usecase
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThread
 import com.franzandel.dicodingintermediatesubmission.core.coroutine.CoroutineThreadImpl
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
-import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
-import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.request.LoginRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.request.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.domain.model.Login
 import com.franzandel.dicodingintermediatesubmission.domain.model.Register
 import com.franzandel.dicodingintermediatesubmission.domain.repository.RegisterRepository
@@ -72,20 +72,14 @@ class RegisterUseCaseTest {
     @Test
     fun `when Register return failed`() = runTest {
         val fakeErrorMessage = "register failed"
-        val expectedLogin = Result.Error(400, Login(error = true, message = "login failed"))
         val expectedRegister = Result.Error(400, Register(error = true, message = fakeErrorMessage))
         val registerRequest = RegisterRequest(
             email = "asdf@gmail.com",
             password = "asdfasdf",
             name = "asdf"
         )
-        val loginRequest = LoginRequest(
-            email = "asdf@gmail.com",
-            password = "asdfasdf"
-        )
 
         Mockito.`when`(registerRepository.register(registerRequest)).thenReturn(expectedRegister)
-        Mockito.`when`(loginUseCase(loginRequest)).thenReturn(expectedLogin)
 
         val actualRegister = registerUseCase(registerRequest)
         Mockito.verify(registerRepository).register(registerRequest)
@@ -97,20 +91,14 @@ class RegisterUseCaseTest {
     @Test
     fun `when Register return exception`() = runTest {
         val fakeExceptionMessage = "unexpected error"
-        val expectedLogin = Result.Exception(Exception(fakeExceptionMessage))
         val expectedRegister = Result.Exception(Exception(fakeExceptionMessage))
         val registerRequest = RegisterRequest(
             email = "asdf@gmail.com",
             password = "asdfasdf",
             name = "asdf"
         )
-        val loginRequest = LoginRequest(
-            email = "asdf@gmail.com",
-            password = "asdfasdf"
-        )
 
         Mockito.`when`(registerRepository.register(registerRequest)).thenReturn(expectedRegister)
-        Mockito.`when`(loginUseCase(loginRequest)).thenReturn(expectedLogin)
 
         val actualRegister = registerUseCase(registerRequest)
         Mockito.verify(registerRepository).register(registerRequest)

@@ -1,8 +1,8 @@
 package com.franzandel.dicodingintermediatesubmission.data.mapper
 
-import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.request.LoginRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.request.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.domain.model.Login
-import com.franzandel.dicodingintermediatesubmission.data.model.RegisterRequest
 import com.franzandel.dicodingintermediatesubmission.domain.model.Register
 
 /**

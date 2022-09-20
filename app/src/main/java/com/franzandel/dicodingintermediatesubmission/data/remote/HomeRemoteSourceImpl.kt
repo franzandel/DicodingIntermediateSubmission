@@ -10,7 +10,7 @@ import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.consts.PaginationConst
 import com.franzandel.dicodingintermediatesubmission.data.database.StoriesDatabase
 import com.franzandel.dicodingintermediatesubmission.data.mapper.HomeResponseMapper
-import com.franzandel.dicodingintermediatesubmission.data.model.HomeResponse
+import com.franzandel.dicodingintermediatesubmission.data.model.response.HomeResponse
 import com.franzandel.dicodingintermediatesubmission.data.remotemediator.HomeRemoteMediator
 import com.franzandel.dicodingintermediatesubmission.data.service.HomeService
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story

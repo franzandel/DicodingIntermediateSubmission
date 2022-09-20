@@ -1,7 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.domain.repository
 
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
-import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.request.LoginRequest
 import com.franzandel.dicodingintermediatesubmission.domain.model.Login
 import kotlinx.coroutines.flow.Flow
 

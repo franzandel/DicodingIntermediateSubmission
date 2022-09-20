@@ -2,7 +2,7 @@ package com.franzandel.dicodingintermediatesubmission.data.repository
 
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
 import com.franzandel.dicodingintermediatesubmission.data.mapper.AddStoryResponseMapper
-import com.franzandel.dicodingintermediatesubmission.data.model.AddStoryRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.request.AddStoryRequest
 import com.franzandel.dicodingintermediatesubmission.data.remote.AddStoryRemoteSource
 import com.franzandel.dicodingintermediatesubmission.domain.model.AddStory
 import com.franzandel.dicodingintermediatesubmission.domain.repository.AddStoryRepository

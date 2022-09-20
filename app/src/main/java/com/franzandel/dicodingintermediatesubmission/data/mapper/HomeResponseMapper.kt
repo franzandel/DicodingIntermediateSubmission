@@ -1,8 +1,8 @@
 package com.franzandel.dicodingintermediatesubmission.data.mapper
 
-import com.franzandel.dicodingintermediatesubmission.data.model.RemoteKeysEntity
-import com.franzandel.dicodingintermediatesubmission.data.model.StoryEntity
-import com.franzandel.dicodingintermediatesubmission.data.model.StoryResponse
+import com.franzandel.dicodingintermediatesubmission.data.model.entity.RemoteKeysEntity
+import com.franzandel.dicodingintermediatesubmission.data.model.entity.StoryEntity
+import com.franzandel.dicodingintermediatesubmission.data.model.response.StoryResponse
 import com.franzandel.dicodingintermediatesubmission.domain.model.Story
 
 /**

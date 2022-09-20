@@ -6,7 +6,7 @@ import com.franzandel.dicodingintermediatesubmission.data.remote.RegisterRemoteS
 import com.franzandel.dicodingintermediatesubmission.data.remote.RegisterRemoteSourceImpl
 import com.franzandel.dicodingintermediatesubmission.data.repository.RegisterRepositoryImpl
 import com.franzandel.dicodingintermediatesubmission.domain.repository.RegisterRepository
-import com.franzandel.dicodingintermediatesubmission.ui.register.presentation.RegisterViewModel
+import com.franzandel.dicodingintermediatesubmission.ui.register.RegisterViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

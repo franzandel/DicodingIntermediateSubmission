@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import com.example.application.AuthenticationSession
 import com.example.application.HomeSession
+import com.franzandel.dicodingintermediatesubmission.data.local.serializer.authenticationDataStore
 import com.franzandel.dicodingintermediatesubmission.data.local.serializer.homeDataStore
-import com.franzandel.dicodingintermediatesubmission.data.local.serializer.settingsDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,7 +25,7 @@ object SharedModule {
     @Provides
     @ViewModelScoped
     fun provideSettingsDataStore(@ApplicationContext context: Context): DataStore<AuthenticationSession> =
-        context.settingsDataStore
+        context.authenticationDataStore
 
     @Provides
     @ViewModelScoped

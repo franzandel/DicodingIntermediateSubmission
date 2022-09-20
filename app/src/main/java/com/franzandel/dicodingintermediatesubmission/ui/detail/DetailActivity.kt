@@ -11,6 +11,7 @@ import androidx.core.app.ActivityOptionsCompat
 import com.franzandel.dicodingintermediatesubmission.R
 import com.franzandel.dicodingintermediatesubmission.databinding.ActivityDetailBinding
 import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
+import com.franzandel.dicodingintermediatesubmission.ui.detail.model.StoryDetail
 import com.franzandel.dicodingintermediatesubmission.ui.maps.MapsActivity
 import dagger.hilt.android.AndroidEntryPoint
 

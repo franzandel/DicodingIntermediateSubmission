@@ -12,12 +12,13 @@ import com.franzandel.dicodingintermediatesubmission.domain.usecase.ClearStorage
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetLocationPreferenceUseCase
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.GetPagingStoriesUseCase
 import com.franzandel.dicodingintermediatesubmission.domain.usecase.SetLocationPreferenceUseCase
-import com.franzandel.dicodingintermediatesubmission.ui.detail.StoryDetail
+import com.franzandel.dicodingintermediatesubmission.ui.detail.model.StoryDetail
+import com.franzandel.dicodingintermediatesubmission.ui.home.mapper.HomeDetailMapper
+import com.franzandel.dicodingintermediatesubmission.ui.home.model.HomeResult
 import com.franzandel.dicodingintermediatesubmission.utils.onError
 import com.franzandel.dicodingintermediatesubmission.utils.onException
 import com.franzandel.dicodingintermediatesubmission.utils.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

@@ -25,7 +25,7 @@ class HomeDaoTest {
 
     private lateinit var database: StoriesDatabase
     private lateinit var dao: HomeDao
-    private val storyEntities = RoomUtils.getStoryEntities()
+    private val storyEntities = RoomUtils.getOneStoryEntities()
 
     @Before
     fun initDb() {

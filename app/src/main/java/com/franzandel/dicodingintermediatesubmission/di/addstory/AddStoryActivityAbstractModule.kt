@@ -1,7 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.di.addstory
 
-import com.franzandel.dicodingintermediatesubmission.utils.LocationUtils
-import com.franzandel.dicodingintermediatesubmission.utils.LocationUtilsImpl
+import com.franzandel.dicodingintermediatesubmission.utils.location.LocationUtils
+import com.franzandel.dicodingintermediatesubmission.utils.location.LocationUtilsImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

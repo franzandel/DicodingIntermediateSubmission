@@ -1,7 +1,7 @@
 package com.franzandel.dicodingintermediatesubmission.data.remote
 
 import com.franzandel.dicodingintermediatesubmission.core.model.Result
-import com.franzandel.dicodingintermediatesubmission.data.model.LoginRequest
+import com.franzandel.dicodingintermediatesubmission.data.model.request.LoginRequest
 import com.franzandel.dicodingintermediatesubmission.data.service.LoginService
 import com.franzandel.dicodingintermediatesubmission.helper.MainDispatcherRule
 import com.franzandel.dicodingintermediatesubmission.helper.RetrofitUtils
