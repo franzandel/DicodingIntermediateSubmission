@@ -13,6 +13,7 @@ import com.franzandel.dicodingintermediatesubmission.databinding.ActivityDetailB
 import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
 import com.franzandel.dicodingintermediatesubmission.ui.detail.model.StoryDetail
 import com.franzandel.dicodingintermediatesubmission.ui.maps.MapsActivity
+import com.franzandel.dicodingintermediatesubmission.utils.extension.getParcelable
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +24,7 @@ class DetailActivity : AppCompatActivity() {
     private val viewModel: DetailViewModel by viewModels()
 
     private val storyDetail: StoryDetail? by lazy {
-        intent.extras?.getParcelable(EXTRA_STORY_DETAIL)
+        intent.getParcelable(EXTRA_STORY_DETAIL)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

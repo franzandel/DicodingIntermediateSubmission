@@ -27,6 +27,7 @@ import com.franzandel.dicodingintermediatesubmission.di.addstory.annotation.Came
 import com.franzandel.dicodingintermediatesubmission.di.addstory.annotation.GalleryResultRegistry
 import com.franzandel.dicodingintermediatesubmission.test.EspressoIdlingResource
 import com.franzandel.dicodingintermediatesubmission.ui.camerax.CameraXActivity
+import com.franzandel.dicodingintermediatesubmission.utils.extension.getSerializable
 import com.franzandel.dicodingintermediatesubmission.utils.extension.showDefaultSnackbar
 import com.franzandel.dicodingintermediatesubmission.utils.geolocation.GeolocationUtils
 import com.franzandel.dicodingintermediatesubmission.utils.location.LocationUtils
@@ -106,8 +107,7 @@ class AddStoryActivity : AppCompatActivity() {
             cameraResultRegistry
         ) {
             if (it.resultCode == CAMERA_X_RESULT) {
-                val photoFile =
-                    it.data?.getSerializableExtra(CameraXActivity.EXTRA_PHOTO_FILE) as File
+                val photoFile: File? = it.data?.getSerializable(CameraXActivity.EXTRA_PHOTO_FILE)
                 file = photoFile
                 Glide.with(this).load(photoFile).into(binding.ivAddStory)
             }

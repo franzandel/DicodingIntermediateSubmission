@@ -32,6 +32,7 @@ import org.junit.Test
  * on 09 September 2022.
  */
 
+// Mock Location in Developer Options should be turned on otherwise will cause error
 @LargeTest
 @HiltAndroidTest
 class AddStoryActivityTest {

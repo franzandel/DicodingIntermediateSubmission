@@ -1,5 +1,6 @@
 package com.franzandel.dicodingintermediatesubmission.utils.extension
 
+//noinspection SuspiciousImport
 import android.R
 import android.app.Activity
 import android.view.View
