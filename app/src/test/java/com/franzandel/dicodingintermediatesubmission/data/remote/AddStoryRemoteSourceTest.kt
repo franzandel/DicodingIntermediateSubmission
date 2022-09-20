@@ -49,7 +49,7 @@ class AddStoryRemoteSourceTest {
     }
 
     @Test
-    fun `add story response success`() {
+    fun `uploadImage response success`() {
         runBlocking {
             val fileName = "add_story_response.json"
             mockWebServer.enqueueResponse(fileName)
@@ -62,7 +62,7 @@ class AddStoryRemoteSourceTest {
     }
 
     @Test
-    fun `add story response failed`() {
+    fun `uploadImage response failed`() {
         runBlocking {
             val fakeErrorCode = 404
             mockWebServer.enqueueResponse(
